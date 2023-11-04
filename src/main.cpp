@@ -1106,7 +1106,7 @@ void MotaMap::update() {
             // 如果这是个带选择项的窗口
             if (messageWindow.haveIndex) {
                 // 如果有指令的话
-                if (messageWindow.order[messageWindow.index].size() > 0)
+                if (!messageWindow.order[messageWindow.index].empty())
                     screenData.doOrder(messageWindow.order[messageWindow.index]);
                 messageWindow.index = -1;
             }
@@ -1123,7 +1123,7 @@ void MotaMap::update() {
     // 更新怪物手册窗口
     if (enemyBookWindow.visible) {
         // 按下确认键时
-        if (motaKeyBoard.triggerConfirm() && motaTemp.floorEnemies.size() > 0) {
+        if (motaKeyBoard.triggerConfirm() && !motaTemp.floorEnemies.empty()) {
             playSE(motaSystem.decisionSE);
             // 关闭怪物手册窗口
             enemyBookWindow.visible = false;
@@ -1255,13 +1255,16 @@ void MotaMap::update() {
         // 更新事件名
         screenData.visualMap.mapEvents[motaTemp.functionEventID].name = motaTemp.transEventName;
         // 特殊更改的处理
-        auto namesplt = split(motaTemp.transEventName, "/");
-        if (namesplt[0] == "monster") {
-            // 更改成了怪物
-            screenData.visualMap.mapEvents[motaTemp.functionEventID].file = motaData.enemies[stoi(namesplt[1])].file;
-            screenData.visualMap.mapEvents[motaTemp.functionEventID].pos[1] = motaData.enemies[stoi(namesplt[1])].pos;
-            screenData.visualMap.mapEvents[motaTemp.functionEventID].move = true;
-            screenData.visualMap.mapEvents[motaTemp.functionEventID].through = false;
+        auto namelist = split(motaTemp.transEventName, "<>");
+        for (const auto& eachname : namelist) {
+            auto namesplt = split(eachname, "/");
+            if (namesplt[0] == "monster") {
+                // 更改成了怪物
+                screenData.visualMap.mapEvents[motaTemp.functionEventID].file = motaData.enemies[stoi(namesplt[1])].file;
+                screenData.visualMap.mapEvents[motaTemp.functionEventID].pos[1] = motaData.enemies[stoi(namesplt[1])].pos;
+                screenData.visualMap.mapEvents[motaTemp.functionEventID].move = true;
+                screenData.visualMap.mapEvents[motaTemp.functionEventID].through = false;
+            }
         }
         // 记录更新事件
         motaVariables.transRecord[screenData.visualMap.mapID][motaTemp.functionEventID] = motaTemp.transEventName;
@@ -1406,11 +1409,14 @@ void MotaMap::itemUse(int id) {
     auto breaksth = [&](const string& breakName) {
         if (screenData.visualMap.haveAnEvent(facePos.first, facePos.second)) {
             auto ev = screenData.visualMap.EcheckEvent(facePos.first, facePos.second);
-            if (auto evn = split(ev->name, "/")[0]; ev->exist && evn == breakName) {
-                if (evn == "monster" && motaData.enemies[stoi(split(ev->name, "/")[1])].getP(11))
-                    return 2;
-                ev->endEvent();
-                return 1;
+            auto namelist = split(ev->name, "<>");
+            for (const auto& eachname : namelist) {
+                if (auto evn = split(eachname, "/")[0]; ev->exist && evn == breakName) {
+                    if (evn == "monster" && motaData.enemies[stoi(split(ev->name, "/")[1])].getP(11))
+                        return 2;
+                    ev->endEvent();
+                    return 1;
+                }
             }
         }
         return 0;

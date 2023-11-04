@@ -396,16 +396,19 @@ void GamePlayer::changeSteps() {
     auto [ax, ay] = make_pair(screenData.actors[motaVariables.variables[0]].x, screenData.actors[motaVariables.variables[0]].y);
     int dir[4][2] = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
     // 领域怪
-    for (int i = 0; i < 4; ++i) {
-        if (auto [nx, ny] = make_pair(ax + dir[i][0], ay + dir[i][1]);screenData.visualMap.haveAnEvent(nx, ny)) {
+    for (auto & i : dir) {
+        if (auto [nx, ny] = make_pair(ax + i[0], ay + i[1]);screenData.visualMap.haveAnEvent(nx, ny)) {
             auto ev = screenData.visualMap.EcheckEvent(nx, ny);
-            if (auto evname = split(ev->name, "/"); ev->exist && evname[0] == "monster") {
-                if (auto en = motaData.enemies[stoi(evname[1])]; en.getP(9)) {
-                    auto dmg = max(0, en.atk - (en.getP(6) ? 0 : screenData.actors[motaVariables.variables[0]].getDef()));
-                    if (dmg > 0) {
-                        screenData.addEVAnimation(en.animationID, ax, ay);
-                        screenData.actors[motaVariables.variables[0]].hp = max(0, screenData.actors[motaVariables.variables[0]].hp - dmg);
-                        if (screenData.actors[motaVariables.variables[0]].hp == 0) GameEvent("gg").order(true);
+            auto namelist = split(ev->name, "<>");
+            for (auto evname : namelist) {
+                if (auto names = split(ev->name, "/"); ev->exist && names[0] == "monster") {
+                    if (auto en = motaData.enemies[stoi(names[1])]; en.getP(9)) {
+                        auto dmg = max(0, en.atk - (en.getP(6) ? 0 : screenData.actors[motaVariables.variables[0]].getDef()));
+                        if (dmg > 0) {
+                            screenData.addEVAnimation(en.animationID, ax, ay);
+                            screenData.actors[motaVariables.variables[0]].hp = max(0, screenData.actors[motaVariables.variables[0]].hp - dmg);
+                            if (screenData.actors[motaVariables.variables[0]].hp == 0) GameEvent("gg").order(true);
+                        }
                     }
                 }
             }
@@ -415,13 +418,18 @@ void GamePlayer::changeSteps() {
     for (int i = 0; i < 2; ++i) {
         if (auto [nx1, ny1, nx2, ny2] = make_tuple(ax + dir[2 * i][0], ay + dir[2 * i][1], ax + dir[2 * i + 1][0], ay + dir[2 * i + 1][1]); screenData.visualMap.haveAnEvent(nx1, ny1) && screenData.visualMap.haveAnEvent(nx2, ny2)) {
             auto ev1 = screenData.visualMap.EcheckEvent(nx1, ny1), ev2 = screenData.visualMap.EcheckEvent(nx2, ny2);
-            if (auto evname1 = split(ev1->name, "/"), evname2 = split(ev2->name, "/"); ev1->exist && ev2->exist && evname1[0] == "monster" && evname2[0] == "monster" && ev1->name == ev2->name) {
-                if (auto en = motaData.enemies[stoi(evname1[1])]; en.getP(10)) {
-                    auto dmg = max(0, en.atk - (en.getP(6) ? 0 : screenData.actors[motaVariables.variables[0]].getDef())) * 2;
-                    if (dmg > 0) {
-                        screenData.addEVAnimation(en.animationID, ax, ay);
-                        screenData.actors[motaVariables.variables[0]].hp = max(0, screenData.actors[motaVariables.variables[0]].hp - dmg);
-                        if (screenData.actors[motaVariables.variables[0]].hp == 0) GameEvent("gg").order(true);
+            auto namelist1 = split(ev1->name, "<>"), namelist2 = split(ev2->name, "<>");
+            for (const auto& evname1 : namelist1) {
+                for (const auto& evname2 : namelist2) {
+                    if (auto names1 = split(evname1, "/"), names2 = split(evname2, "/"); ev1->exist && ev2->exist && names1[0] == "monster" && names2[0] == "monster" && names1 == names2) {
+                        if (auto en = motaData.enemies[stoi(names1[1])]; en.getP(10)) {
+                            auto dmg = max(0, en.atk - (en.getP(6) ? 0 : screenData.actors[motaVariables.variables[0]].getDef())) * 2;
+                            if (dmg > 0) {
+                                screenData.addEVAnimation(en.animationID, ax, ay);
+                                screenData.actors[motaVariables.variables[0]].hp = max(0, screenData.actors[motaVariables.variables[0]].hp - dmg);
+                                if (screenData.actors[motaVariables.variables[0]].hp == 0) GameEvent("gg").order(true);
+                            }
+                        }
                     }
                 }
             }
@@ -755,12 +763,15 @@ void ScreenData::loadMap(int mapID, GameMap* gmap) {
     if (motaVariables.transRecord.count(mapID) > 0 && !motaVariables.transRecord[mapID].empty()) {
         for (auto [evid, evname] : motaVariables.transRecord[mapID]) {
             gmap->mapEvents[evid].name = evname;
-            auto namesplt = split(evname, "/");
-            if (namesplt[0] == "monster") {
-                gmap->mapEvents[evid].file = motaData.enemies[stoi(namesplt[1])].file;
-                gmap->mapEvents[evid].pos[1] = motaData.enemies[stoi(namesplt[1])].pos;
-                gmap->mapEvents[evid].move = true;
-                gmap->mapEvents[evid].through = false;
+            auto namelist = split(evname, "<>");
+            for (const auto& eachname : namelist) {
+                auto namesplt = split(eachname, "/");
+                if (namesplt[0] == "monster") {
+                    gmap->mapEvents[evid].file = motaData.enemies[stoi(namesplt[1])].file;
+                    gmap->mapEvents[evid].pos[1] = motaData.enemies[stoi(namesplt[1])].pos;
+                    gmap->mapEvents[evid].move = true;
+                    gmap->mapEvents[evid].through = false;
+                }
             }
         }
     }
@@ -843,27 +854,30 @@ void ScreenData::showMap(const GameMap& gmap, float x, float y, float rate, bool
         evspr.setTextureRect(IntRect(32 * ((ev.pos[0] + ev.move * motaSystem.gameTime / 4 ) % 4), 32 * ev.pos[1], 32, 32));
         drawMap(evspr, dx, dy);
         // 地图显示伤害
-        if (auto names = split(ev.name, "/"); rate == 1.f && actors[motaVariables.variables[0]].item[3] > 0 && names[0] == "monster") {
-            int eid = stoi(names[1]);
-            if (!vectorFind(motaTemp.floorEnemies, motaData.enemies[eid]))
-                motaTemp.floorEnemies.push_back(motaData.enemies[eid]);
-            auto en = motaData.enemies[eid];
-            if (motaVariables.variables[4] % 3 >= 1) {
-                Color clr;
-                if (en.getDamage() == -1 || en.getDamage() >= actors[motaVariables.variables[0]].hp) clr = Color(169,169,169);
-                else if (en.getDamage() >= actors[motaVariables.variables[0]].hp * 3 / 4) clr = Color::Red;
-                else if (en.getDamage() >= actors[motaVariables.variables[0]].hp / 2) clr = Color::Yellow;
-                else if (en.getDamage() >= actors[motaVariables.variables[0]].hp * 1 / 4) clr = Color::Green;
-                else clr = Color::White;
-                drawText(IntRect(MAPX + 32 * ev.x + 1, MAPY + 32 * ev.y + 22 + 1, 32, 10), en.getDamage() == -1 ? "DIE" : to_string(en.getDamage()), 2, 8L, true, Color::Black);
-                drawText(IntRect(MAPX + 32 * ev.x, MAPY + 32 * ev.y + 22, 32, 10), en.getDamage() == -1 ? "DIE" : to_string(en.getDamage()), 2, 8L, true, clr);
-            }
-            // 第二档显伤显示临界
-            if (motaVariables.variables[4] % 3 == 2) {
-                string crisis = to_string(en.getCrisis());
-                if (en.getCrisis() == -1) crisis = "？";
-                else if (en.getCrisis() == 0) crisis = "";
-                drawText(IntRect(MAPX + 32 * ev.x, MAPY + 32 * ev.y + 10, 32, 10), crisis, 2, 8L, true);
+        auto namelist = split(ev.name, "<>");
+        for (const auto& evname : namelist) {
+            if (auto names = split(evname, "/"); rate == 1.f && actors[motaVariables.variables[0]].item[3] > 0 && names[0] == "monster") {
+                int eid = stoi(names[1]);
+                if (!vectorFind(motaTemp.floorEnemies, motaData.enemies[eid]))
+                    motaTemp.floorEnemies.push_back(motaData.enemies[eid]);
+                auto en = motaData.enemies[eid];
+                if (motaVariables.variables[4] % 3 >= 1) {
+                    Color clr;
+                    if (en.getDamage() == -1 || en.getDamage() >= actors[motaVariables.variables[0]].hp) clr = Color(169,169,169);
+                    else if (en.getDamage() >= actors[motaVariables.variables[0]].hp * 3 / 4) clr = Color::Red;
+                    else if (en.getDamage() >= actors[motaVariables.variables[0]].hp / 2) clr = Color::Yellow;
+                    else if (en.getDamage() >= actors[motaVariables.variables[0]].hp * 1 / 4) clr = Color::Green;
+                    else clr = Color::White;
+                    drawText(IntRect(MAPX + 32 * ev.x + 1, MAPY + 32 * ev.y + 22 + 1, 32, 10), en.getDamage() == -1 ? "DIE" : to_string(en.getDamage()), 2, 8L, true, Color::Black);
+                    drawText(IntRect(MAPX + 32 * ev.x, MAPY + 32 * ev.y + 22, 32, 10), en.getDamage() == -1 ? "DIE" : to_string(en.getDamage()), 2, 8L, true, clr);
+                }
+                // 第二档显伤显示临界
+                if (motaVariables.variables[4] % 3 == 2) {
+                    string crisis = to_string(en.getCrisis());
+                    if (en.getCrisis() == -1) crisis = "？";
+                    else if (en.getCrisis() == 0) crisis = "";
+                    drawText(IntRect(MAPX + 32 * ev.x, MAPY + 32 * ev.y + 10, 32, 10), crisis, 2, 8L, true);
+                }
             }
         }
     }
@@ -1033,8 +1047,8 @@ void ScreenData::saveData(int fileid) {
     saveFile(format("save\\save_{}.sav", fileid), data);
 }
 
-void ScreenData::doOrder(vector<string> lists) {
-    for (auto od : lists)
+void ScreenData::doOrder(const vector<string>& lists) {
+    for (const auto& od : lists)
         GameEvent(od).order(true);
 }
 

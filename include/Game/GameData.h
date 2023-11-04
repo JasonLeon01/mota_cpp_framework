@@ -202,7 +202,7 @@ public:
     // 存档
     void saveData(int fileid);
     // 执行命令
-    void doOrder(vector <string> lists);
+    void doOrder(const vector <string>& lists);
     // 执行渐变1（消失）
     void transition1(int time = 10);
     // 执行渐变2（黑屏）
