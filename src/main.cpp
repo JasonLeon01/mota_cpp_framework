@@ -731,7 +731,6 @@ void MotaTitle::main() {
         slcWindow.index = 1;
     // 切换BGM
     motaSystem.bgmSwitch(motaSystem.titleBGM);
-    //motaGraphics.update();
     screenData.transition1();
     // 主循环
     while (motaSystem.scene == this && motaSystem.window.isOpen()) {
@@ -1279,17 +1278,13 @@ void MotaMap::update() {
     // 如果事件记录不为空
     if (motaTemp.functionEventID != -1) {
         // 消除事件
-        if (screenData.visualMap.mapEvents[motaTemp.functionEventID].toDispose){
+        if (screenData.visualMap.mapEvents[motaTemp.functionEventID].toDispose)
             screenData.visualMap.mapEvents[motaTemp.functionEventID].endEvent();
-            motaTemp.functionEventID = -1;
-            return;
-        }
         // 如果事件要改变变量
-        if (auto varChange = split(screenData.visualMap.mapEvents[motaTemp.functionEventID].name, "|"); varChange.size() == 3){
+        if (auto varChange = split(screenData.visualMap.mapEvents[motaTemp.functionEventID].name, "|"); varChange.size() == 3)
             motaVariables.variables[stoi(varChange[1])] += stoi(varChange[2]);
-            motaTemp.functionEventID = -1;
-            return;
-        }
+        motaTemp.functionEventID = -1;
+        return;
     }
     // 游戏结束则回到标题
     if (motaTemp.gameOver) motaSystem.scene = new MotaTitle;

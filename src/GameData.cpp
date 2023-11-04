@@ -876,6 +876,7 @@ void ScreenData::showMap(const GameMap& gmap, float x, float y, float rate, bool
                     string crisis = to_string(en.getCrisis());
                     if (en.getCrisis() == -1) crisis = "？";
                     else if (en.getCrisis() == 0) crisis = "";
+                    drawText(IntRect(MAPX + 32 * ev.x + 1, MAPY + 32 * ev.y + 10 + 1, 32, 10), crisis, 2, 8L, true, Color::Black);
                     drawText(IntRect(MAPX + 32 * ev.x, MAPY + 32 * ev.y + 10, 32, 10), crisis, 2, 8L, true);
                 }
             }
