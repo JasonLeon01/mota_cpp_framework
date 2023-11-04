@@ -1,0 +1,10 @@
+release
+data\
+font\
+graphics\
+ref\
+sound\
+Config.exe
+libwinpthread-1.dll
+main.exe
+openal32.dll

@@ -749,7 +749,6 @@ void ScreenData::init() {
     player.visible = true;
     actors.clear();
     actors = motaData.actors;
-    onMap = true;
 }
 
 void ScreenData::loadMap(int mapID, GameMap* gmap) {

@@ -743,12 +743,12 @@ void MotaTitle::main() {
         screenData.waitCount(1);
         update();
     }
+    // 执行渐变
+    screenData.transition2();
     // 消除元素
     spr.dispose();
     slcWindow.dispose();
     loadSaveWindow.dispose();
-    // 执行渐变
-    screenData.transition2();
 }
 
 void MotaTitle::update() {
@@ -815,6 +815,7 @@ void MotaTitle::update() {
 }
 
 void MotaMap::main() {
+    screenData.onMap = true;
     // 执行渐变
     screenData.transition1();
     // 设置菜单窗口坐标
@@ -835,6 +836,9 @@ void MotaMap::main() {
         screenData.waitCount(1);
         update();
     }
+    // 执行渐变
+    screenData.transition2();
+    screenData.onMap = false;
     // 消除元素
     menuWindow.dispose();
     messageWindow.dispose();
@@ -845,9 +849,6 @@ void MotaMap::main() {
     encyWindow.dispose();
     flyWindow.dispose();
     loadSaveWindow.dispose();
-    // 执行渐变
-    screenData.transition2();
-    screenData.onMap = false;
 }
 
 void MotaMap::update() {
