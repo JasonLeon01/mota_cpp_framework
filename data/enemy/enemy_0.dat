@@ -1,0 +1,12 @@
+[enemy]
+name:绿色史莱姆
+file:Monster01-01.png
+element:0
+pos:0
+hp:50
+atk:18
+def:5
+conatk:1
+exp:1
+gold:0
+animationID:0

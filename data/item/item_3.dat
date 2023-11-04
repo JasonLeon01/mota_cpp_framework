@@ -1,0 +1,8 @@
+[item]
+name:怪物手册
+description:可以查看当前楼层的怪物数据（快捷键Ｄ）
+file:Item01-05.png
+pos:0,0
+price:0
+usable:1
+cost:0

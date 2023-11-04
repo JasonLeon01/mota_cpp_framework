@@ -1,0 +1,7 @@
+[npc]
+ID:-2
+name:盗贼
+message:你要选择什么！\n[s]1攻击=>bonus/1/1\n[s]1防御=>bonus/2/1
+transName:npc/3
+fade:0
+directFunc:0

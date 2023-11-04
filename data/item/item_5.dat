@@ -1,0 +1,8 @@
+[item]
+name:破墙镐
+description:可以捣毁前方的墙壁
+file:Item01-06.png
+pos:0,0
+price:0
+usable:1
+cost:1

@@ -1,0 +1,7 @@
+[npc]
+ID:-2
+name:神秘老人
+message:我身后的是钥匙盒事件和战胜魔王后对话并返回标题（结局）的事件\n可以看到这些事件名都以<> 符号分隔\n切记该符号为第一分割顺序，不要加在condition或者switch里面！
+transName:none
+fade:1
+directFunc:0

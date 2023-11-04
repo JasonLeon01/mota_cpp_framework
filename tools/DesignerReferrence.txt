@@ -1,0 +1,8 @@
+bonus/0/150:Item01-02.png,0,0
+bonus/0/400:Item01-02.png,1,0
+bonus/1/2:Item01-Gem01.png,0,0
+bonus/2/2:Item01-Gem01.png,1,0
+bonus/3/10:Item01-Gem01.png,2,0
+door/1:Event01-Door01.png,0,0
+door/2:Event01-Door01.png,1,0
+door/3:Event01-Door01.png,2,0
