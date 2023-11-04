@@ -53,3 +53,21 @@
 ├── /config.exe/              # 游戏设置可执行文件
 ├── /main.exe/                # 启动游戏的可执行文件
 ```
+
+# 联系我们
+
+本框架主要由[Jason Leon](https://github.com/JasonLeon01)（魔塔圈内ID `PRE`）制作编写
+
+交流QQ群号：117445471（小号魔塔群）、210766281（大傻官方交流群）、662891318（盐铁桶子の魔塔小屋）
+
+如有相关意见、建议或者合作意向，可发送邮件至[jasonleon01@outlook.com](mailto:jasonleon01@outlook.com)联系我。
+
+# 合作者
+
+[@Jason Leon](https://github.com/JasonLeon01)：PRE，b站空间[@Jason Leon](https://space.bilibili.com/439537579/)，本框架主要编写者，核心代码和主要地图绘制。
+
+@忆忆：b站空间[@卡路十里](https://space.bilibili.com/200729395)，帮助找出bug、添加必要功能等。
+
+# 版权声明
+
+Copyright © 2023 Metempsychosis Game Studio. All rights reserved.
