@@ -10,6 +10,7 @@
 - [Open Source / 怪物设计器开源](https://github.com/JasonLeon01/MotaEnemyDesigner)
 - [Open Source / 地图编辑器开源](https://github.com/JasonLeon01/MotaMapDesigner)
 - [Open Source / NPC设计器开源](https://github.com/JasonLeon01/MotaNPCDesigner)
+- [Open Source / 打包工具开源](https://github.com/JasonLeon01/MotaPackager)
 
 # 目录结构
 
@@ -49,6 +50,7 @@
 │ ├─ /EnemyDesigner.exe/      # 游戏怪物设计器
 │ ├─ /MapDesigner.exe/        # 游戏地图设计器
 │ ├─ /NPCDesigner.exe/        # 游戏NPC对话设计器
+│ ├─ /Packager.exe/           # 游戏内容打包器
 ├── /CMakeLists.txt/          # CMake相关
 ├── /config.exe/              # 游戏设置可执行文件
 ├── /main.exe/                # 启动游戏的可执行文件

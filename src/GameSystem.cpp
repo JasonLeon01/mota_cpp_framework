@@ -1,5 +1,7 @@
 #include <Game/GameSystem.h>
 
+#include <utility>
+
 System motaSystem;
 GameKeyBoard motaKeyBoard;
 GameGraphics motaGraphics;
@@ -142,6 +144,52 @@ void GameImage::show() {
     cl.a = opacity;
     sprite.setColor(cl);
     motaSystem.window.draw(sprite);
+}
+
+GameText::GameText() {
+    this->x = 0;
+    this->y = 0;
+    this->z = 0;
+    this->txt = "";
+    this->text = Text();
+}
+
+GameText::GameText(string txt, float x, float y) : GameText() {
+    this->x = x;
+    this->y = y;
+    this->text.setString(str2wstr(txt));
+    this->text.setFont(motaSystem.font);
+    this->text.setCharacterSize(20L);
+    this->text.setPosition(x * motaSystem.resolutionRatio, y * motaSystem.resolutionRatio);
+    this->text.setScale(motaSystem.resolutionRatio, motaSystem.resolutionRatio);
+    motaGraphics.addText(this);
+    this->txt = std::move(txt);
+}
+
+void GameText::setText(string txt, float x, float y) {
+    this->x = x;
+    this->y = y;
+    this->text.setString(str2wstr(txt));
+    this->text.setFont(motaSystem.font);
+    this->text.setCharacterSize(20L);
+    this->text.setPosition(x * motaSystem.resolutionRatio, y * motaSystem.resolutionRatio);
+    this->text.setScale(motaSystem.resolutionRatio, motaSystem.resolutionRatio);
+    if (this->txt.empty()) motaGraphics.addText(this);
+    this->txt = std::move(txt);
+}
+
+pair<float, float> GameText::getSize() {
+    auto txtsize = text.getGlobalBounds();
+    return make_pair(txtsize.width / motaSystem.resolutionRatio, txtsize.height / motaSystem.resolutionRatio);
+}
+
+void GameText::dispose() {
+    motaGraphics.eraseText(this);
+}
+
+void GameText::show() {
+    this->text.setPosition(x * motaSystem.resolutionRatio, y * motaSystem.resolutionRatio);
+    motaSystem.window.draw(text);
 }
 
 void System::init() {
@@ -462,6 +510,12 @@ void GameGraphics::update(bool clear_device) {
                 if (win->haveFunction) win->refresh();
             }
         }
+        if (!texts.empty()) {
+            for (auto txt : texts) {
+                if (txt->z != z) continue;
+                txt->show();
+            }
+        }
     }
 
     queue <tuple <SoundBuffer*, Sound*, bool> > temp;
@@ -500,6 +554,14 @@ void GameGraphics::addWindow(GameWindow *obj) {
 
 void GameGraphics::eraseWindow(GameWindow *obj) {
     windows.erase(find(windows.begin(), windows.end(), obj));
+}
+
+void GameGraphics::addText(GameText *obj) {
+    texts.push_back(obj);
+}
+
+void GameGraphics::eraseText(GameText *obj) {
+    texts.erase(find(texts.begin(), texts.end(), obj));
 }
 
 void GameGraphics::dispose() {

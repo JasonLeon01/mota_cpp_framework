@@ -113,7 +113,7 @@ public:
     void update() override;
 private:
     GameImage spr; // 标题背景精灵
-    GameSelectWindow slcWindow = GameSelectWindow(240, 36, {"新游戏", "继续", "退出游戏"}, false); // 选择命令窗口
+    GameSelectWindow slcWindow = GameSelectWindow(240, 36, {"新游戏", "继续", "退出"}, false); // 选择命令窗口
     WindowLoadSave loadSaveWindow = WindowLoadSave(MAPX - 130, MAPY + 64); // 存读档窗口
 };
 
@@ -141,6 +141,18 @@ private:
     void shortcutKey();
     // 使用物品
     void itemUse(int id);
+};
+
+// 处理字幕画面
+class MotaScript :public SceneBase {
+public:
+    // 主函数
+    void main() override;
+    // 更新
+    void update() override;
+private:
+    GameText text; // 字幕文字
+    GameImage back, space; // 字幕背景、空格图标
 };
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -796,7 +808,8 @@ void MotaTitle::update() {
             screenData.init();
             motaVariables.floorRecord[0].push_back(0);
             screenData.loadMap(screenData.actors[motaVariables.variables[0]].mapID, &screenData.visualMap);
-            motaSystem.scene = new MotaMap;
+            if (filesystem::exists("ref\\begin.txt")) motaSystem.scene = new MotaScript;
+            else motaSystem.scene = new MotaMap;
             return;
         }
         else if (slcWindow.index == 1) {
@@ -922,6 +935,7 @@ void MotaMap::update() {
     if (itemWindow.visible) {
         // 按下确认键时
         if (motaKeyBoard.triggerConfirm()) {
+            if (itemWindow.myItems.empty()) return;
             if (itemWindow.myItems[itemWindow.index].usable) {
                 playSE(motaSystem.decisionSE);
                 // 关闭物品窗口
@@ -1288,7 +1302,11 @@ void MotaMap::update() {
         return;
     }
     // 游戏结束则回到标题
-    if (motaTemp.gameOver) motaSystem.scene = new MotaTitle;
+    if (motaTemp.gameOver) {
+        if (motaTemp.ending && filesystem::exists("ref\\end.txt")) motaSystem.scene = new MotaScript;
+        else motaSystem.scene = new MotaTitle;
+        return;
+    }
     // 快捷键的判定
     shortcutKey();
     // 更新玩家画面
@@ -1318,7 +1336,6 @@ void MotaMap::shortcutKey() {
     if (motaKeyBoard.triggerCancel()) {
         // 保存屏幕截图
         capture();
-        playSE(motaSystem.decisionSE);
         // 打开菜单栏
         menuWindow.index = 0;
         menuWindow.visible = true;
@@ -1329,7 +1346,6 @@ void MotaMap::shortcutKey() {
     }
     // 按下L键（有ShortcutKey.txt时）
     if (motaKeyBoard.trigger(motaKeyBoard.KeyL) && filesystem::exists("ref\\ShortcutKey.txt")) {
-        playSE(motaSystem.decisionSE);
         // 打开快捷键提示窗口
         hintWindow.nowPage = 0;
         hintWindow.visible = true;
@@ -1337,7 +1353,6 @@ void MotaMap::shortcutKey() {
     }
     // 按下I键时
     if (motaKeyBoard.trigger(motaKeyBoard.KeyI)) {
-        playSE(motaSystem.decisionSE);
         // 打开物品界面
         itemWindow.myItems.clear();
         for (size_t i = 0; i < motaData.items.size(); ++i)
@@ -1351,7 +1366,6 @@ void MotaMap::shortcutKey() {
     if (motaKeyBoard.trigger(motaKeyBoard.KeyC)) {
         // 保存屏幕截图
         capture();
-        playSE(motaSystem.decisionSE);
         // 打开存档窗口
         loadSaveWindow.index = stoi(readFile("save\\recent.dat")[0]);
         loadSaveWindow.load = false;
@@ -1363,7 +1377,6 @@ void MotaMap::shortcutKey() {
     }
     // 按下V键时
     if (motaKeyBoard.trigger(motaKeyBoard.KeyV)) {
-        playSE(motaSystem.decisionSE);
         // 打开读档窗口
         loadSaveWindow.index = stoi(readFile("save\\recent.dat")[0]);
         loadSaveWindow.load = true;
@@ -1376,12 +1389,12 @@ void MotaMap::shortcutKey() {
     // 按下P键时
     if (motaKeyBoard.trigger(motaKeyBoard.KeyP)) {
         // 更新地图显示伤害的类型
+        playSE(motaSystem.cursorSE);
         ++motaVariables.variables[4];
         return;
     }
     // 按下D键且有怪物手册时
     if (motaKeyBoard.trigger(motaKeyBoard.KeyD) && screenData.actors[motaVariables.variables[0]].item[3] > 0) {
-        playSE(motaSystem.decisionSE);
         // 打开怪物手册窗口
         enemyBookWindow.index = 0;
         enemyBookWindow.nowPage = 0;
@@ -1391,7 +1404,6 @@ void MotaMap::shortcutKey() {
     }
     // 按下F键且有楼层传送器时
     if (motaKeyBoard.trigger(motaKeyBoard.KeyF) && screenData.actors[motaVariables.variables[0]].item[4] > 0) {
-        playSE(motaSystem.decisionSE);
         itemUse(4);
     }
 }
@@ -1408,7 +1420,7 @@ void MotaMap::itemUse(int id) {
             auto namelist = split(ev->name, "<>");
             for (const auto& eachname : namelist) {
                 if (auto evn = split(eachname, "/")[0]; ev->exist && evn == breakName) {
-                    if (evn == "monster" && motaData.enemies[stoi(split(ev->name, "/")[1])].getP(11))
+                    if (evn == "monster" && motaData.enemies[stoi(split(eachname, "/")[1])].getP(11))
                         return 2;
                     ev->endEvent();
                     return 1;
@@ -1460,7 +1472,7 @@ void MotaMap::itemUse(int id) {
         if (screenData.actors[motaVariables.variables[0]].status.count(1)) {
             screenData.actors[motaVariables.variables[0]].status.erase(1);
             motaVariables.variables[5] = 0;
-            flag = true;
+            flag = 1;
         }
         else
             motaTemp.messageInfo.emplace_back(-3, "", "你并没有中毒");
@@ -1471,7 +1483,7 @@ void MotaMap::itemUse(int id) {
         if (screenData.actors[motaVariables.variables[0]].status.count(2)) {
             screenData.actors[motaVariables.variables[0]].status.erase(2);
             motaVariables.variables[6] = 0;
-            flag = true;
+            flag = 1;
         }
         else
             motaTemp.messageInfo.emplace_back(-3, "", "你并没有衰弱");
@@ -1506,7 +1518,72 @@ void MotaMap::itemUse(int id) {
             flag = 0;
         }
     }
+    // 圣锤
+    if (id == 13) {
+        auto evlist = screenData.visualMap.getLineEvents(make_pair(*aPos.first, *aPos.second), make_pair(dir[screenData.player.direction][0] == 1 ? 10 : (dir[screenData.player.direction][0] == -1 ? 0 : *aPos.first), dir[screenData.player.direction][1] == 1 ? 10 : (dir[screenData.player.direction][1] == -1 ? 0 : *aPos.second)));
+        for (auto bev : evlist) {
+            if (bev->exist) {
+                auto namelist = split(bev->name, "<>");
+                for (const auto& eachname : namelist) {
+                    if (auto evn = split(eachname, "/")[0]; evn == "monster") {
+                        if (motaData.enemies[stoi(split(eachname, "/")[1])].getP(11))
+                            break;
+                        bev->endEvent();
+                        flag = 1;
+                    }
+                }
+            }
+        }
+        if (!flag) motaTemp.messageInfo.emplace_back(-3, "", "使用失败");
+        goto endUse;
+    }
     // 使用物品的结算，使用成功则扣除道具
     endUse:
-    if (flag && motaData.items[id].cost) --screenData.actors[motaVariables.variables[0]].item[id];
+    if (flag == 1 && motaData.items[id].cost) --screenData.actors[motaVariables.variables[0]].item[id];
+}
+
+void MotaScript::main() {
+    auto content = readFile(motaTemp.ending ? "ref\\end.txt" : "ref\\begin.txt");
+    string allcontent = "";
+    for (const auto& ctt : content)
+        allcontent += ctt + "\n";
+    text.setText(allcontent);
+    text.x = (640 - text.getSize().first) / 2;
+    text.y = 480;
+    text.z = 3;
+    back.setSprite("system\\script-back.png");
+    back.z = 4;
+    space.setSprite("system\\script-space.png");
+    space.x = 270;
+    space.y = 450;
+    space.z = 4;
+    space.opacity = 135;
+    // 执行渐变
+    screenData.transition1();
+    // 主循环
+    while (motaSystem.scene == this && motaSystem.window.isOpen()) {
+        Event event;
+        while (motaSystem.window.pollEvent(event))
+            if (event.type == Event::Closed)
+                motaSystem.window.close();
+        // 当聚焦不在本窗口时直接继续
+        if (!motaSystem.window.hasFocus()) continue;
+        screenData.waitCount(1);
+        update();
+    }
+    // 执行渐变
+    screenData.transition2();
+    text.dispose();
+    back.dispose();
+    space.dispose();
+}
+
+void MotaScript::update() {
+    // 更新文字位置
+    text.y -= 2;
+    space.opacity = abs((int)(120 - 20 * ((motaSystem.gameTime / 4) % 7))) + 135;
+    if (motaKeyBoard.triggerConfirm() || text.y <= 0 - text.getSize().second) {
+        if (motaTemp.ending) motaSystem.scene = new MotaTitle;
+        else motaSystem.scene = new MotaMap;
+    }
 }

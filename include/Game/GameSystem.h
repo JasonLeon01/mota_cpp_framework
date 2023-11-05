@@ -46,6 +46,30 @@ private:
     void show();
 };
 
+// Text类，用于显示文字
+class GameText {
+    friend class GameGraphics;
+public:
+    float x, y; // 坐标
+    int z; // 层级
+
+    // 构造函数，初始化对象
+    GameText();
+    GameText(string txt, float x = 0, float y = 0);
+    // 设置文字
+    void setText(string txt, float x = 0, float y = 0);
+    // 获取宽高
+    pair <float, float> getSize();
+    // 消除自身
+    void dispose();
+private:
+    string txt;
+    Text text;
+
+    // 展示文字
+    void show();
+};
+
 //系统类，用来储存各种参数
 class System {
 public:
@@ -233,9 +257,14 @@ public:
     void addWindow(GameWindow* obj);
     // 消除窗口
     void eraseWindow(GameWindow* obj);
+    // 插入文字
+    void addText(GameText* obj);
+    // 消除文字
+    void eraseText(GameText* obj);
     // 消除画面
     void dispose();
 private:
     vector <GameImage*> patterns;
     vector <GameWindow*> windows;
+    vector <GameText*> texts;
 }; extern GameGraphics motaGraphics;

@@ -268,6 +268,13 @@ void GameEvent::order(bool tempEV) {
             motaSystem.scene->update();
             continue;
         }
+        // 结局
+        if (info[0] == "ending") {
+            motaTemp.gameOver = true;
+            motaTemp.ending = true;
+            motaSystem.scene->update();
+            continue;
+        }
 
         // 下面是条件等对话相关的
         auto condName = split(evname, "~");
@@ -350,6 +357,24 @@ bool GameMap::passible(int x, int y) {
         }
     }
     return true;
+}
+
+vector <GameEvent*> GameMap::getLineEvents(pair<int, int> a, pair<int, int> b) {
+    if (a.first != b.first && a.second != b.second) return {};
+    vector <GameEvent*> result;
+    if (a.first == b.first) {
+        for (int i = min(a.second, b.second); i <= max(a.second, b.second); ++i) {
+            if (haveAnEvent(a.first, i))
+                result.push_back(EcheckEvent(a.first, i));
+        }
+    }
+    else {
+        for (int i = min(a.first, b.first); i <= max (a.first, b.first); ++i) {
+            if (haveAnEvent(i, a.second))
+                result.push_back(EcheckEvent(i, a.second));
+        }
+    }
+    return result;
 }
 
 int GameActors::getAtk() const {
@@ -687,6 +712,7 @@ void GameTemp::init() {
     closeMS = false;
     directlyFunction = false;
     gameOver = false;
+    ending = false;
     transEventName = "";
     messageInfo.clear();
     floorEnemies.clear();
