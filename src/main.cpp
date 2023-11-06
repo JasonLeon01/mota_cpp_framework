@@ -601,21 +601,21 @@ void WindowEnemyEncyclopedia::refresh() {
     for (int i = 0, cnt = 1, yy = 192; i < mon.element.size(); ++i) {
         string buff = ""; // 有特殊BUFF的怪物描述
         float buff2 = 0.f; // 特殊BUFF数值描述
-        int lineMax = 17; // 每行最多容纳的汉字个数
+        int lineMax = 51; // 每行最多容纳的汉字个数乘以3
         if (motaData.elements[mon.element[i]].haveBuff) {
             // 有BUFF的话，将其替换为相应数值，如果是小数，则乘以100加上百分号
             buff2 = stof(split(mon.name, "/")[cnt++]);
             if (buff2 != (int)buff2) buff = to_string((int)(buff2 * 100)) + "%";
             else buff = to_string((int)(buff2));
             // 在屏幕上两个半角字符宽度相当于一个全角字符宽度，对其进行修正
-            if (int len = buff.length() % 3; len != 0)
+            if (int len = 3 - buff.length() % 3; buff.length() % 3 != 0)
                 for (int j = 0; j < len; ++j)
                     buff += " ";
-            lineMax -= 2 * buff.length() / 3;
+            lineMax -= 6 * (buff.length() / 3);
         }
         // 描绘怪物属性
         drawWText(IntRect(16, yy, 96, 20), mon.getElement(mon.element[i], buff).first, 0, 18L);
-        string desc = insertNewLines(mon.getElement(mon.element[i], buff).second, 42);
+        string desc = insertNewLines(mon.getElement(mon.element[i], buff).second, lineMax);
         drawWText(IntRect(64, yy, 256, 20), desc, 0, 18L);
         // 根据属性描绘行数切换y坐标
         yy += 20 * strIncludeNum(desc, "\n") + 24;
@@ -1513,7 +1513,7 @@ void MotaMap::setShop() {
     if (motaTemp.shopType == 0) {
         // 贪婪之神
         if (!strInclude(motaTemp.initPrice[0], "[") && motaTemp.initPrice[0].length() % 3 != 0)
-            for (int i = 0; i < motaTemp.initPrice[0].length() % 3; ++i)
+            for (int i = 0, len = motaTemp.initPrice[0].length() % 3; i < 3 - len; ++i)
                 motaTemp.initPrice[0] += " ";
         setInfo("贪婪之神", "NPC01-02.png", format("愚蠢的人类，如果你能提供{}个金币，我将可以提升你的力量！", motaTemp.initPrice[0]), 2);
         string desc[] = {"生命值", "攻击力", "防御力"};

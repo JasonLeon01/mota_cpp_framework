@@ -1,7 +1,7 @@
 [enemy]
-name:摸王大鸽鸽
+name:摸王大鸽鸽/1/2/0.25
 file:Monster08-02.png
-element:11
+element:1,2,3,11
 pos:1
 hp:1
 atk:1

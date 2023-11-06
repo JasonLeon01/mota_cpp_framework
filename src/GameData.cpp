@@ -749,7 +749,7 @@ string GameVariables::replaceToVar(const string& source) {
             if (index >= 0 && index < sizeof(variables)) {
                 string change = to_string(variables[index]);
                 if (change.length() % 3 != 0)
-                    for (int j = 0; j < change.length() % 3; ++j)
+                    for (int j = 0, len = change.length() % 3; j < 3 - len; ++j)
                         change += " ";
                 result = match.prefix().str() + change + match.suffix().str();
             }
