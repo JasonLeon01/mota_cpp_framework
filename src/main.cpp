@@ -1,6 +1,8 @@
 #include <Game/GameSystem.h>
 #include <Game/GameData.h>
 
+#include <utility>
+
 // 对话信息窗口
 class WindowMessage :public GameWindow {
 public:
@@ -141,6 +143,30 @@ private:
     void shortcutKey();
     // 使用物品
     void itemUse(int id);
+    // 更新菜单
+    void updateMenu();
+    // 更新对话框
+    void updateMessage();
+    // 更新快捷键提示
+    void updateHint();
+    // 更新商店
+    void updateShop();
+    // 更新物品
+    void updateItem();
+    // 更新怪物手册
+    void updateEnemyBook();
+    // 更新怪物百科
+    void updateEncyclopedia();
+    // 更新楼层传送器
+    void updateFly();
+    // 更新存读档
+    void updateLoadSave();
+    // 定义商店信息
+    void setShop();
+    // 定义战斗部分
+    void setBattle();
+    // 定义事件名转换部分
+    void setTrans();
 };
 
 // 处理字幕画面
@@ -872,424 +898,61 @@ void MotaMap::update() {
     }
     // 更新菜单窗口
     if (menuWindow.visible) {
-        // 按下确认键时
-        if (menuWindow.active && motaKeyBoard.triggerConfirm()) {
-            if (menuWindow.index == 0) {
-                playSE(motaSystem.decisionSE);
-                // 转到物品界面，读入当前物品信息
-                itemWindow.myItems.clear();
-                for (size_t i = 0; i < motaData.items.size(); ++i)
-                    if (screenData.actors[motaVariables.variables[0]].item[i] > 0)
-                        itemWindow.myItems.push_back(motaData.items[i]);
-                itemWindow.index = 0;
-                itemWindow.visible = true;
-                // 关闭菜单活动
-                menuWindow.active = false;
-                return;
-            }
-            else if (menuWindow.index == 1) {
-                playSE(motaSystem.decisionSE);
-                // 转到存档界面，from=1表示从菜单来的
-                loadSaveWindow.index = stoi(readFile("save\\recent.dat")[0]);
-                loadSaveWindow.load = false;
-                loadSaveWindow.visible = true;
-                loadSaveWindow.from = 1;
-                // 关闭菜单窗口
-                menuWindow.visible = false;
-                // 关闭状态栏显示
-                motaTemp.closeMS = true;
-                return;
-            }
-            else if (menuWindow.index == 2) {
-                playSE(motaSystem.decisionSE);
-                // 转到读档界面，from=1表示从菜单来的
-                loadSaveWindow.index = stoi(readFile("save\\recent.dat")[0]);
-                loadSaveWindow.load = true;
-                loadSaveWindow.visible = true;
-                loadSaveWindow.from = 1;
-                // 关闭菜单窗口
-                menuWindow.visible = false;
-                // 关闭状态栏显示
-                motaTemp.closeMS = true;
-                return;
-            }
-            else if (menuWindow.index == 3) {
-                playSE(motaSystem.decisionSE);
-                // 回到标题界面
-                motaSystem.scene = new MotaTitle;
-                return;
-            }
-        }
-        // 按下取消键时
-        if (menuWindow.active && motaKeyBoard.triggerCancel()) {
-            playSE(motaSystem.cancelSE);
-            // 关闭菜单窗口
-            menuWindow.visible = false;
-            // 恢复状态栏显示
-            motaTemp.closeMS = false;
+        updateMenu();
+        if (menuWindow.active)
             return;
-        }
-        if (menuWindow.active) return;
     }
     // 更新物品窗口
     if (itemWindow.visible) {
-        // 按下确认键时
-        if (motaKeyBoard.triggerConfirm()) {
-            if (itemWindow.myItems.empty()) return;
-            if (itemWindow.myItems[itemWindow.index].usable) {
-                playSE(motaSystem.decisionSE);
-                // 关闭物品窗口
-                itemWindow.visible = false;
-                // 如果菜单窗口还在，就也关闭，除非是使用怪物手册
-                if (menuWindow.visible && itemWindow.myItems[itemWindow.index].ID != 3) {
-                    menuWindow.visible = false;
-                    motaTemp.closeMS = false;
-                }
-                // 转到物品使用函数
-                itemUse(itemWindow.myItems[itemWindow.index].ID);
-            }
-            else
-                playSE(motaSystem.buzzerSE);
-            return;
-        }
-        // 按下取消键时
-        if (motaKeyBoard.triggerCancel()) {
-            playSE(motaSystem.cancelSE);
-            // 关闭物品窗口
-            itemWindow.visible = false;
-            // 如果菜单窗口可见，就恢复其活动
-            if (menuWindow.visible) menuWindow.active = true;
-            return;
-        }
+        updateItem();
         return;
     }
     // 更新存读档窗口
     if (loadSaveWindow.visible) {
-        // 按下确认键时
-        if (motaKeyBoard.triggerConfirm()) {
-            // 如果是读档
-            if (loadSaveWindow.load) {
-                // 如果存档文件存在
-                if (filesystem::exists(format("save\\save_{}.sav", loadSaveWindow.index))) {
-                    playSE(motaSystem.loadSE);
-                    // 关闭存读档窗口
-                    loadSaveWindow.visible = false;
-                    // 关闭菜单窗口
-                    menuWindow.visible = false;
-                    // 打开状态栏窗口
-                    motaTemp.closeMS = false;
-                    // 加载动画
-                    GameImage stairImg("system\\mting.png");
-                    tie (stairImg.x, stairImg.y, stairImg.opacity, stairImg.z) = make_tuple(MAPX, MAPY, 0, 2);
-                    for (int i = 0; i < 15; ++i) {
-                        stairImg.opacity += 17;
-                        screenData.showMap(screenData.visualMap, MAPX, MAPY);
-                        motaGraphics.update(false);
-                    }
-                    // 初始化部分数据
-                    motaVariables.init();
-                    motaTemp.init();
-                    screenData.init();
-                    // 读取存档
-                    screenData.loadData(loadSaveWindow.index);
-                    // 重新加载地图
-                    screenData.player.direction = 0;
-                    screenData.loadMap(screenData.actors[motaVariables.variables[0]].mapID, &screenData.visualMap);
-                    // 加载动画
-                    for (int i = 0; i < 15; ++i) {
-                        stairImg.opacity -= 17;
-                        screenData.showMap(screenData.visualMap, MAPX, MAPY);
-                        motaGraphics.update(false);
-                    }
-                    stairImg.dispose();
-                    return;
-                }
-                else {
-                    playSE(motaSystem.buzzerSE);
-                    return;
-                }
-            }
-            else {
-                playSE(motaSystem.saveSE);
-                screenData.saveData(loadSaveWindow.index);
-                saveImage.saveToFile(format("save\\save_{}.png", loadSaveWindow.index));
-                saveFile("save\\recent.dat", to_string(loadSaveWindow.index));
-                // 关闭存读档窗口
-                loadSaveWindow.visible = false;
-                // 关闭菜单窗口
-                menuWindow.visible = false;
-                // 打开状态栏窗口
-                motaTemp.closeMS = false;
-                return;
-            }
-        }
-        // 按下取消键时
-        if (motaKeyBoard.triggerCancel()) {
-            playSE(motaSystem.cancelSE);
-            // 关闭存读档窗口
-            loadSaveWindow.visible = false;
-            // 打开状态栏窗口
-            motaTemp.closeMS = false;
-            // 如果是从菜单来的，就别打开了，打开菜单窗口
-            if (loadSaveWindow.from == 1) {
-                menuWindow.visible = true;
-                motaTemp.closeMS = true;
-            }
-            return;
-        }
+        updateLoadSave();
         return;
     }
     // 更新快捷键提示窗口
     if (hintWindow.visible) {
-        // 按下取消键时
-        if (motaKeyBoard.triggerCancel()) {
-            playSE(motaSystem.cancelSE);
-            // 关闭快捷键提示窗口
-            hintWindow.visible = false;
-        }
+        updateHint();
         return;
     }
     // 当有商店信息时
-    if (motaTemp.shopType >= 0) {
-        shopWindow.visible = true;
-        shopWindow.index = 0;
-        shopWindow.items.clear();
-        if (motaTemp.shopType == 0) {
-            // 贪婪之神
-            shopWindow.name = "贪婪之神";
-            shopWindow.desc = format("愚蠢的人类，如果你能提供[{}]个金币，我将可以提升你的力量！", 9 + motaTemp.shopID);
-            shopWindow.file = "NPC01-02.png";
-            shopWindow.pos = 2;
-            shopWindow.items.emplace_back(format("增加{}点生命值", 300 * motaTemp.shopID + 500),
-                                          make_pair(&screenData.actors[motaVariables.variables[0]].gold, format("[{}]", 9 + motaTemp.shopID)),
-                                          vector <string> ({format("bonus/5/-[{}]", 9 + motaTemp.shopID), // 扣除金币
-                                                            format("var/{}/{}", 9 + motaTemp.shopID, motaTemp.shopID + 1), // 增加价格
-                                                            format("bonus/0/{}", 300 * motaTemp.shopID + 500)})); // 增加生命值
-            shopWindow.items.emplace_back(format("增加{}点攻击力", 3 * motaTemp.shopID + 3),
-                                          make_pair(&screenData.actors[motaVariables.variables[0]].gold, format("[{}]", 9 + motaTemp.shopID)),
-                                          vector <string> ({format("bonus/5/-[{}]", 9 + motaTemp.shopID), // 扣除金币
-                                                            format("var/{}/{}", 9 + motaTemp.shopID, motaTemp.shopID + 1), // 增加价格
-                                                            format("bonus/1/{}", 3 * motaTemp.shopID + 3)})); // 增加攻击力
-            shopWindow.items.emplace_back(format("增加{}点防御力", 3 * motaTemp.shopID + 3),
-                                          make_pair(&screenData.actors[motaVariables.variables[0]].gold, format("[{}]", 9 + motaTemp.shopID)),
-                                          vector <string> ({format("bonus/5/-[{}]", 9 + motaTemp.shopID), // 扣除金币
-                                                            format("var/{}/{}", 9 + motaTemp.shopID, motaTemp.shopID + 1), // 增加价格
-                                                            format("bonus/2/{}", 3 * motaTemp.shopID + 3)})); // 增加攻击力
-        }
-        else if (motaTemp.shopType == 1) {
-            // 战斗之神
-            shopWindow.name = "战斗之神";
-            shopWindow.desc = format("英雄的人类！如果你可以给我提供经验，我将可以提升你的力量！");
-            shopWindow.file = "NPC01-02.png";
-            shopWindow.pos = 1;
-            int expneed[] = {120 * motaTemp.shopID + 70, 30 * motaTemp.shopID + 20, 30 * motaTemp.shopID + 20};
-            int abiup[] = {2 * motaTemp.shopID + 1, 2 * motaTemp.shopID + 1, 3 * motaTemp.shopID + 2};
-            shopWindow.items.emplace_back(format("{}经验增加{}个等级",expneed[0], abiup[0]),
-                                          make_pair(&screenData.actors[motaVariables.variables[0]].exp, to_string(expneed[0])),
-                                          vector <string> ({format("bonus/4/-{}", expneed[0]), // 扣除经验
-                                                            format("bonus/6/{}", abiup[0])})); // 增加等级
-            shopWindow.items.emplace_back(format("{}经验增加{}点攻击",expneed[1], abiup[1]),
-                                          make_pair(&screenData.actors[motaVariables.variables[0]].exp, to_string(expneed[1])),
-                                          vector <string> ({format("bonus/4/-{}", expneed[1]), // 扣除经验
-                                                            format("bonus/1/{}", abiup[1])})); // 增加攻击
-            shopWindow.items.emplace_back(format("{}经验增加{}点防御",expneed[2], abiup[2]),
-                                          make_pair(&screenData.actors[motaVariables.variables[0]].exp, to_string(expneed[2])),
-                                          vector <string> ({format("bonus/4/-{}", expneed[2]), // 扣除经验
-                                                            format("bonus/2/{}", abiup[2])})); // 增加防御
-        }
-        motaTemp.shopType = -1;
-        return;
-    }
+    if (motaTemp.shopType >= 0)
+        setShop();
     // 更新商店窗口
     if (shopWindow.visible) {
-        // 按下取消键时
-        if (motaKeyBoard.triggerCancel()) {
-            playSE(motaSystem.cancelSE);
-            // 关闭商店窗口
-            shopWindow.visible = false;
-            return;
-        }
+        updateShop();
         return;
     }
     // 当消息队列不为空时
     if (!motaTemp.messageInfo.empty()) {
-        // 显示对话窗口
-        messageWindow.visible = true;
-        // 按下确认键时
-        if (motaKeyBoard.triggerConfirm()) {
-            // 如果这是个带选择项的窗口
-            if (messageWindow.haveIndex) {
-                // 如果有指令的话
-                if (!messageWindow.order[messageWindow.index].empty())
-                    screenData.doOrder(messageWindow.order[messageWindow.index]);
-                messageWindow.index = -1;
-            }
-            // 将本次对话从队列中清除
-            motaTemp.messageInfo.erase(motaTemp.messageInfo.begin());
-            // 将不透明度清零防止闪烁
-            messageWindow.opacity = 0;
-            // 如果队列清空了，就关闭对话窗口显示
-            if (motaTemp.messageInfo.empty()) messageWindow.visible = false;
-            screenData.waitCount(1);
-        }
+        updateMessage();
         return;
     }
     // 更新怪物手册窗口
     if (enemyBookWindow.visible) {
-        // 按下确认键时
-        if (motaKeyBoard.triggerConfirm() && !motaTemp.floorEnemies.empty()) {
-            playSE(motaSystem.decisionSE);
-            // 关闭怪物手册窗口
-            enemyBookWindow.visible = false;
-            // 录入怪物信息，打开怪物百科窗口
-            encyWindow.mon = motaTemp.floorEnemies[enemyBookWindow.nowPage * 4 + enemyBookWindow.index];
-            encyWindow.visible = true;
-            return;
-        }
-        // 按下取消键时
-        if (motaKeyBoard.triggerCancel()) {
-            playSE(motaSystem.cancelSE);
-            // 关闭怪物手册窗口
-            enemyBookWindow.visible = false;
-            // 如果是从物品栏来的，就打开物品栏窗口
-            if (enemyBookWindow.from == 1) itemWindow.visible = true;
-            return;
-        }
+        updateEnemyBook();
         return;
     }
     // 更新怪物百科窗口
     if (encyWindow.visible) {
-        // 按下取消键时
-        if (motaKeyBoard.triggerCancel()) {
-            playSE(motaSystem.cancelSE);
-            // 关闭怪物百科窗口，打开怪物手册窗口
-            enemyBookWindow.visible = true;
-            encyWindow.visible = false;
-            return;
-        }
+        updateEncyclopedia();
         return;
     }
     // 更新楼层传送器窗口
     if (flyWindow.visible) {
-        // 按下确认键时
-        if (motaKeyBoard.triggerConfirm()) {
-            playSE(motaSystem.stairSE);
-            // 关闭楼层传送器窗口
-            flyWindow.visible = false;
-            // 获取目标地图信息
-            auto targetMap = motaData.maps[motaData.searchMap(format("{}:{}", motaVariables.variables[1], motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex]))];
-            // 传送至指定楼层
-            if (motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex] > motaVariables.variables[2]) {
-                // 如果是上楼
-                motaVariables.variables[2] = motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex] - 1;
-                // 坐标调整至目标地图下楼梯位置
-                GameEvent(format("up/{}/{}", targetMap.mapEvents[0].x, targetMap.mapEvents[0].y)).order(false);
-            }
-            else if (motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex] < motaVariables.variables[2]) {
-                // 如果是下楼
-                motaVariables.variables[2] = motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex] + 1;
-                // 坐标调整至目标地图上楼梯位置
-                GameEvent(format("down/{}/{}", targetMap.mapEvents[1].x, targetMap.mapEvents[1].y)).order(false);
-            }
-            else {
-                // 如果是同楼
-                if (motaVariables.variables[2] >= 0) {
-                    // 地上同层传送到下楼梯位置
-                    GameEvent(format("move/{}/{}/{}", screenData.actors[motaVariables.variables[0]].mapID, targetMap.mapEvents[0].x, targetMap.mapEvents[0].y)).order(false);
-                }
-                else {
-                    // 地下同层传送到上楼梯位置
-                    GameEvent(format("move/{}/{}/{}", screenData.actors[motaVariables.variables[1]].mapID, targetMap.mapEvents[1].x, targetMap.mapEvents[0].y)).order(false);
-                }
-            }
-            return;
-        }
-        // 按下取消键时
-        if (motaKeyBoard.triggerCancel()) {
-            playSE(motaSystem.cancelSE);
-            // 关闭楼层传送器窗口
-            flyWindow.visible = false;
-            return;
-        }
+        updateFly();
         return;
     }
     // 当有战斗事件时
     if (motaTemp.battleEnemyID != -1) {
-        // 添加双方动画
-        screenData.addEVAnimation(screenData.actors[motaVariables.variables[0]].animationID, screenData.visualMap.mapEvents[motaTemp.functionEventID].x, screenData.visualMap.mapEvents[motaTemp.functionEventID].y);
-        screenData.waitCount(motaData.animations[screenData.actors[motaVariables.variables[0]].animationID].pattern.size());
-        screenData.addEVAnimation(motaData.enemies[motaTemp.battleEnemyID].animationID, screenData.actors[motaVariables.variables[0]].x, screenData.actors[motaVariables.variables[0]].y);
-        screenData.waitCount(motaData.animations[motaData.enemies[motaTemp.battleEnemyID].animationID].pattern.size());
-        // 计算伤害
-        int damage = motaData.enemies[motaTemp.battleEnemyID].getDamage();
-        // 如果返回值为-1代表不可战胜
-        if (damage == -1) damage = screenData.actors[motaVariables.variables[0]].hp;
-        // 当我方生命大于对方生命时正常扣血
-        if (auto en = motaData.enemies[motaTemp.battleEnemyID]; screenData.actors[motaVariables.variables[0]].hp > damage) {
-            screenData.actors[motaVariables.variables[0]].hp -= damage;
-            screenData.actors[motaVariables.variables[0]].exp += en.exp;
-            screenData.actors[motaVariables.variables[0]].gold += en.gold * (1 + (screenData.actors[motaVariables.variables[0]].item[12] > 0));
-            screenData.visualMap.mapEvents[motaTemp.functionEventID].toDispose = true;
-            // 有[v]需要在战斗后使用的话，写在这里
-            for (int i = 0, cnt = 1; i < en.element.size(); ++i) {
-                if (motaData.elements[en.element[i]].haveBuff) {
-                    float buff = stof(split(en.name, "/")[cnt]);
-                    if (en.element[i] == 1) {
-                        // 中毒的效果
-                        motaVariables.variables[5] += buff;
-                        screenData.actors[motaVariables.variables[0]].status.insert(1);
-                    }
-                    else if (en.element[i] == 2) {
-                        // 衰弱的效果
-                        motaVariables.variables[6] += buff;
-                        screenData.actors[motaVariables.variables[0]].status.insert(2);
-                    }
-                    else if (en.element[i] == 8) {
-                        // 再生的效果
-                        motaTemp.transEventName = format("monster/{}", (int)buff); // 更改事件名
-                        screenData.visualMap.mapEvents[motaTemp.functionEventID].toDispose = false; // 不需要消失
-                    }
-
-                    cnt++;
-                }
-            }
-        }
-        else {
-            // 如果不敌则游戏结束
-            screenData.actors[motaVariables.variables[0]].hp = 0;
-            GameEvent("gg").order(true);
-            motaTemp.battleEnemyID = -1;
-        }
-        // 清空对战斗事件的记录
-        motaTemp.battleEnemyID = -1;
+        setBattle();
         return;
     }
     // 如果要转换事件名
-    if (!motaTemp.transEventName.empty()) {
-        // 更新事件名
-        screenData.visualMap.mapEvents[motaTemp.functionEventID].name = motaTemp.transEventName;
-        // 特殊更改的处理
-        auto namelist = split(motaTemp.transEventName, "<>");
-        for (const auto& eachname : namelist) {
-            auto namesplt = split(eachname, "/");
-            if (namesplt[0] == "monster") {
-                // 更改成了怪物
-                screenData.visualMap.mapEvents[motaTemp.functionEventID].file = motaData.enemies[stoi(namesplt[1])].file;
-                screenData.visualMap.mapEvents[motaTemp.functionEventID].pos[1] = motaData.enemies[stoi(namesplt[1])].pos;
-                screenData.visualMap.mapEvents[motaTemp.functionEventID].move = true;
-                screenData.visualMap.mapEvents[motaTemp.functionEventID].through = false;
-            }
-        }
-        // 记录更新事件
-        motaVariables.transRecord[screenData.visualMap.mapID][motaTemp.functionEventID] = motaTemp.transEventName;
-        // 清空更新事件名
-        motaTemp.transEventName = "";
-        // 如果直接触发新事件
-        if (motaTemp.directlyFunction) {
-            motaTemp.directlyFunction = false;
-            screenData.visualMap.mapEvents[motaTemp.functionEventID].order();
-        }
-    }
+    if (!motaTemp.transEventName.empty())
+        setTrans();
     // 如果事件记录不为空
     if (motaTemp.functionEventID != -1) {
         // 消除事件
@@ -1540,6 +1203,420 @@ void MotaMap::itemUse(int id) {
     // 使用物品的结算，使用成功则扣除道具
     endUse:
     if (flag == 1 && motaData.items[id].cost) --screenData.actors[motaVariables.variables[0]].item[id];
+}
+
+void MotaMap::updateMenu() {
+    // 按下确认键时
+    if (menuWindow.active && motaKeyBoard.triggerConfirm()) {
+        if (menuWindow.index == 0) {
+            playSE(motaSystem.decisionSE);
+            // 转到物品界面，读入当前物品信息
+            itemWindow.myItems.clear();
+            for (size_t i = 0; i < motaData.items.size(); ++i)
+                if (screenData.actors[motaVariables.variables[0]].item[i] > 0)
+                    itemWindow.myItems.push_back(motaData.items[i]);
+            itemWindow.index = 0;
+            itemWindow.visible = true;
+            // 关闭菜单活动
+            menuWindow.active = false;
+            return;
+        }
+        else if (menuWindow.index == 1) {
+            playSE(motaSystem.decisionSE);
+            // 转到存档界面，from=1表示从菜单来的
+            loadSaveWindow.index = stoi(readFile("save\\recent.dat")[0]);
+            loadSaveWindow.load = false;
+            loadSaveWindow.visible = true;
+            loadSaveWindow.from = 1;
+            // 关闭菜单窗口
+            menuWindow.visible = false;
+            // 关闭状态栏显示
+            motaTemp.closeMS = true;
+            return;
+        }
+        else if (menuWindow.index == 2) {
+            playSE(motaSystem.decisionSE);
+            // 转到读档界面，from=1表示从菜单来的
+            loadSaveWindow.index = stoi(readFile("save\\recent.dat")[0]);
+            loadSaveWindow.load = true;
+            loadSaveWindow.visible = true;
+            loadSaveWindow.from = 1;
+            // 关闭菜单窗口
+            menuWindow.visible = false;
+            // 关闭状态栏显示
+            motaTemp.closeMS = true;
+            return;
+        }
+        else if (menuWindow.index == 3) {
+            playSE(motaSystem.decisionSE);
+            // 回到标题界面
+            motaSystem.scene = new MotaTitle;
+            return;
+        }
+    }
+    // 按下取消键时
+    if (menuWindow.active && motaKeyBoard.triggerCancel()) {
+        playSE(motaSystem.cancelSE);
+        // 关闭菜单窗口
+        menuWindow.visible = false;
+        // 恢复状态栏显示
+        motaTemp.closeMS = false;
+        return;
+    }
+}
+
+void MotaMap::updateItem() {
+    // 按下确认键时
+    if (motaKeyBoard.triggerConfirm()) {
+        if (itemWindow.myItems.empty()) return;
+        if (itemWindow.myItems[itemWindow.index].usable) {
+            playSE(motaSystem.decisionSE);
+            // 关闭物品窗口
+            itemWindow.visible = false;
+            // 如果菜单窗口还在，就也关闭，除非是使用怪物手册
+            if (menuWindow.visible && itemWindow.myItems[itemWindow.index].ID != 3) {
+                menuWindow.visible = false;
+                motaTemp.closeMS = false;
+            }
+            // 转到物品使用函数
+            itemUse(itemWindow.myItems[itemWindow.index].ID);
+        }
+        else
+            playSE(motaSystem.buzzerSE);
+        return;
+    }
+    // 按下取消键时
+    if (motaKeyBoard.triggerCancel()) {
+        playSE(motaSystem.cancelSE);
+        // 关闭物品窗口
+        itemWindow.visible = false;
+        // 如果菜单窗口可见，就恢复其活动
+        if (menuWindow.visible) menuWindow.active = true;
+        return;
+    }
+}
+
+void MotaMap::updateLoadSave() {
+    // 按下确认键时
+    if (motaKeyBoard.triggerConfirm()) {
+        // 如果是读档
+        if (loadSaveWindow.load) {
+            // 如果存档文件存在
+            if (filesystem::exists(format("save\\save_{}.sav", loadSaveWindow.index))) {
+                playSE(motaSystem.loadSE);
+                // 关闭存读档窗口
+                loadSaveWindow.visible = false;
+                // 关闭菜单窗口
+                menuWindow.visible = false;
+                // 打开状态栏窗口
+                motaTemp.closeMS = false;
+                // 加载动画
+                GameImage stairImg("system\\mting.png");
+                tie (stairImg.x, stairImg.y, stairImg.opacity, stairImg.z) = make_tuple(MAPX, MAPY, 0, 2);
+                for (int i = 0; i < 15; ++i) {
+                    stairImg.opacity += 17;
+                    screenData.showMap(screenData.visualMap, MAPX, MAPY);
+                    motaGraphics.update(false);
+                }
+                // 初始化部分数据
+                motaVariables.init();
+                motaTemp.init();
+                screenData.init();
+                // 读取存档
+                screenData.loadData(loadSaveWindow.index);
+                // 重新加载地图
+                screenData.player.direction = 0;
+                screenData.loadMap(screenData.actors[motaVariables.variables[0]].mapID, &screenData.visualMap);
+                // 加载动画
+                for (int i = 0; i < 15; ++i) {
+                    stairImg.opacity -= 17;
+                    screenData.showMap(screenData.visualMap, MAPX, MAPY);
+                    motaGraphics.update(false);
+                }
+                stairImg.dispose();
+                return;
+            }
+            else {
+                playSE(motaSystem.buzzerSE);
+                return;
+            }
+        }
+        else {
+            playSE(motaSystem.saveSE);
+            screenData.saveData(loadSaveWindow.index);
+            saveImage.saveToFile(format("save\\save_{}.png", loadSaveWindow.index));
+            saveFile("save\\recent.dat", to_string(loadSaveWindow.index));
+            // 关闭存读档窗口
+            loadSaveWindow.visible = false;
+            // 关闭菜单窗口
+            menuWindow.visible = false;
+            // 打开状态栏窗口
+            motaTemp.closeMS = false;
+            return;
+        }
+    }
+    // 按下取消键时
+    if (motaKeyBoard.triggerCancel()) {
+        playSE(motaSystem.cancelSE);
+        // 关闭存读档窗口
+        loadSaveWindow.visible = false;
+        // 打开状态栏窗口
+        motaTemp.closeMS = false;
+        // 如果是从菜单来的，就别打开了，打开菜单窗口
+        if (loadSaveWindow.from == 1) {
+            menuWindow.visible = true;
+            motaTemp.closeMS = true;
+        }
+        return;
+    }
+}
+
+void MotaMap::updateHint() {
+    // 按下取消键时
+    if (motaKeyBoard.triggerCancel()) {
+        playSE(motaSystem.cancelSE);
+        // 关闭快捷键提示窗口
+        hintWindow.visible = false;
+    }
+}
+
+void MotaMap::updateShop() {
+    // 按下取消键时
+    if (motaKeyBoard.triggerCancel()) {
+        playSE(motaSystem.cancelSE);
+        // 关闭商店窗口
+        shopWindow.visible = false;
+        return;
+    }
+}
+
+void MotaMap::updateMessage() {
+    // 显示对话窗口
+    messageWindow.visible = true;
+    // 按下确认键时
+    if (motaKeyBoard.triggerConfirm()) {
+        // 如果这是个带选择项的窗口
+        if (messageWindow.haveIndex) {
+            // 如果有指令的话
+            if (!messageWindow.order[messageWindow.index].empty())
+                screenData.doOrder(messageWindow.order[messageWindow.index]);
+            messageWindow.index = -1;
+        }
+        // 将本次对话从队列中清除
+        motaTemp.messageInfo.erase(motaTemp.messageInfo.begin());
+        // 将不透明度清零防止闪烁
+        messageWindow.opacity = 0;
+        // 如果队列清空了，就关闭对话窗口显示
+        if (motaTemp.messageInfo.empty()) messageWindow.visible = false;
+        screenData.waitCount(1);
+    }
+}
+
+void MotaMap::updateEnemyBook() {
+    // 按下确认键时
+    if (motaKeyBoard.triggerConfirm() && !motaTemp.floorEnemies.empty()) {
+        playSE(motaSystem.decisionSE);
+        // 关闭怪物手册窗口
+        enemyBookWindow.visible = false;
+        // 录入怪物信息，打开怪物百科窗口
+        encyWindow.mon = motaTemp.floorEnemies[enemyBookWindow.nowPage * 4 + enemyBookWindow.index];
+        encyWindow.visible = true;
+        return;
+    }
+    // 按下取消键时
+    if (motaKeyBoard.triggerCancel()) {
+        playSE(motaSystem.cancelSE);
+        // 关闭怪物手册窗口
+        enemyBookWindow.visible = false;
+        // 如果是从物品栏来的，就打开物品栏窗口
+        if (enemyBookWindow.from == 1) itemWindow.visible = true;
+        return;
+    }
+}
+
+void MotaMap::updateEncyclopedia() {
+    // 按下取消键时
+    if (motaKeyBoard.triggerCancel()) {
+        playSE(motaSystem.cancelSE);
+        // 关闭怪物百科窗口，打开怪物手册窗口
+        enemyBookWindow.visible = true;
+        encyWindow.visible = false;
+        return;
+    }
+}
+
+void MotaMap::updateFly() {
+    // 按下确认键时
+    if (motaKeyBoard.triggerConfirm()) {
+        playSE(motaSystem.stairSE);
+        // 关闭楼层传送器窗口
+        flyWindow.visible = false;
+        // 获取目标地图信息
+        auto targetMap = motaData.maps[motaData.searchMap(format("{}:{}", motaVariables.variables[1], motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex]))];
+        // 传送至指定楼层
+        if (motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex] > motaVariables.variables[2]) {
+            // 如果是上楼
+            motaVariables.variables[2] = motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex] - 1;
+            // 坐标调整至目标地图下楼梯位置
+            GameEvent(format("up/{}/{}", targetMap.mapEvents[0].x, targetMap.mapEvents[0].y)).order(false);
+        }
+        else if (motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex] < motaVariables.variables[2]) {
+            // 如果是下楼
+            motaVariables.variables[2] = motaVariables.floorRecord[motaVariables.variables[1]][flyWindow.viewFloorIndex] + 1;
+            // 坐标调整至目标地图上楼梯位置
+            GameEvent(format("down/{}/{}", targetMap.mapEvents[1].x, targetMap.mapEvents[1].y)).order(false);
+        }
+        else {
+            // 如果是同楼
+            if (motaVariables.variables[2] >= 0) {
+                // 地上同层传送到下楼梯位置
+                GameEvent(format("move/{}/{}/{}", screenData.actors[motaVariables.variables[0]].mapID, targetMap.mapEvents[0].x, targetMap.mapEvents[0].y)).order(false);
+            }
+            else {
+                // 地下同层传送到上楼梯位置
+                GameEvent(format("move/{}/{}/{}", screenData.actors[motaVariables.variables[1]].mapID, targetMap.mapEvents[1].x, targetMap.mapEvents[0].y)).order(false);
+            }
+        }
+        return;
+    }
+    // 按下取消键时
+    if (motaKeyBoard.triggerCancel()) {
+        playSE(motaSystem.cancelSE);
+        // 关闭楼层传送器窗口
+        flyWindow.visible = false;
+        return;
+    }
+}
+
+void MotaMap::setShop() {
+    shopWindow.visible = true;
+    shopWindow.index = 0;
+    shopWindow.items.clear();
+
+    auto setInfo = [&](string name, string file, string desc, int pos) {
+        shopWindow.name = std::move(name);
+        shopWindow.file = std::move(file);
+        shopWindow.desc = std::move(desc);
+        shopWindow.pos = pos;
+    };
+
+    auto setItem = [&](const string& name, int* ref, string cost, vector <string> order = {}) {
+        if (ref == &screenData.actors[motaVariables.variables[0]].gold)
+            order.emplace_back(format("bonus/5/-{}", cost));
+        else if (ref == &screenData.actors[motaVariables.variables[0]].exp)
+            order.emplace_back(format("bonus/4/-{}", cost));
+        shopWindow.items.emplace_back(name,
+                                      make_pair(ref, cost),
+                                      order);
+    };
+
+    if (motaTemp.shopType == 0) {
+        // 贪婪之神
+        if (!strInclude(motaTemp.initPrice[0], "[") && motaTemp.initPrice[0].length() % 3 != 0)
+            for (int i = 0; i < motaTemp.initPrice[0].length() % 3; ++i)
+                motaTemp.initPrice[0] += " ";
+        setInfo("贪婪之神", "NPC01-02.png", format("愚蠢的人类，如果你能提供{}个金币，我将可以提升你的力量！", motaTemp.initPrice[0]), 2);
+        string desc[] = {"生命值", "攻击力", "防御力"};
+        string var = motaTemp.initPrice[0];
+        replaceAll(var, "[", "");
+        replaceAll(var, "]", "");
+        for (int i = 0; i < 3; ++i) {
+            setItem(format("增加{}点{}", motaTemp.addPower[i], desc[i]),
+                    &screenData.actors[motaVariables.variables[0]].gold, motaTemp.initPrice[0],
+                    {format("bonus/{}/{}", i, motaTemp.addPower[i]), // 增加能力
+                     format("var/{}/{}", var, motaTemp.rise)});// 涨价
+        }
+    }
+    else if (motaTemp.shopType == 1) {
+        // 战斗之神
+        setInfo("战斗之神", "NPC01-02.png", "英雄的人类！如果你可以给我提供经验，我将可以提升你的力量！", 1);
+        string desc[] = {"等级", "攻击", "防御"};
+        int kind[] = {6, 1, 2};
+        for (int i = 0; i < 3; ++i) {
+            shopWindow.items.emplace_back(format("{}经验增加{}个{}",motaTemp.initPrice[i], motaTemp.addPower[i], desc[i]),
+                                          make_pair(&screenData.actors[motaVariables.variables[0]].exp, motaTemp.initPrice[i]),
+                                          vector <string> ({format("bonus/4/-{}", motaTemp.initPrice[i]), // 扣除经验
+                                                            format("bonus/{}/{}", kind[i], motaTemp.addPower[i])})); // 增加等级
+        }
+    }
+    motaTemp.shopType = -1;
+    return;
+}
+
+void MotaMap::setBattle() {
+    // 添加双方动画
+    screenData.addEVAnimation(screenData.actors[motaVariables.variables[0]].animationID, screenData.visualMap.mapEvents[motaTemp.functionEventID].x, screenData.visualMap.mapEvents[motaTemp.functionEventID].y);
+    screenData.waitCount(motaData.animations[screenData.actors[motaVariables.variables[0]].animationID].pattern.size());
+    screenData.addEVAnimation(motaData.enemies[motaTemp.battleEnemyID].animationID, screenData.actors[motaVariables.variables[0]].x, screenData.actors[motaVariables.variables[0]].y);
+    screenData.waitCount(motaData.animations[motaData.enemies[motaTemp.battleEnemyID].animationID].pattern.size());
+    // 计算伤害
+    int damage = motaData.enemies[motaTemp.battleEnemyID].getDamage();
+    // 如果返回值为-1代表不可战胜
+    if (damage == -1) damage = screenData.actors[motaVariables.variables[0]].hp;
+    // 当我方生命大于对方生命时正常扣血
+    if (auto en = motaData.enemies[motaTemp.battleEnemyID]; screenData.actors[motaVariables.variables[0]].hp > damage) {
+        screenData.actors[motaVariables.variables[0]].hp -= damage;
+        screenData.actors[motaVariables.variables[0]].exp += en.exp;
+        screenData.actors[motaVariables.variables[0]].gold += en.gold * (1 + (screenData.actors[motaVariables.variables[0]].item[12] > 0));
+        screenData.visualMap.mapEvents[motaTemp.functionEventID].toDispose = true;
+        // 有[v]需要在战斗后使用的话，写在这里
+        for (int i = 0, cnt = 1; i < en.element.size(); ++i) {
+            if (motaData.elements[en.element[i]].haveBuff) {
+                float buff = stof(split(en.name, "/")[cnt]);
+                if (en.element[i] == 1) {
+                    // 中毒的效果
+                    motaVariables.variables[5] += buff;
+                    screenData.actors[motaVariables.variables[0]].status.insert(1);
+                }
+                else if (en.element[i] == 2) {
+                    // 衰弱的效果
+                    motaVariables.variables[6] += buff;
+                    screenData.actors[motaVariables.variables[0]].status.insert(2);
+                }
+                else if (en.element[i] == 8) {
+                    // 再生的效果
+                    motaTemp.transEventName = format("monster/{}", (int)buff); // 更改事件名
+                    screenData.visualMap.mapEvents[motaTemp.functionEventID].toDispose = false; // 不需要消失
+                }
+
+                cnt++;
+            }
+        }
+    }
+    else {
+        // 如果不敌则游戏结束
+        screenData.actors[motaVariables.variables[0]].hp = 0;
+        GameEvent("gg").order(true);
+        motaTemp.battleEnemyID = -1;
+    }
+    // 清空对战斗事件的记录
+    motaTemp.battleEnemyID = -1;
+}
+
+void MotaMap::setTrans() {
+    // 更新事件名
+    screenData.visualMap.mapEvents[motaTemp.functionEventID].name = motaTemp.transEventName;
+    // 特殊更改的处理
+    auto namelist = split(motaTemp.transEventName, "<>");
+    for (const auto& eachname : namelist) {
+        auto namesplt = split(eachname, "/");
+        if (namesplt[0] == "monster") {
+            // 更改成了怪物
+            screenData.visualMap.mapEvents[motaTemp.functionEventID].file = motaData.enemies[stoi(namesplt[1])].file;
+            screenData.visualMap.mapEvents[motaTemp.functionEventID].pos[1] = motaData.enemies[stoi(namesplt[1])].pos;
+            screenData.visualMap.mapEvents[motaTemp.functionEventID].move = true;
+            screenData.visualMap.mapEvents[motaTemp.functionEventID].through = false;
+        }
+    }
+    // 记录更新事件
+    motaVariables.transRecord[screenData.visualMap.mapID][motaTemp.functionEventID] = motaTemp.transEventName;
+    // 清空更新事件名
+    motaTemp.transEventName = "";
+    // 如果直接触发新事件
+    if (motaTemp.directlyFunction) {
+        motaTemp.directlyFunction = false;
+        screenData.visualMap.mapEvents[motaTemp.functionEventID].order();
+    }
 }
 
 void MotaScript::main() {

@@ -41,7 +41,7 @@ void GameEvent::order(bool tempEV) {
     if (!tempEV) motaTemp.functionEventID = ID;
     // 未达到条件不可执行的
     if (triggerCondition[0] != 0 && motaVariables.variables[triggerCondition[1]] != triggerCondition[2]) return;
-    auto namelist = split(motaVariables.initDialogue(name), "<>");
+    auto namelist = split(name, "<>");
     for (const auto& evname : namelist) {
         // 将事件名按/号分割
         auto info = split(evname, "/");
@@ -55,14 +55,14 @@ void GameEvent::order(bool tempEV) {
         }
         // 战斗
         if (info[0] == "monster") {
-            motaTemp.battleEnemyID = stoi(info[1]);
+            motaTemp.battleEnemyID = stoi(motaVariables.initDialogue(info[1]));
             motaSystem.scene->update();
             continue;
         }
         // 宝石血瓶
         if (info[0] == "bonus") {
             if (!tempEV) playSE(motaSystem.getSE);
-            tie(kind, val) = make_pair(stoi(info[1]), stoi(info[2]));
+            tie(kind, val) = make_pair(stoi(motaVariables.initDialogue(info[1])), stoi(motaVariables.initDialogue(info[2])));
             if (kind == 0) screenData.actors[motaVariables.variables[0]].hp += val;
             if (kind == 1) screenData.actors[motaVariables.variables[0]].atk += val;
             if (kind == 2) screenData.actors[motaVariables.variables[0]].def += val;
@@ -81,7 +81,7 @@ void GameEvent::order(bool tempEV) {
         }
         // 开门
         if (info[0] == "door") {
-            kind = stoi(info[1]);
+            kind = stoi(motaVariables.initDialogue(info[1]));
             if (kind == 0) {
                 playSE(motaSystem.gateSE);
                 openDoor();
@@ -111,7 +111,7 @@ void GameEvent::order(bool tempEV) {
         // 物品
         if (info[0] == "item") {
             if (!tempEV) playSE(motaSystem.getSE);
-            tie(kind, val) = make_pair(stoi(info[1]), stoi(info[2]));
+            tie(kind, val) = make_pair(stoi(motaVariables.initDialogue(info[1])), stoi(motaVariables.initDialogue(info[2])));
             if (!motaVariables.itemRecord[kind] || val != 1) {
                 motaVariables.itemRecord[kind] = true;
                 motaTemp.messageInfo.emplace_back(-4, to_string(kind), "");
@@ -123,9 +123,12 @@ void GameEvent::order(bool tempEV) {
         }
         // 商店
         if (info[0] == "shop") {
-            tie(kind, val) = make_pair(stoi(info[1]), stoi(info[2]));
-            motaTemp.shopType = kind;
-            motaTemp.shopID = val;
+            motaTemp.shopType = stoi(info[1]);
+            motaTemp.addPower = split(info[2], "&");
+            if (info.size() >= 4) motaTemp.initPrice = split(info[3], "&");
+            else motaTemp.initPrice = { "0" };
+            if (info.size() >= 5) motaTemp.rise = info[4];
+            else motaTemp.rise = "0";
             motaSystem.scene->update();
             continue;
         }
@@ -144,7 +147,7 @@ void GameEvent::order(bool tempEV) {
         }
         // 路障熔岩
         if (info[0] == "lava") {
-            val = stoi(info[1]);
+            val = stoi(motaVariables.initDialogue(info[1]));
             screenData.actors[motaVariables.variables[0]].hp = max(0, screenData.actors[motaVariables.variables[0]].hp - val);
             if (screenData.actors[motaVariables.variables[0]].hp == 0) GameEvent("gg").order(true);
             motaSystem.scene->update();
@@ -277,7 +280,7 @@ void GameEvent::order(bool tempEV) {
         }
 
         // 下面是条件等对话相关的
-        auto condName = split(evname, "~");
+        auto condName = split(motaVariables.initDialogue(evname), "~");
         auto judgecond = [&](int a, int b, const string& s) {
             bool result = false;
             if (s == "==") result = (a == b);
@@ -707,12 +710,13 @@ void GameTemp::init() {
     // 初始化数据
     battleEnemyID = -1;
     shopType = -1;
-    shopID = 0;
     functionEventID = 0;
     closeMS = false;
     directlyFunction = false;
     gameOver = false;
     ending = false;
+    initPrice.clear();
+    rise = "";
     transEventName = "";
     messageInfo.clear();
     floorEnemies.clear();
@@ -721,8 +725,14 @@ void GameTemp::init() {
 void GameVariables::init() {
     // 初始化数据
     memset(variables, 0, sizeof(variables));
-    variables[9] = 20;
-    variables[10] = 50;
+    if (filesystem::exists("ref\\Variables.txt")) {
+        auto data = readFile("ref\\Variables.txt");
+        for (auto var : data) {
+            auto info = split(var, ":");
+            if (info.size() == 3)
+                variables[stoi(info[0])] = stoi(info[2]);
+        }
+    }
     floorRecord.clear();
     eventRecord.clear();
     transRecord.clear();
