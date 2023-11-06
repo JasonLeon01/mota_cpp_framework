@@ -891,6 +891,8 @@ void MotaMap::main() {
 }
 
 void MotaMap::update() {
+    // 当场景已经不在这里时，将不执行任何内容
+    if (motaSystem.scene != this) return;
     // 当当前BGM与地图数据的BGM不匹配时切换BGM
     if (bgmFile != screenData.visualMap.bgmFile) {
         bgmFile = screenData.visualMap.bgmFile;
@@ -967,6 +969,12 @@ void MotaMap::update() {
     // 游戏结束则回到标题
     if (motaTemp.gameOver) {
         if (motaTemp.ending && filesystem::exists("ref\\end.txt")) motaSystem.scene = new MotaScript;
+        else motaSystem.scene = new MotaTitle;
+        return;
+    }
+    // 结局
+    if (motaTemp.ending) {
+        if (filesystem::exists("ref\\end.txt")) motaSystem.scene = new MotaScript;
         else motaSystem.scene = new MotaTitle;
         return;
     }
@@ -1409,6 +1417,7 @@ void MotaMap::updateMessage() {
         // 如果队列清空了，就关闭对话窗口显示
         if (motaTemp.messageInfo.empty()) messageWindow.visible = false;
         screenData.waitCount(1);
+        update();
     }
 }
 
@@ -1587,7 +1596,6 @@ void MotaMap::setBattle() {
         // 如果不敌则游戏结束
         screenData.actors[motaVariables.variables[0]].hp = 0;
         GameEvent("gg").order(true);
-        motaTemp.battleEnemyID = -1;
     }
     // 清空对战斗事件的记录
     motaTemp.battleEnemyID = -1;

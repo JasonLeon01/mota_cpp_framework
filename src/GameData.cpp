@@ -43,6 +43,8 @@ void GameEvent::order(bool tempEV) {
     if (triggerCondition[0] != 0 && motaVariables.variables[triggerCondition[1]] != triggerCondition[2]) return;
     auto namelist = split(name, "<>");
     for (const auto& evname : namelist) {
+        // 如果游戏结束，将不再执行指令
+        if (motaTemp.gameOver) return;
         // 将事件名按/号分割
         auto info = split(evname, "/");
         int kind, val;
@@ -273,7 +275,6 @@ void GameEvent::order(bool tempEV) {
         }
         // 结局
         if (info[0] == "ending") {
-            motaTemp.gameOver = true;
             motaTemp.ending = true;
             motaSystem.scene->update();
             continue;
@@ -944,7 +945,7 @@ void ScreenData::showMap(const GameMap& gmap, float x, float y, float rate, bool
             anispr.setPosition(ani.actX * motaSystem.resolutionRatio, ani.actY * motaSystem.resolutionRatio);
             anispr.setScale(motaSystem.resolutionRatio, motaSystem.resolutionRatio);
             auto siz = motaSystem.textureCache["animation\\" + ani.type.pattern[ani.currentFrame]].getSize();
-            anispr.setOrigin(siz.x * motaSystem.resolutionRatio / 2, siz.y * motaSystem.resolutionRatio / 2);
+            anispr.setOrigin(siz.x / 2, siz.y / 2);
             motaSystem.window.draw(anispr);
             if (ani.currentFrame == ani.type.SETime) playSE(ani.type.SEFile);
             ++ani.currentFrame;

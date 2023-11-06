@@ -138,7 +138,7 @@ void GameImage::show() {
     if (width != 0 && height != 0) sprite.setTextureRect(IntRect(sx, sy, width, height));
     sprite.setPosition(x * motaSystem.resolutionRatio, y * motaSystem.resolutionRatio);
     sprite.setScale(scale_x * motaSystem.resolutionRatio, scale_y * motaSystem.resolutionRatio);
-    sprite.setOrigin(origin_x * motaSystem.resolutionRatio, origin_y * motaSystem.resolutionRatio);
+    sprite.setOrigin(origin_x, origin_y);
     sprite.setRotation(angle);
     auto cl = sprite.getColor();
     cl.a = opacity;
