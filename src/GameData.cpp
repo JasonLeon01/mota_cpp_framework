@@ -527,7 +527,7 @@ int GameEnemy::getCrisis() {
     if (screenData.actors[motaVariables.variables[0]].getAtk() <= getDef()) return getDef() - screenData.actors[motaVariables.variables[0]].getAtk() + 1;
     if (screenData.actors[motaVariables.variables[0]].getAtk() - getDef() >= hp) return 0;
     if (getP(4)) return -1;
-    return ceil(hp * 1.f / max(0.f, ceil(hp * 1.f / (screenData.actors[motaVariables.variables[0]].getAtk() - getDef())) - 1)) + getDef() - screenData.actors[motaVariables.variables[0]].getDef();
+    return ceil(hp * 1.f / max(0.f, ceil(hp * 1.f / (screenData.actors[motaVariables.variables[0]].getAtk() - getDef())) - 1)) + getDef() - screenData.actors[motaVariables.variables[0]].getAtk();
 }
 
 pair <string, string> GameEnemy::getElement(int pid, string buff) {
