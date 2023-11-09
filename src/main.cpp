@@ -1,8 +1,6 @@
 #include <Game/GameSystem.h>
 #include <Game/GameData.h>
 
-#include <utility>
-
 // 对话信息窗口
 class WindowMessage :public GameWindow {
 public:

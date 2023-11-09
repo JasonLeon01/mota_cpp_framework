@@ -1,7 +1,5 @@
 #include <Game/GameSystem.h>
 
-#include <utility>
-
 System motaSystem;
 GameKeyBoard motaKeyBoard;
 GameGraphics motaGraphics;

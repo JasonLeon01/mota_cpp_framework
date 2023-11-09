@@ -1,6 +1,6 @@
 #pragma once
-#include "stdafx.h"
-#include "GameSystem.h"
+#include <Game/stdafx.h>
+#include <Game/GameSystem.h>
 
 // 地图事件
 class GameEvent {

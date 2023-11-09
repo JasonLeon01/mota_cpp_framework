@@ -1,5 +1,5 @@
 #pragma once
-#include "Game/stdafx.h"
+#include <Game/stdafx.h>
 
 // 播放SE
 void playSE(const string& file);

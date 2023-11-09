@@ -1,7 +1,5 @@
 #include <Game/GameData.h>
 
-#include <utility>
-
 GameVariables motaVariables;
 GameTemp motaTemp;
 GameData motaData;
