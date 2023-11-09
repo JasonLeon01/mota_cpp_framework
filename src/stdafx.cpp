@@ -24,6 +24,12 @@ wstring str2wstr(const string& str)
     return converter.from_bytes(str);
 }
 
+string wstr2str(const wstring& wstr)
+{
+    wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    return converter.to_bytes(wstr);
+}
+
 bool strInclude(const string& source, const string& target) {
     return (source.find(target) != -1);
 }
@@ -85,24 +91,32 @@ vector <int> allToInt(vector <string> strArray) {
 }
 
 string insertNewLines(const string& input, int lineMax) {
-    string result = input;
+    wstring_convert <codecvt_utf8 <wchar_t> > converter;
+    auto wideInput = str2wstr(input);
+    string result = "";
     int cnt = 0;
-    size_t i = 0;
     bool stopCounting = false;
-    while (i < result.length()) {
-        if (cnt == lineMax && !stopCounting) {
-            result.insert(i, "\n");
+    for (int i = 0; i < wideInput.length(); ++i) {
+        auto c = wideInput[i];
+        if (c == L'\n') {
+            result += converter.to_bytes(c);
             cnt = 0;
-            ++i;
+            stopCounting = false;
+            continue;
         }
-        if (result[i] == '\n') {
-            cnt = 0;
-            if (stopCounting) stopCounting = false;
+        if (stopCounting) {
+            result += converter.to_bytes(c);
+            continue;
         }
-        else if (result[i] == '[' && i + 2 < result.length() && result[i + 1] == 's' && result[i + 2] == ']')
+        if (c == L'[' && wideInput.substr(i, 3) == L"[s]")
             stopCounting = true;
-        else if (!stopCounting) ++cnt;
-        ++i;
+        if (isascii(c)) cnt += 1;
+        else cnt += 2;
+        result += converter.to_bytes(c);
+        if (cnt >= lineMax) {
+            result += "\n";
+            cnt = 0;
+        }
     }
     return result;
 }

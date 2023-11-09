@@ -136,7 +136,7 @@ void GameEvent::order(bool tempEV) {
         if (info[0] == "npc") {
             kind = stoi(info[1]);
             for (auto [messID, messName, messContent] : motaData.npc[kind].npcInfo)
-                motaTemp.messageInfo.emplace_back(messID, messName, insertNewLines(motaVariables.initDialogue(messContent), 42));
+                motaTemp.messageInfo.emplace_back(messID, messName, insertNewLines(motaVariables.initDialogue(messContent), 28));
             if (!motaData.npc[kind].transName.empty()) {
                 motaTemp.transEventName = motaData.npc[kind].transName;
                 motaTemp.directlyFunction = motaData.npc[kind].directlyFunction;
@@ -747,9 +747,6 @@ string GameVariables::replaceToVar(const string& source) {
             int index = std::stoi(match[1]);
             if (index >= 0 && index < sizeof(variables)) {
                 string change = to_string(variables[index]);
-                if (change.length() % 3 != 0)
-                    for (int j = 0, len = change.length() % 3; j < 3 - len; ++j)
-                        change += " ";
                 result = match.prefix().str() + change + match.suffix().str();
             }
         }

@@ -39,6 +39,9 @@ int ynPrint(const string& content);
 // 字符串转宽字符串
 wstring str2wstr(const string& str);
 
+// 宽字符串转字符串
+string wstr2str(const wstring& wstr);
+
 // vector中是否包含某对象
 template<typename T>
 bool vectorFind(vector<T> source, T target) {

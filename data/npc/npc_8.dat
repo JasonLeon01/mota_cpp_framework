@@ -1,7 +1,7 @@
 [npc]
 ID:-2,-2
 name:魔王,魔王
-message:你很厉害，我服气,开头和结局的字幕分别在begin.txt和end.txt  里面设置
+message:你很厉害，我服气,开头和结局的字幕分别在begin.txt和end.txt里面设置
 transName:none
 fade:0
 directFunc:0
