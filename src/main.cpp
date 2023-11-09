@@ -960,9 +960,6 @@ void MotaMap::update() {
         // 消除事件
         if (screenData.visualMap.mapEvents[motaTemp.functionEventID].toDispose)
             screenData.visualMap.mapEvents[motaTemp.functionEventID].endEvent();
-        // 如果事件要改变变量
-        if (auto varChange = split(screenData.visualMap.mapEvents[motaTemp.functionEventID].name, "|"); varChange.size() == 3)
-            motaVariables.variables[stoi(varChange[1])] += stoi(varChange[2]);
         motaTemp.functionEventID = -1;
         return;
     }

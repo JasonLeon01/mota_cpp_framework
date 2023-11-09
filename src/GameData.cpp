@@ -1073,6 +1073,8 @@ void ScreenData::saveData(int fileid) {
         data += to_string(mpid) + "," + to_string(trans.size()) + ",";
         for (auto [evid, transname] : trans)
             data += to_string(evid) + "=>" + transname + "|";
+        data.pop_back();
+        data += ",";
     }
     data.pop_back(); data += "\n";
     // 写入物品记录数据
