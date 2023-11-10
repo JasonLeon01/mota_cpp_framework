@@ -828,6 +828,7 @@ void ScreenData::mapStatus() {
     // 绘制主角icon
     drawImage("character\\" + actors[motaVariables.variables[0]].file, 16, 32, IntRect(0, 0, 32, 32));
     drawText(IntRect(64, 32, 96, 32), actors[motaVariables.variables[0]].name);
+    drawText(IntRect(96, 32, 96, 32), format("Lv. {}", actors[motaVariables.variables[0]].level), 2);
     // 状态显示
     string status[] = {"", "中毒", "衰弱"}, statustxt = "";
     for (auto s : actors[motaVariables.variables[0]].status)
