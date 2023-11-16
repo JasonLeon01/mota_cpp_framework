@@ -20,13 +20,13 @@ int ynPrint(const string& content) {
 
 wstring str2wstr(const string& str)
 {
-    wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    wstring_convert<codecvt_utf8<wchar_t>> converter;
     return converter.from_bytes(str);
 }
 
 string wstr2str(const wstring& wstr)
 {
-    wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    wstring_convert<codecvt_utf8<wchar_t>> converter;
     return converter.to_bytes(wstr);
 }
 
@@ -43,12 +43,12 @@ int strIncludeNum(const string& source, const string& target) {
     return cnt;
 }
 
-void replaceAll(std::string& source, const std::string& target, const std::string& replacement) {
+void replaceAll(string& source, const string& target, const string& replacement) {
     int n = source.length(), m = target.length();
 
     auto buildPartialMatchTable = [&target]() {
         int m = target.length();
-        std::vector<int> table(m, 0);
+        vector<int> table(m, 0);
         int len = 0, i = 1;
         while (i < m) {
             if (target[i] == target[len]) {
@@ -63,7 +63,7 @@ void replaceAll(std::string& source, const std::string& target, const std::strin
         return table;
     };
 
-    std::vector<int> table = buildPartialMatchTable();
+    vector<int> table = buildPartialMatchTable();
     int i = 0;
     while (i < n) {
         int j = 0;

@@ -161,7 +161,7 @@ GameText::GameText(string txt, float x, float y) : GameText() {
     this->text.setPosition(x * motaSystem.resolutionRatio, y * motaSystem.resolutionRatio);
     this->text.setScale(motaSystem.resolutionRatio, motaSystem.resolutionRatio);
     motaGraphics.addText(this);
-    this->txt = std::move(txt);
+    this->txt = move(txt);
 }
 
 void GameText::setText(string txt, float x, float y) {
@@ -173,7 +173,7 @@ void GameText::setText(string txt, float x, float y) {
     this->text.setPosition(x * motaSystem.resolutionRatio, y * motaSystem.resolutionRatio);
     this->text.setScale(motaSystem.resolutionRatio, motaSystem.resolutionRatio);
     if (this->txt.empty()) motaGraphics.addText(this);
-    this->txt = std::move(txt);
+    this->txt = move(txt);
 }
 
 pair<float, float> GameText::getSize() {
@@ -191,18 +191,18 @@ void GameText::show() {
 }
 
 void System::init() {
-    auto processing = [](const wstring& content) {
+    auto processing = [&](const wstring& content) {
         Text temptxt(content, motaSystem.font, 28);
         temptxt.setPosition(160 * motaSystem.resolutionRatio, 400 * motaSystem.resolutionRatio);
-        motaSystem.window.clear();
-        motaSystem.window.draw(temptxt);
-        motaSystem.window.display();
+        window.clear();
+        window.draw(temptxt);
+        window.display();
     };
-    auto processingAssets = [](const string& subroot, const string& fext) {
+    auto processingAssets = [&](const string& subroot, const string& fext) {
         string inPath = format("graphics\\{}", subroot);
         for (const auto& entry : filesystem::recursive_directory_iterator(inPath))
             if (entry.is_regular_file() && entry.path().extension() == fext)
-                motaSystem.textureCache[string(subroot + "\\") + entry.path().filename().string()].loadFromFile(format("graphics\\{}\\{}", subroot, entry.path().filename().string()));
+                textureCache[string(subroot + "\\") + entry.path().filename().string()].loadFromFile(format("graphics\\{}\\{}", subroot, entry.path().filename().string()));
     };
 
 	auto mainSet = readData("ref\\main.ini", "=");

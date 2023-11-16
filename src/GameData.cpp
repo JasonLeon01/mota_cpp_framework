@@ -22,7 +22,7 @@ GameEvent::GameEvent() {
 
 GameEvent::GameEvent(string name, int x, int y) : GameEvent() {
     // 初始化带坐标的事件
-    this->name = std::move(name);
+    this->name = name;
     this->x = x;
     this->y = y;
 }
@@ -742,9 +742,9 @@ string GameVariables::replaceToVar(const string& source) {
     string result = source;
     regex pattern("\\[([0-9]+)\\]"); // 匹配形如"[x]"的字符串
     smatch match;
-    while (std::regex_search(result, match, pattern)) {
+    while (regex_search(result, match, pattern)) {
         if (match.size() == 2) {
-            int index = std::stoi(match[1]);
+            int index = stoi(match[1]);
             if (index >= 0 && index < sizeof(variables)) {
                 string change = to_string(variables[index]);
                 result = match.prefix().str() + change + match.suffix().str();

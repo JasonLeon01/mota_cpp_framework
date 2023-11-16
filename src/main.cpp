@@ -755,10 +755,8 @@ void MotaTitle::main() {
     slcWindow.y = 448 - slcWindow.height;
     slcWindow.visible = true;
     // 不存在recent文件时创立一个
-    if (!filesystem::exists("save\\recent.dat"))
-        saveFile("save\\recent.dat", "0");
-    else
-        slcWindow.index = 1;
+    if (!filesystem::exists("save\\recent.dat")) saveFile("save\\recent.dat", "0");
+    else slcWindow.index = 1;
     // 切换BGM
     motaSystem.bgmSwitch(motaSystem.titleBGM);
     screenData.transition1();
@@ -1492,9 +1490,9 @@ void MotaMap::setShop() {
     shopWindow.items.clear();
 
     auto setInfo = [&](string name, string file, string desc, int pos) {
-        shopWindow.name = std::move(name);
-        shopWindow.file = std::move(file);
-        shopWindow.desc = std::move(desc);
+        shopWindow.name = move(name);
+        shopWindow.file = move(file);
+        shopWindow.desc = move(desc);
         shopWindow.pos = pos;
     };
 
