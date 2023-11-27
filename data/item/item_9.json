@@ -1,0 +1,12 @@
+{
+  "name": "炸弹",
+  "description": "可以炸掉前方的非BOSS怪物",
+  "file": "Item01-06.png",
+  "pos": [
+    0,
+    2
+  ],
+  "price": 0,
+  "usable": true,
+  "cost": true
+}

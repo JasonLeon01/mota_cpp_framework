@@ -1,0 +1,16 @@
+{
+  "name": "麻衣法师",
+  "file": "Monster06-01.png",
+  "pos": 2,
+  "hp": 233,
+  "atk": 11,
+  "def": 22,
+  "conatk": 0,
+  "exp": 3,
+  "gold": 33,
+  "animationID": 0,
+  "element": [
+    6,
+    9
+  ]
+}

@@ -1,7 +1,0 @@
-[npc]
-ID:-2
-name:仙子
-message:给我十块钱，我可以给你一个幸运金币！\n[s]好呀好呀=>condition~[gold]~>=~10~item/12/1->bonus/5/-10->erase~npc/5\n[s]绝不接受诱惑
-transName:none
-fade:0
-directFunc:0

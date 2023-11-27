@@ -1,0 +1,15 @@
+{
+  "name": "红色史莱姆/0",
+  "file": "Monster01-01.png",
+  "pos": 1,
+  "hp": 1,
+  "atk": 1,
+  "def": 1,
+  "conatk": 0,
+  "exp": 0,
+  "gold": 0,
+  "animationID": 0,
+  "element": [
+    8
+  ]
+}

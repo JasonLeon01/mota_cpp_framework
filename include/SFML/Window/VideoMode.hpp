@@ -188,7 +188,7 @@ SFML_WINDOW_API bool operator >=(const VideoMode& left, const VideoMode& right);
 ///
 /// A video mode is defined by a width and a height (in pixels)
 /// and a depth (in bits per pixel). Video modes are used to
-/// setup windows (sf::Window) at creation time.
+/// setup windows (sf::Window.hpp) at creation time.
 ///
 /// The main usage of video modes is for fullscreen mode:
 /// indeed you must use one of the valid video modes

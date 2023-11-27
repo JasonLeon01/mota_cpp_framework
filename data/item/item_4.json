@@ -1,0 +1,12 @@
+{
+  "name": "楼层传送器",
+  "description": "可以往返于去过的楼层（快捷键F）",
+  "file": "Item01-05.png",
+  "pos": [
+    2,
+    0
+  ],
+  "price": 0,
+  "usable": true,
+  "cost": false
+}

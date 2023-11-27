@@ -1,0 +1,22 @@
+{
+  "npcInfo": [
+    {
+      "Item1": 0,
+      "Item2": "勇士",
+      "Item3": "你干嘛"
+    },
+    {
+      "Item1": -2,
+      "Item2": "老人",
+      "Item3": "哈哈哎哟你好烦"
+    },
+    {
+      "Item1": -1,
+      "Item2": "勇士",
+      "Item3": "哇真的是你呀哈哈哎呀\n哦呀哈哈amagi"
+    }
+  ],
+  "transName": "",
+  "fade": true,
+  "directlyFunction": false
+}

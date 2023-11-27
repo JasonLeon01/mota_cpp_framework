@@ -290,7 +290,7 @@ private:
 /// // The main loop
 /// while (window.isOpen())
 /// {
-///    // Event processing
+///    // Object processing
 ///    // ...
 ///
 ///    // Clear the whole texture with red color

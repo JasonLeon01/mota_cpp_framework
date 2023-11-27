@@ -1,0 +1,15 @@
+{
+  "name": "小蝙蝠/0.25",
+  "file": "Monster03-01.png",
+  "pos": 0,
+  "hp": 40,
+  "atk": 25,
+  "def": 4,
+  "conatk": 1,
+  "exp": 1,
+  "gold": 1,
+  "animationID": 0,
+  "element": [
+    3
+  ]
+}

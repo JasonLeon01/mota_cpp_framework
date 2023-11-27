@@ -1,0 +1,12 @@
+{
+  "name": "地震卷轴",
+  "description": "可以摧毁本层所有的墙壁",
+  "file": "Item01-06.png",
+  "pos": [
+    3,
+    0
+  ],
+  "price": 0,
+  "usable": true,
+  "cost": true
+}

@@ -1,0 +1,12 @@
+{
+  "name": "中心对称飞行器",
+  "description": "可以飞到地图对称的位置",
+  "file": "Item01-06.png",
+  "pos": [
+    0,
+    1
+  ],
+  "price": 0,
+  "usable": true,
+  "cost": true
+}

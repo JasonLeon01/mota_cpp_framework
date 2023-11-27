@@ -1,7 +1,0 @@
-[npc]
-ID:-2,-1
-name:商人,勇士
-message:哈喽，妹特！\n8号变量现在是[8],6，你个老登
-transName:none
-fade:0
-directFunc:0

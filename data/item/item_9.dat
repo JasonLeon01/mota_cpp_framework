@@ -1,8 +1,0 @@
-[item]
-name:炸弹
-description:可以炸掉前方的非ＢＯＳＳ怪物
-file:Item01-06.png
-pos:0,2
-price:0
-usable:1
-cost:1

@@ -1,0 +1,12 @@
+{
+  "npcInfo": [
+    {
+      "Item1": -2,
+      "Item2": "仙子",
+      "Item3": "铁咩，你钱不够！"
+    }
+  ],
+  "transName": "",
+  "fade": false,
+  "directlyFunction": false
+}

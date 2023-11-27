@@ -1,0 +1,12 @@
+{
+  "npcInfo": [
+    {
+      "Item1": -2,
+      "Item2": "神秘老人",
+      "Item3": "我身后的是钥匙盒事件和战胜魔王后对话并返回标题（结局）的事件\n可以看到这些事件名都以<>符号分隔\n切记该符号为第一分割顺序，不要加在condition或者switch里面！"
+    }
+  ],
+  "transName": "",
+  "fade": true,
+  "directlyFunction": false
+}

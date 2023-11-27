@@ -1,0 +1,12 @@
+{
+  "name": "幸运金币",
+  "description": "持有时战斗后获得双倍金币",
+  "file": "Item01-05.png",
+  "pos": [
+    3,
+    0
+  ],
+  "price": 0,
+  "usable": true,
+  "cost": true
+}

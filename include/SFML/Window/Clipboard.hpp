@@ -96,12 +96,12 @@ public:
 /// sf::String string = sf::Clipboard::getString();
 ///
 /// // or use it in the event loop
-/// sf::Event event;
+/// sf::Object event;
 /// while(window.pollEvent(event))
 /// {
-///     if(event.type == sf::Event::Closed)
+///     if(event.type == sf::Object::Closed)
 ///         window.close();
-///     if(event.type == sf::Event::KeyPressed)
+///     if(event.type == sf::Object::KeyPressed)
 ///     {
 ///         // Using Ctrl + V to paste a string into SFML
 ///         if(event.key.control && event.key.code == sf::Keyboard::V)
@@ -114,6 +114,6 @@ public:
 /// }
 /// \endcode
 ///
-/// \see sf::String, sf::Event
+/// \see sf::String, sf::Object
 ///
 ////////////////////////////////////////////////////////////

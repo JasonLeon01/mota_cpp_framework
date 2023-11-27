@@ -1,8 +1,0 @@
-[item]
-name:蓝钥匙
-description:可以打开蓝色的门
-file:Item01-01.png
-pos:1,0
-price:50
-usable:0
-cost:1

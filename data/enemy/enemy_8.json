@@ -1,0 +1,15 @@
+{
+  "name": "石头人",
+  "file": "Monster10-01.png",
+  "pos": 0,
+  "hp": 10,
+  "atk": 15,
+  "def": 0,
+  "conatk": 0,
+  "exp": 0,
+  "gold": 0,
+  "animationID": 0,
+  "element": [
+    4
+  ]
+}

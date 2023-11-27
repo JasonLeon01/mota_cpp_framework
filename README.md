@@ -1,4 +1,6 @@
-# 简介
+# mota_cpp_framework
+
+## 简介
 
 ![image](sample.png)
 
@@ -9,10 +11,11 @@
 - [Open Source / RM动画分离器开源](https://github.com/JasonLeon01/MotaAnimationSeparator)
 - [Open Source / 怪物设计器开源](https://github.com/JasonLeon01/MotaEnemyDesigner)
 - [Open Source / 地图编辑器开源](https://github.com/JasonLeon01/MotaMapDesigner)
+- [Open Source / 物品编辑器开源](https://github.com/JasonLeon01/ItemDesigner)
 - [Open Source / NPC设计器开源](https://github.com/JasonLeon01/MotaNPCDesigner)
 - [Open Source / 打包工具开源](https://github.com/JasonLeon01/MotaPackager)
 
-# 目录结构
+## 目录结构
 
 ```bash
 ├── /data/                    # 数据文件
@@ -28,33 +31,68 @@
 ├── /ico/                     # exe文件icon相关
 ├── /include/                 # 包含的头文件
 │ ├─ /SFML/                   # SFML库相关的头文件
-│ └─ /Game/                   # 游戏框架相关的头文件
-│ └─ ├─ /stdafx.h/            # 大多数头文件和外部函数的存放
-│    ├─ /GameSystem.h/        # 游戏系统的设置
-│    ├─ /GameData.h/          # 游戏数据的设置
+│ ├─ /Game/                   # 游戏框架相关的头文件
+│ │ ├─ /stdafx.hpp/          # 大多数头文件和外部函数的存放
+│ │ ├─ /System/              # 游戏系统的设置
+│ │ │ ├─ /Graphics.hpp/     # 图形画面相关的头文件，用于更新画面
+│ │ │ ├─ /Image.hpp/        # 图像相关的头文件
+│ │ │ ├─ /KeyBoard.hpp/     # 按键输入相关的头文件
+│ │ │ ├─ /System.hpp/       # 游戏系统相关的头文件
+│ │ │ ├─ /Text.hpp/         # 显示文字相关的头文件
+│ │ │ └─ /Window.hpp/       # 游戏窗口相关的头文件
+│ │ ├─ /Data/                # 游戏数据的设置
+│ │ │ ├─ /Actor.hpp/        # 角色相关的头文件
+│ │ │ ├─ /Animation.hpp/    # 动画相关的头文件
+│ │ │ ├─ /Data.hpp/         # 游戏数据相关的头文件
+│ │ │ ├─ /Element.hpp/      # 怪物属性相关的头文件
+│ │ │ ├─ /Enemy.hpp/        # 怪物数据相关的头文件
+│ │ │ ├─ /Item.hpp/         # 物品数据相关的头文件
+│ │ │ ├─ /Map.hpp/          # 地图数据相关的头文件
+│ │ │ ├─ /NPC.hpp/          # NPC数据相关的头文件
+│ │ │ ├─ /Object.hpp/       # 地图事件对象相关的头文件
+│ │ │ ├─ /Screen.hpp/       # 游戏画面相关的头文件
+│ │ │ ├─ /Temp.hpp/         # 临时数据相关的头文件
+│ │ │ └─ /Variables.hpp/    # 游戏变量相关的头文件
+│ └─ /nlohmann/               # nlohmann库，主要使用其JSON文件解析
 ├── /lib/                     # 第三方库目录
 ├── /ref/                     # 游戏的参考文件
 │ ├─ /config.ini/             # 游戏设置相关配置
 │ ├─ /main.ini/               # 游戏初始化配置
 │ ├─ /motaName.ini/           # 魔塔名对应初始化
-│ ├─ /ShortcutKey.txt/        # 快捷键的描述文本
+│ └─ /ShortcutKey.txt/        # 快捷键的描述文本
 ├── /sound/                   # 使用到的音乐素材文件
 ├── /src/                     # 源文件的存放
 │ ├─ /stdafx.cpp/             # stdafx源文件
-│ ├─ /GameSystem.cpp/         # GameSystem源文件
-│ ├─ /GameData.cpp/           # GameData源文件
-│ ├─ /main.cpp/               # 主源文件
+│ ├─ /System/                 # include\System内部头文件对应源文件
+│ ├─ /Data/                   # include\Data内部头文件源文件
+│ └─ /main.cpp/               # 主源文件
 ├── /tools/                   # 常用小工具
 │ ├─ /AnimationDesigner.exe/  # 游戏动画设计器
 │ ├─ /AnimationSeparator.exe/ # RM格式动画转换器
 │ ├─ /EnemyDesigner.exe/      # 游戏怪物设计器
+│ ├─ /ItemDesigner.exe/       # 游戏物品编辑器
 │ ├─ /MapDesigner.exe/        # 游戏地图设计器
 │ ├─ /NPCDesigner.exe/        # 游戏NPC对话设计器
-│ ├─ /Packager.exe/           # 游戏内容打包器
+│ └─ /Packager.exe/           # 游戏内容打包器
 ├── /CMakeLists.txt/          # CMake相关
 ├── /config.exe/              # 游戏设置可执行文件
 ├── /main.exe/                # 启动游戏的可执行文件
 ```
+
+## 更新说明
+
+### 2023.11.29
+
+* [x] 增加物品编辑器
+* [x] 将所有数据文件都改成json格式，增加可读性
+* [x] 大幅优化代码，减少重复冗余
+* [x] 将SFML的-s-d部分也添加到lib中，方便用户进行Debug
+* [x] 游戏内添加设置分区，可以调整分辨率和音量等
+* [x] 将游戏窗口名外置，在main.ini中修改
+- [x] 键盘的repeat添加了首回延迟
+- [x] 取消箭头素材，采用RMXP窗口自带的箭头
+- [x] 将存读档按键改为“[”和“]”
+- [x] 大幅优化架构，将原先文件里面的类尽量拆开到各文件
 
 # 联系我们
 
@@ -67,6 +105,8 @@
 # 合作者
 
 [@Jason Leon](https://github.com/JasonLeon01)：PRE，b站空间[@Jason Leon](https://space.bilibili.com/439537579/)，本框架主要编写者，核心代码和主要地图绘制。
+
+[@Youwei Zhao](https://github.com/zhaouv)：推动了各类编辑器的改动，使得更加对用户友好。
 
 @忆忆：b站空间[@卡路十里](https://space.bilibili.com/200729395)，帮助找出bug、添加必要功能等。
 

@@ -1,0 +1,17 @@
+{
+  "npcInfo": [
+    {
+      "Item1": -2,
+      "Item2": "魔王",
+      "Item3": "你很厉害，我服气"
+    },
+    {
+      "Item1": -2,
+      "Item2": "魔王",
+      "Item3": "开头和结局的字幕分别在begin.txt和end.txt里面设置"
+    }
+  ],
+  "transName": "",
+  "fade": false,
+  "directlyFunction": false
+}

@@ -1,0 +1,798 @@
+{
+  "mapName": "0:0",
+  "bgmFile": "Airship.flac",
+  "mapEvents": [
+    {
+      "ID": 0,
+      "name": "down",
+      "file": "101-CF_Lava01.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 0,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": true
+    },
+    {
+      "ID": 1,
+      "name": "up",
+      "file": "101-CF_Lava01.png",
+      "pos": [
+        1,
+        2
+      ],
+      "x": 0,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": true
+    },
+    {
+      "ID": 2,
+      "name": "monster/0",
+      "file": "Monster01-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 2,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 3,
+      "name": "door/1",
+      "file": "Event01-Door01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 2,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 4,
+      "name": "door/2",
+      "file": "Event01-Door01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 3,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 5,
+      "name": "door/3",
+      "file": "Event01-Door01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 4,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 6,
+      "name": "item/0/1",
+      "file": "Item01-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 2,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 7,
+      "name": "item/1/1",
+      "file": "Item01-01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 3,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 8,
+      "name": "item/2/1",
+      "file": "Item01-01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 4,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 9,
+      "name": "bonus/0/150",
+      "file": "Item01-02.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 5,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 10,
+      "name": "bonus/0/400",
+      "file": "Item01-02.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 6,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 11,
+      "name": "bonus/1/2",
+      "file": "Item01-Gem01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 5,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 12,
+      "name": "bonus/2/2",
+      "file": "Item01-Gem01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 6,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 13,
+      "name": "bonus/3/10",
+      "file": "Item01-Gem01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 7,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 14,
+      "name": "bonus/5/100",
+      "file": "Item01-11.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 7,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 15,
+      "name": "lava/50",
+      "file": "NPC01-02.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 7,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": true
+    },
+    {
+      "ID": 16,
+      "name": "npc/0",
+      "file": "NPC01-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 8,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 17,
+      "name": "npc/1",
+      "file": "NPC01-01.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 9,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 18,
+      "name": "item/3/1",
+      "file": "Item01-05.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 8,
+      "y": 8,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 19,
+      "name": "item/4/1",
+      "file": "Item01-05.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 9,
+      "y": 8,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 20,
+      "name": "item/5/1",
+      "file": "Item01-06.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 10,
+      "y": 8,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 21,
+      "name": "item/6/1",
+      "file": "Item01-06.png",
+      "pos": [
+        3,
+        0
+      ],
+      "x": 8,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 22,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 7,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 23,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 8,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 24,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 9,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 25,
+      "name": "door/0",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        3,
+        0
+      ],
+      "x": 10,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 26,
+      "name": "monster/1",
+      "file": "Monster03-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 3,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 27,
+      "name": "npc/2",
+      "file": "NPC01-01.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 10,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 28,
+      "name": "monster/2",
+      "file": "Monster09-01.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 4,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 29,
+      "name": "monster/3",
+      "file": "Monster02-01.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 5,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 30,
+      "name": "monster/4",
+      "file": "Monster03-01.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 2,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 31,
+      "name": "monster/5",
+      "file": "Monster01-01.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 3,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 32,
+      "name": "monster/6",
+      "file": "Monster06-01.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 4,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 33,
+      "name": "monster/7",
+      "file": "Monster08-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 2,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 34,
+      "name": "monster/7",
+      "file": "Monster08-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 4,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 35,
+      "name": "item/7/1",
+      "file": "Item01-03.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 9,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 36,
+      "name": "item/8/1",
+      "file": "Item01-03.png",
+      "pos": [
+        1,
+        1
+      ],
+      "x": 10,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 37,
+      "name": "monster/8",
+      "file": "Monster10-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 5,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 38,
+      "name": "monster/9",
+      "file": "Monster08-02.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 5,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 39,
+      "name": "item/9/1",
+      "file": "Item01-06.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 8,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 40,
+      "name": "item/10/1",
+      "file": "Item01-06.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 9,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 41,
+      "name": "item/11/1",
+      "file": "Item01-06.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 10,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 42,
+      "name": "fire",
+      "file": "101-CF_Lava01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 6,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 43,
+      "name": "bonus/0/[hp]",
+      "file": "Item01-03.png",
+      "pos": [
+        3,
+        2
+      ],
+      "x": 6,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    }
+  ]
+}

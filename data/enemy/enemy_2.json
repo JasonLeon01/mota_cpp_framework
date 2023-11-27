@@ -1,0 +1,15 @@
+{
+  "name": "毒兽人/1",
+  "file": "Monster09-01.png",
+  "pos": 2,
+  "hp": 100,
+  "atk": 20,
+  "def": 10,
+  "conatk": 0,
+  "exp": 1,
+  "gold": 2,
+  "animationID": 0,
+  "element": [
+    1
+  ]
+}

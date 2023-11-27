@@ -1,0 +1,15 @@
+{
+  "name": "骷髅队长/2",
+  "file": "Monster02-01.png",
+  "pos": 2,
+  "hp": 66,
+  "atk": 77,
+  "def": 1,
+  "conatk": 0,
+  "exp": 5,
+  "gold": 5,
+  "animationID": 0,
+  "element": [
+    2
+  ]
+}

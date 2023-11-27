@@ -1,0 +1,906 @@
+{
+  "mapName": "0:1",
+  "bgmFile": "Airship.flac",
+  "mapEvents": [
+    {
+      "ID": 0,
+      "name": "down",
+      "file": "101-CF_Lava01.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 0,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": true
+    },
+    {
+      "ID": 1,
+      "name": "up",
+      "file": "101-CF_Lava01.png",
+      "pos": [
+        1,
+        2
+      ],
+      "x": 10,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": true
+    },
+    {
+      "ID": 2,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 1,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 3,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 1,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 4,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 2,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 5,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 4,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 6,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 5,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 7,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 5,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 8,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 6,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 9,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 8,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 10,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 9,
+      "y": 1,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 11,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 9,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 12,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 2,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 13,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 6,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 14,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 4,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 15,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 8,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 16,
+      "name": "shop/0/500&3&3/[9]/1",
+      "file": "NPC01-02.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 3,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 17,
+      "name": "shop/0/800&6&6/[10]/2",
+      "file": "NPC01-02.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 7,
+      "y": 0,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 18,
+      "name": "monster/0<>var/8/1",
+      "file": "Monster01-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 2,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 19,
+      "name": "monster/0<>var/8/1",
+      "file": "Monster01-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 4,
+      "y": 2,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 20,
+      "name": "door/0",
+      "file": "Event01-Door01.png",
+      "pos": [
+        3,
+        0
+      ],
+      "x": 3,
+      "y": 1,
+      "triggerCondition": [
+        2,
+        8,
+        2
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 21,
+      "name": "item/0/1",
+      "file": "Item01-01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 7,
+      "y": 1,
+      "triggerCondition": [
+        1,
+        8,
+        2
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 22,
+      "name": "shop/1/1&1&2/70&20&20",
+      "file": "NPC01-02.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 3,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 23,
+      "name": "shop/1/3&3&5/190&50&50",
+      "file": "NPC01-02.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 7,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 24,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 2,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 25,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        0,
+        1
+      ],
+      "x": 6,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 26,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        2,
+        1
+      ],
+      "x": 4,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 27,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        2,
+        1
+      ],
+      "x": 8,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 28,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 1,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 29,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 1,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 30,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 2,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 31,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 4,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 32,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 5,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 33,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 5,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 34,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 6,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 35,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 8,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 36,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 9,
+      "y": 9,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 37,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        1,
+        0
+      ],
+      "x": 9,
+      "y": 10,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 38,
+      "name": "npc/4",
+      "file": "NPC01-01.png",
+      "pos": [
+        0,
+        3
+      ],
+      "x": 5,
+      "y": 5,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 39,
+      "name": "npc/6",
+      "file": "NPC01-02.png",
+      "pos": [
+        0,
+        3
+      ],
+      "x": 4,
+      "y": 5,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    },
+    {
+      "ID": 40,
+      "name": "item/13/1",
+      "file": "Item01-06.png",
+      "pos": [
+        1,
+        2
+      ],
+      "x": 6,
+      "y": 5,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 41,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 10,
+      "y": 3,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 42,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 9,
+      "y": 3,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 43,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 9,
+      "y": 4,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 44,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 9,
+      "y": 6,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 45,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 9,
+      "y": 7,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 46,
+      "name": "wall",
+      "file": "Event01-Wall01.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 10,
+      "y": 7,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 47,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        0,
+        0
+      ],
+      "x": 10,
+      "y": 4,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 48,
+      "name": "wall",
+      "file": "Event01-Other03.png",
+      "pos": [
+        2,
+        0
+      ],
+      "x": 10,
+      "y": 6,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 49,
+      "name": "shop/0/800&4&4/25",
+      "file": "NPC01-02.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 10,
+      "y": 5,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
+    }
+  ]
+}

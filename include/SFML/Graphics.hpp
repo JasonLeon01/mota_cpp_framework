@@ -61,7 +61,7 @@
 #endif // SFML_GRAPHICS_HPP
 
 ////////////////////////////////////////////////////////////
-/// \defgroup graphics Graphics module
+/// \defgroup graphics Graphics.hpp module
 ///
 /// 2D graphics module: sprites, text, shapes, ...
 ///

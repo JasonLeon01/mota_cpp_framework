@@ -43,7 +43,7 @@ namespace priv
 class Event;
 
 ////////////////////////////////////////////////////////////
-/// \brief Window that serves as a target for OpenGL rendering
+/// \brief Window.hpp that serves as a target for OpenGL rendering
 ///
 ////////////////////////////////////////////////////////////
 class SFML_WINDOW_API Window : public WindowBase, GlResource
@@ -74,7 +74,7 @@ public:
     ///
     /// \param mode     Video mode to use (defines the width, height and depth of the rendering area of the window)
     /// \param title    Title of the window
-    /// \param style    %Window style, a bitwise OR combination of sf::Style enumerators
+    /// \param style    %Window.hpp style, a bitwise OR combination of sf::Style enumerators
     /// \param settings Additional settings for the underlying OpenGL context
     ///
     ////////////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ public:
     ///
     /// \param mode     Video mode to use (defines the width, height and depth of the rendering area of the window)
     /// \param title    Title of the window
-    /// \param style    %Window style, a bitwise OR combination of sf::Style enumerators
+    /// \param style    %Window.hpp style, a bitwise OR combination of sf::Style enumerators
     ///
     ////////////////////////////////////////////////////////////
     virtual void create(VideoMode mode, const String& title, Uint32 style = Style::Default);
@@ -131,7 +131,7 @@ public:
     ///
     /// \param mode     Video mode to use (defines the width, height and depth of the rendering area of the window)
     /// \param title    Title of the window
-    /// \param style    %Window style, a bitwise OR combination of sf::Style enumerators
+    /// \param style    %Window.hpp style, a bitwise OR combination of sf::Style enumerators
     /// \param settings Additional settings for the underlying OpenGL context
     ///
     ////////////////////////////////////////////////////////////
@@ -169,7 +169,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Close the window and destroy all the attached resources
     ///
-    /// After calling this function, the sf::Window instance remains
+    /// After calling this function, the sf::Window.hpp instance remains
     /// valid and you can call create() to recreate the window.
     /// All other functions such as pollEvent() or display() will
     /// still work (i.e. you don't have to test isOpen() every time),
@@ -262,7 +262,7 @@ private:
     /// stuff the window needs before the event is returned to the
     /// user.
     ///
-    /// \param event Event to filter
+    /// \param event Object to filter
     ///
     ////////////////////////////////////////////////////////////
     bool filterEvent(const Event& event);
@@ -288,13 +288,13 @@ private:
 
 
 ////////////////////////////////////////////////////////////
-/// \class sf::Window
+/// \class sf::Window.hpp
 /// \ingroup window
 ///
-/// sf::Window is the main class of the Window module. It defines
+/// sf::Window.hpp is the main class of the Window.hpp module. It defines
 /// an OS window that is able to receive an OpenGL rendering.
 ///
-/// A sf::Window can create its own new window, or be embedded into
+/// A sf::Window.hpp can create its own new window, or be embedded into
 /// an already existing control using the create(handle) function.
 /// This can be useful for embedding an OpenGL rendering area into
 /// a view which is part of a bigger GUI with existing windows,
@@ -302,7 +302,7 @@ private:
 /// area into a window created by another (probably richer) GUI library
 /// like Qt or wxWidgets.
 ///
-/// The sf::Window class provides a simple interface for manipulating
+/// The sf::Window.hpp class provides a simple interface for manipulating
 /// the window: move, resize, show/hide, control mouse cursor, etc.
 /// It also provides event handling through its pollEvent() and waitEvent()
 /// functions.
@@ -324,7 +324,7 @@ private:
 /// Usage example:
 /// \code
 /// // Declare and create a new window
-/// sf::Window window(sf::VideoMode(800, 600), "SFML window");
+/// sf::Window.hpp window(sf::VideoMode(800, 600), "SFML window");
 ///
 /// // Limit the framerate to 60 frames per second (this step is optional)
 /// window.setFramerateLimit(60);
@@ -332,12 +332,12 @@ private:
 /// // The main loop - ends as soon as the window is closed
 /// while (window.isOpen())
 /// {
-///    // Event processing
-///    sf::Event event;
+///    // Object processing
+///    sf::Object event;
 ///    while (window.pollEvent(event))
 ///    {
 ///        // Request for closing the window
-///        if (event.type == sf::Event::Closed)
+///        if (event.type == sf::Object::Closed)
 ///            window.close();
 ///    }
 ///

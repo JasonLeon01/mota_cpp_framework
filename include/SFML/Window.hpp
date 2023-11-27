@@ -50,7 +50,7 @@
 #endif // SFML_SFML_WINDOW_HPP
 
 ////////////////////////////////////////////////////////////
-/// \defgroup window Window module
+/// \defgroup window Window.hpp module
 ///
 /// Provides OpenGL-based windows, and abstractions for
 /// events and input handling.

@@ -38,7 +38,7 @@
 namespace sf
 {
 ////////////////////////////////////////////////////////////
-/// \brief Window that can serve as a target for 2D drawing
+/// \brief Window.hpp that can serve as a target for 2D drawing
 ///
 ////////////////////////////////////////////////////////////
 class SFML_GRAPHICS_API RenderWindow : public Window, public RenderTarget
@@ -69,7 +69,7 @@ public:
     ///
     /// \param mode     Video mode to use (defines the width, height and depth of the rendering area of the window)
     /// \param title    Title of the window
-    /// \param style    %Window style, a bitwise OR combination of sf::Style enumerators
+    /// \param style    %Window.hpp style, a bitwise OR combination of sf::Style enumerators
     /// \param settings Additional settings for the underlying OpenGL context
     ///
     ////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ public:
     /// parameters for a regular usage of the graphics module.
     ///
     /// \param handle   Platform-specific handle of the control (\a HWND on
-    ///                 Windows, \a %Window on Linux/FreeBSD, \a NSWindow on OS X)
+    ///                 Windows, \a %Window.hpp on Linux/FreeBSD, \a NSWindow on OS X)
     /// \param settings Additional settings for the underlying OpenGL context
     ///
     ////////////////////////////////////////////////////////////
@@ -145,7 +145,7 @@ public:
     /// \brief Copy the current contents of the window to an image
     ///
     /// \deprecated
-    /// Use a sf::Texture and its sf::Texture::update(const Window&)
+    /// Use a sf::Texture and its sf::Texture::update(const Window.hpp&)
     /// function and copy its contents into an sf::Image instead.
     /// \code
     /// sf::Vector2u windowSize = window.getSize();
@@ -159,7 +159,7 @@ public:
     /// screenshots of the application. If you want to update an
     /// image with the contents of the window and then use it for
     /// drawing, you should rather use a sf::Texture and its
-    /// update(Window&) function.
+    /// update(Window.hpp&) function.
     /// You can also draw things directly to a texture with the
     /// sf::RenderTexture class.
     ///
@@ -207,13 +207,13 @@ private:
 /// \class sf::RenderWindow
 /// \ingroup graphics
 ///
-/// sf::RenderWindow is the main class of the Graphics module.
+/// sf::RenderWindow is the main class of the Graphics.hpp module.
 /// It defines an OS window that can be painted using the other
 /// classes of the graphics module.
 ///
-/// sf::RenderWindow is derived from sf::Window, thus it inherits
+/// sf::RenderWindow is derived from sf::Window.hpp, thus it inherits
 /// all its features: events, window management, OpenGL rendering,
-/// etc. See the documentation of sf::Window for a more complete
+/// etc. See the documentation of sf::Window.hpp for a more complete
 /// description of all these features, as well as code examples.
 ///
 /// On top of that, sf::RenderWindow adds more features related to
@@ -231,12 +231,12 @@ private:
 /// // The main loop - ends as soon as the window is closed
 /// while (window.isOpen())
 /// {
-///    // Event processing
-///    sf::Event event;
+///    // Object processing
+///    sf::Object event;
 ///    while (window.pollEvent(event))
 ///    {
 ///        // Request for closing the window
-///        if (event.type == sf::Event::Closed)
+///        if (event.type == sf::Object::Closed)
 ///            window.close();
 ///    }
 ///
@@ -253,7 +253,7 @@ private:
 /// }
 /// \endcode
 ///
-/// Like sf::Window, sf::RenderWindow is still able to render direct
+/// Like sf::Window.hpp, sf::RenderWindow is still able to render direct
 /// OpenGL stuff. It is even possible to mix together OpenGL calls
 /// and regular SFML drawing commands.
 ///
@@ -297,6 +297,6 @@ private:
 /// }
 /// \endcode
 ///
-/// \see sf::Window, sf::RenderTarget, sf::RenderTexture, sf::View
+/// \see sf::Window.hpp, sf::RenderTarget, sf::RenderTexture, sf::View
 ///
 ////////////////////////////////////////////////////////////

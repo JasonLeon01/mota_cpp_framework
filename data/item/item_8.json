@@ -1,0 +1,12 @@
+{
+  "name": "解衰药水",
+  "description": "可以解除衰弱状态",
+  "file": "Item01-03.png",
+  "pos": [
+    1,
+    1
+  ],
+  "price": 0,
+  "usable": true,
+  "cost": true
+}

@@ -1,0 +1,14 @@
+{
+  "name": "空手",
+  "SEFile": "mting-104.wav",
+  "patterns": [
+    "mting-1311.png",
+    "mting-1312.png",
+    "mting-1313.png",
+    "mting-1314.png",
+    "mting-1315.png",
+    "mting-1316.png",
+    "mting-1317.png"
+  ],
+  "SETime": 0
+}

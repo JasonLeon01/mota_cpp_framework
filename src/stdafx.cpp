@@ -1,4 +1,67 @@
-#include <Game/stdafx.h>
+#include <Game/stdafx.hpp>
+
+Texture tempTexture;
+queue <tuple <SoundBuffer*, Sound*, bool> > SE;
+
+void playSE(const string& file, float volume) {
+    if (!filesystem::exists("sound\\" + file)) {
+        print(format("Haven't found file: {}", file));
+        return;
+    }
+    SoundBuffer* buffer = new SoundBuffer;
+    Sound* se = new Sound;
+    buffer->loadFromFile("sound\\" + file);
+    se->setBuffer(*buffer);
+    se->setVolume(volume);
+    SE.emplace(buffer, se, false);
+}
+
+void drawText(RenderWindow* window, Font* font, IntRect rect, const string& content, int pos, LONG size, bool bond, Color colour, float angle) {
+    Text temptxt(str2wstr(content), *font, size);
+    temptxt.setFillColor(colour);
+    if (bond) temptxt.setStyle(Text::Bold);
+    temptxt.setRotation(angle);
+    auto txtsize = temptxt.getGlobalBounds();
+    auto [wx, wy] = make_pair(rect.left, rect.top);
+    pos = max(min(pos, 2), 0);
+    wx += (rect.width - txtsize.width) / 2 * pos;
+    wy += (rect.height - txtsize.height) / 2 * (pos == 1);
+    temptxt.setPosition(wx, wy);
+    window->draw(temptxt);
+}
+
+void drawImage(RenderWindow* window, Texture* texture, float x, float y, int opacity, pair <float, float> scale) {
+    Sprite tempspr(*texture);
+    tempspr.setPosition(x, y);
+    tempspr.setScale(scale.first, scale.second);
+    auto cl = tempspr.getColor();
+    cl.a = opacity;
+    tempspr.setColor(cl);
+    window->draw(tempspr);
+}
+
+void drawImage(RenderWindow* window, Texture* texture, float x, float y, IntRect rect, int opacity, pair <float, float> scale) {
+    Sprite tempspr(*texture);
+    tempspr.setTextureRect(IntRect(rect.left, rect.top, rect.width, rect.height));
+    tempspr.setPosition(x, y);
+    tempspr.setScale(scale.first, scale.second);
+    auto cl = tempspr.getColor();
+    cl.a = opacity;
+    tempspr.setColor(cl);
+    window->draw(tempspr);
+}
+
+void drawOutterImage(RenderWindow* window, const string& file, float x, float y, IntRect rect, int opacity, pair <float, float> scale) {
+    tempTexture.loadFromFile(file);
+    Sprite tempspr(tempTexture);
+    tempspr.setTextureRect(IntRect(rect.left, rect.top, rect.width, rect.height));
+    tempspr.setPosition(x, y);
+    tempspr.setScale(scale.first, scale.second);
+    auto cl = tempspr.getColor();
+    cl.a = opacity;
+    tempspr.setColor(cl);
+    window->draw(tempspr);
+}
 
 int quickPow(int num, int n) {
     int res = 1;
@@ -75,10 +138,12 @@ void replaceAll(string& source, const string& target, const string& replacement)
             source.replace(i - m, m, replacement);
             i -= m - 1;
         }
-        else if (j > 0)
+        else if (j > 0) {
             i -= table[j - 1];
-        else
+        }
+        else {
             i++;
+        }
     }
 }
 
@@ -108,8 +173,9 @@ string insertNewLines(const string& input, int lineMax) {
             result += converter.to_bytes(c);
             continue;
         }
-        if (c == L'[' && wideInput.substr(i, 3) == L"[s]")
+        if (c == L'[' && wideInput.substr(i, 3) == L"[s]") {
             stopCounting = true;
+        }
         if (isascii(c)) cnt += 1;
         else cnt += 2;
         result += converter.to_bytes(c);
@@ -135,24 +201,27 @@ vector <string> split(const string& s, const string& separator) {
 
 string arrayToString(int* arr, int len, string splt) {
     string result = "";
-    for (auto i = 0; i < len; ++i)
+    for (auto i = 0; i < len; ++i) {
         result += to_string(*(arr + i)) + splt;
+    }
     result.pop_back();
     return result;
 }
 
 string arrayToString(vector <int> arr, string splt) {
     string result = "";
-    for (auto i : arr)
+    for (auto i : arr) {
         result += to_string(i) + splt;
+    }
     result.pop_back();
     return result;
 }
 
 string setToString(set <int> arr, string splt) {
     string result = "";
-    for (auto i : arr)
+    for (auto i : arr) {
         result += to_string(i) + splt;
+    }
     if (!result.empty()) result.pop_back();
     return result;
 }
@@ -163,8 +232,9 @@ vector <string> readFile(const string& file) {
     if (File.is_open()) {
         string line;
         while (getline(File, line)) {
-            while (!line.empty() && (line.back() == '\r' || line.back() == '\n'))
+            while (!line.empty() && (line.back() == '\r' || line.back() == '\n')) {
                 line.pop_back();
+            }
             if (!line.empty()) lines.push_back(line);
         }
     }
@@ -175,9 +245,11 @@ vector <string> readFile(const string& file) {
 map <string, string> readData(const string& file, const string& splt) {
     map <string, string> ret;
     auto data = readFile(file);
-    for (auto f : data)
-        if (auto kv = split(f, splt); kv.size() > 1)
+    for (auto f : data) {
+        if (auto kv = split(f, splt); kv.size() > 1) {
             ret.insert(make_pair(kv[0], kv[1]));
+        }
+    }
     return ret;
 }
 

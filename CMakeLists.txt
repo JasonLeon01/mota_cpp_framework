@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.26)
 project(Mota_cpp)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 
 add_definitions(-DSFML_STATIC)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
@@ -16,9 +16,21 @@ IF(WIN32)
 ENDIF()
 
 add_executable(main "src/main.cpp"
-        "src/GameSystem.cpp"
+        "src/System/Graphics.cpp"
+        "src/System/Image.cpp"
+        "src/System/KeyBoard.cpp"
+        "src/System/System.cpp"
+        "src/System/Text.cpp"
+        "src/System/Window.cpp"
+        "src/Data/Actor.cpp"
+        "src/Data/Data.cpp"
+        "src/Data/Enemy.cpp"
+        "src/Data/Map.cpp"
+        "src/Data/Object.cpp"
+        "src/Data/Screen.cpp"
+        "src/Data/Temp.cpp"
+        "src/Data/Variables.cpp"
         "src/stdafx.cpp"
-        "src/GameData.cpp"
         "ico/Icon.o")
 
 target_link_options(main PRIVATE -flto)

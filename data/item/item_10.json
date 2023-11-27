@@ -1,0 +1,12 @@
+{
+  "name": "冰冻徽章",
+  "description": "可以消除前方的熔岩",
+  "file": "Item01-06.png",
+  "pos": [
+    2,
+    0
+  ],
+  "price": 0,
+  "usable": true,
+  "cost": true
+}

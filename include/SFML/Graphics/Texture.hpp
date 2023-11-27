@@ -366,7 +366,7 @@ public:
     /// This function does nothing if either the texture or the window
     /// was not previously created.
     ///
-    /// \param window Window to copy to the texture
+    /// \param window Window.hpp to copy to the texture
     ///
     ////////////////////////////////////////////////////////////
     void update(const Window& window);
@@ -381,7 +381,7 @@ public:
     /// This function does nothing if either the texture or the window
     /// was not previously created.
     ///
-    /// \param window Window to copy to the texture
+    /// \param window Window.hpp to copy to the texture
     /// \param x      X offset in the texture where to copy the source window
     /// \param y      Y offset in the texture where to copy the source window
     ///

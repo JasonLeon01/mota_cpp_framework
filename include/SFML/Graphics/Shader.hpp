@@ -853,7 +853,7 @@ private:
 /// \li draw everything to a sf::RenderTexture, then draw it to
 ///     the main target using the shader
 /// \li draw everything directly to the main target, then use
-///     sf::Texture::update(Window&) to copy its contents to a texture
+///     sf::Texture::update(Window.hpp&) to copy its contents to a texture
 ///     and draw it to the main target using the shader
 ///
 /// The first technique is more optimized because it doesn't involve

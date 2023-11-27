@@ -50,7 +50,7 @@ namespace priv
 class Event;
 
 ////////////////////////////////////////////////////////////
-/// \brief Window that serves as a base for other windows
+/// \brief Window.hpp that serves as a base for other windows
 ///
 ////////////////////////////////////////////////////////////
 class SFML_WINDOW_API WindowBase : NonCopyable
@@ -77,7 +77,7 @@ public:
     ///
     /// \param mode  Video mode to use (defines the width, height and depth of the rendering area of the window)
     /// \param title Title of the window
-    /// \param style %Window style, a bitwise OR combination of sf::Style enumerators
+    /// \param style %Window.hpp style, a bitwise OR combination of sf::Style enumerators
     ///
     ////////////////////////////////////////////////////////////
     WindowBase(VideoMode mode, const String& title, Uint32 style = Style::Default);
@@ -107,7 +107,7 @@ public:
     ///
     /// \param mode  Video mode to use (defines the width, height and depth of the rendering area of the window)
     /// \param title Title of the window
-    /// \param style %Window style, a bitwise OR combination of sf::Style enumerators
+    /// \param style %Window.hpp style, a bitwise OR combination of sf::Style enumerators
     ///
     ////////////////////////////////////////////////////////////
     virtual void create(VideoMode mode, const String& title, Uint32 style = Style::Default);
@@ -123,7 +123,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Close the window and destroy all the attached resources
     ///
-    /// After calling this function, the sf::Window instance remains
+    /// After calling this function, the sf::Window.hpp instance remains
     /// valid and you can call create() to recreate the window.
     /// All other functions such as pollEvent() or display() will
     /// still work (i.e. you don't have to test isOpen() every time),
@@ -153,14 +153,14 @@ public:
     /// thus you should always call this function in a loop
     /// to make sure that you process every pending event.
     /// \code
-    /// sf::Event event;
+    /// sf::Object event;
     /// while (window.pollEvent(event))
     /// {
     ///    // process event...
     /// }
     /// \endcode
     ///
-    /// \param event Event to be returned
+    /// \param event Object to be returned
     ///
     /// \return True if an event was returned, or false if the event queue was empty
     ///
@@ -180,14 +180,14 @@ public:
     /// is dedicated to events handling: you want to make this thread
     /// sleep as long as no new event is received.
     /// \code
-    /// sf::Event event;
+    /// sf::Object event;
     /// if (window.waitEvent(event))
     /// {
     ///    // process event...
     /// }
     /// \endcode
     ///
-    /// \param event Event to be returned
+    /// \param event Object to be returned
     ///
     /// \return False if any error occurred
     ///
@@ -440,7 +440,7 @@ private:
     /// stuff the window needs before the event is returned to the
     /// user.
     ///
-    /// \param event Event to filter
+    /// \param event Object to filter
     ///
     ////////////////////////////////////////////////////////////
     bool filterEvent(const Event& event);
@@ -462,7 +462,7 @@ private:
     ////////////////////////////////////////////////////////////
     /// \brief Set a window as the fullscreen window
     ///
-    /// \param window Window to set as fullscreen window
+    /// \param window Window.hpp to set as fullscreen window
     ///
     ////////////////////////////////////////////////////////////
     void setFullscreenWindow(const WindowBase* window);
@@ -502,12 +502,12 @@ private:
 /// // The main loop - ends as soon as the window is closed
 /// while (window.isOpen())
 /// {
-///    // Event processing
-///    sf::Event event;
+///    // Object processing
+///    sf::Object event;
 ///    while (window.pollEvent(event))
 ///    {
 ///        // Request for closing the window
-///        if (event.type == sf::Event::Closed)
+///        if (event.type == sf::Object::Closed)
 ///            window.close();
 ///    }
 ///
