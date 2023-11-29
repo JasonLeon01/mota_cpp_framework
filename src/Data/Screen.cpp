@@ -43,14 +43,14 @@ void Interpreter::execute(Object* obj) {
 
     // 战斗
     if (info[0] == "monster") {
-        motaTemp.battleEnemyID = stoi(motaVariables.initDialogue(info[1]));
+        motaTemp.battleEnemyID = stoi(initDialogue(info[1]));
         motaTemp.nextMove = true;
     }
 
     // 宝石血瓶
     if (info[0] == "bonus") {
         if (motaTemp.functionEventID != -1) playSE(motaSystem.getSE, motaSystem.SEVolume);
-        tie(kind, val) = make_pair(stoi(motaVariables.initDialogue(info[1])), stoi(motaVariables.initDialogue(info[2])));
+        tie(kind, val) = make_pair(stoi(initDialogue(info[1])), stoi(initDialogue(info[2])));
         if (kind == 0) act.hp += val;
         if (kind == 1) act.atk += val;
         if (kind == 2) act.def += val;
@@ -70,14 +70,13 @@ void Interpreter::execute(Object* obj) {
     // 开门
     if (info[0] == "door") {
         auto openDoor = [&]() {
-            for (int i = 0; i < 4; ++i) {
+            for (int i = 0; i < 3; ++i) {
                 ++obj->pos[1];
-                screenData.showMap(screenData.visualMap, MAPX, MAPY);
-                motaGraphics.update(false);
+                screenData.waitCount(1);
             }
         };
 
-        kind = stoi(motaVariables.initDialogue(info[1]));
+        kind = stoi(initDialogue(info[1]));
         if (kind == 0) {
             playSE(motaSystem.gateSE, motaSystem.SEVolume);
             openDoor();
@@ -107,7 +106,7 @@ void Interpreter::execute(Object* obj) {
     // 物品
     if (info[0] == "item") {
         if (motaTemp.functionEventID != -1) playSE(motaSystem.getSE, motaSystem.SEVolume);
-        tie(kind, val) = make_pair(stoi(motaVariables.initDialogue(info[1])), stoi(motaVariables.initDialogue(info[2])));
+        tie(kind, val) = make_pair(stoi(initDialogue(info[1])), stoi(initDialogue(info[2])));
         if (!motaVariables.itemRecord[kind] || val != 1) {
             motaVariables.itemRecord[kind] = true;
             motaTemp.messageInfo.emplace_back(-4, to_string(kind), "");
@@ -132,7 +131,7 @@ void Interpreter::execute(Object* obj) {
     if (info[0] == "npc") {
         kind = stoi(info[1]);
         for (auto [messID, messName, messContent] : motaData.npc[kind].npcInfo) {
-            motaTemp.messageInfo.emplace_back(messID, messName, insertNewLines(motaVariables.initDialogue(messContent), 28));
+            motaTemp.messageInfo.emplace_back(messID, messName, insertNewLines(initDialogue(messContent), 28));
         }
         if (!motaData.npc[kind].transName.empty()) {
             motaTemp.transEventName = motaData.npc[kind].transName;
@@ -144,7 +143,7 @@ void Interpreter::execute(Object* obj) {
 
     // 路障熔岩
     if (info[0] == "lava") {
-        val = stoi(motaVariables.initDialogue(info[1]));
+        val = stoi(initDialogue(info[1]));
         act.hp = max(0, act.hp - val);
         if (act.hp == 0) Interpreter("gg").execute();
         motaTemp.nextMove = true;
@@ -241,7 +240,7 @@ void Interpreter::execute(Object* obj) {
     }
 
     // 下面是条件等对话相关的
-    auto condName = split(motaVariables.initDialogue(order), "~");
+    auto condName = split(initDialogue(order), "~");
     auto judgecond = [&](int a, int b, const string& s) {
         bool result = false;
         if (s == "==") result = (a == b);
@@ -269,8 +268,46 @@ void Interpreter::execute(Object* obj) {
     }
 }
 
+string Interpreter::replaceToVar(const string& source) {
+    string result = source;
+    regex pattern("\\[([0-9]+)\\]"); // 匹配形如"[x]"的字符串
+    smatch match;
+    while (regex_search(result, match, pattern)) {
+        if (match.size() == 2) {
+            int index = stoi(match[1]);
+            string change;
+            if (motaVariables.variables.contains(index)) {
+                change = to_string(motaVariables.variables[index]);
+            }
+            else{
+                change = "0";
+            }
+            result = match.prefix().str() + change + match.suffix().str();
+        }
+    }
+    return result;
+}
+
+string Interpreter::initDialogue(const string& source) {
+    string result = replaceToVar(source);
+    auto& act = screenData.actors[motaVariables.variables[0]];
+    replaceAll(result, "[hp]", to_string(act.hp));
+    replaceAll(result, "[atk]", to_string(act.atk));
+    replaceAll(result, "[def]", to_string(act.def));
+    replaceAll(result, "[mdef]", to_string(act.mdef));
+    replaceAll(result, "[exp]", to_string(act.exp));
+    replaceAll(result, "[gold]", to_string(act.gold));
+    return result;
+}
+
 void Player::update() {
-    // 执行指令
+    // 达到条件自动执行的事件
+    for (auto& ev : screenData.visualMap.mapEvents) {
+        if (!ev.exist) continue;
+        if (ev.triggerCondition[0] == 3 && motaVariables.variables[ev.triggerCondition[1]] == ev.triggerCondition[2]) {
+            triggerEvent(&ev);
+        }
+    }
 
     // 行走中快捷键不生效
     if (movingCount > 0) return;
@@ -285,7 +322,7 @@ void Player::update() {
     auto& act = screenData.actors[motaVariables.variables[0]];
     if (screenData.visualMap.passible(act.x + dirchg[dir][0], act.y + dirchg[dir][1])) {
         ++step;
-        movingCount = movingCount < 2 ? 2 : 4;
+        if (movingCount == 0) movingCount = 4;
         act.x += dirchg[dir][0];
         act.y += dirchg[dir][1];
         changeSteps();

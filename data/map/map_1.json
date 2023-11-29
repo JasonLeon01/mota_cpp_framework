@@ -901,6 +901,60 @@
       ],
       "move": true,
       "through": false
+    },
+    {
+      "ID": 50,
+      "name": "door/0",
+      "file": "Event01-Door01.png",
+      "pos": [
+        3,
+        0
+      ],
+      "x": 3,
+      "y": 9,
+      "triggerCondition": [
+        3,
+        8,
+        2
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 51,
+      "name": "door/0",
+      "file": "Event01-Door01.png",
+      "pos": [
+        3,
+        0
+      ],
+      "x": 7,
+      "y": 9,
+      "triggerCondition": [
+        3,
+        8,
+        2
+      ],
+      "move": false,
+      "through": false
+    },
+    {
+      "ID": 52,
+      "name": "npc/9",
+      "file": "NPC01-03.png",
+      "pos": [
+        0,
+        2
+      ],
+      "x": 3,
+      "y": 5,
+      "triggerCondition": [
+        0,
+        0,
+        0
+      ],
+      "move": true,
+      "through": false
     }
   ]
 }

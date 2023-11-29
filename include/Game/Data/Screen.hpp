@@ -8,6 +8,10 @@ public:
     Interpreter(string order);
     // 执行命令
     void execute(Object* obj = nullptr);
+    // 将形如[x]的字符串替换为其对应序号变量
+    static string replaceToVar(const string& source);
+    // 初始化对话字符串，按对话框里面的全部替换
+    static string initDialogue(const string& source);
 private:
     string order;
 };

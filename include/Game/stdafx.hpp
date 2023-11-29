@@ -18,6 +18,7 @@
 #include <format>
 #include <regex>
 #include <filesystem>
+#include <thread>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <nlohmann/json.hpp>

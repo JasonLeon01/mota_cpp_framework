@@ -16,20 +16,20 @@ IF(WIN32)
 ENDIF()
 
 add_executable(main "src/main.cpp"
-        "src/System/Graphics.cpp"
-        "src/System/Image.cpp"
         "src/System/KeyBoard.cpp"
-        "src/System/System.cpp"
+        "src/System/Image.cpp"
         "src/System/Text.cpp"
+        "src/System/System.cpp"
         "src/System/Window.cpp"
+        "src/System/Graphics.cpp"
         "src/Data/Actor.cpp"
-        "src/Data/Data.cpp"
         "src/Data/Enemy.cpp"
         "src/Data/Map.cpp"
         "src/Data/Object.cpp"
-        "src/Data/Screen.cpp"
+        "src/Data/Data.cpp"
         "src/Data/Temp.cpp"
         "src/Data/Variables.cpp"
+        "src/Data/Screen.cpp"
         "src/stdafx.cpp"
         "ico/Icon.o")
 

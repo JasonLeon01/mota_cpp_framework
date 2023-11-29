@@ -12,10 +12,6 @@ public:
 
     // 初始化
     void init();
-    // 将形如[x]的字符串替换为其对应序号变量
-    string replaceToVar(const string& source);
-    // 初始化对话字符串，按对话框里面的全部替换
-    string initDialogue(const string& source);
     // 序列化和反序列化的宏
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Variables, variables, floorRecord, eventRecord, transRecord, itemRecord)
 

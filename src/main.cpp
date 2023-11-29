@@ -415,7 +415,7 @@ void WindowShop::refresh() {
     drawWText(IntRect(64, 16, 192, 20), name, 0, 22L);
 
     // 描绘商店描述
-    string realdesc = insertNewLines(motaVariables.replaceToVar(desc), 28);
+    string realdesc = insertNewLines(Interpreter::replaceToVar(desc), 28);
     drawWText(IntRect(16, 64, 224, 20), realdesc, 0, 16L);
 
     // 获取描述行数
@@ -453,7 +453,7 @@ void WindowShop::refresh() {
     if (motaKeyBoard.triggerConfirm()) {
         auto [require, val] = get<1>(items[index]);
         auto order = get<2>(items[index]);
-        if (*require >= stoi(motaVariables.replaceToVar(val))) {
+        if (*require >= stoi(Interpreter::replaceToVar(val))) {
             playSE(motaSystem.shopSE, motaSystem.SEVolume);
             screenData.doOrder(order);
         }

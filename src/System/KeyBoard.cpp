@@ -28,7 +28,7 @@ bool GameKeyBoard::repeat(int key) {
     }
     if (key_repeat.contains(key) && key_repeat[key] >= 2) {
         Time elapsed = key_timers[key].getElapsedTime();
-        if (elapsed.asMilliseconds() >= 150) {
+        if (elapsed.asMilliseconds() >= 100) {
             key_repeat[key] = 0;
             ++hit_times;
             return true;
