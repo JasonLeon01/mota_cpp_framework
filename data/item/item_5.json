@@ -1,10 +1,10 @@
 {
   "name": "破墙镐",
   "description": "可以捣毁前方的墙壁",
-  "file": "Item01-06.png",
+  "file": "Constant-1-2.png",
   "pos": [
     0,
-    0
+    2
   ],
   "price": 0,
   "usable": true,

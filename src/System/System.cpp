@@ -14,7 +14,14 @@ void System::init() {
         string inPath = format("graphics\\{}", subroot);
         for (const auto& entry : filesystem::recursive_directory_iterator(inPath)) {
             if (entry.is_regular_file() && entry.path().extension() == fext) {
-                textureCache[string(subroot + "\\") + entry.path().filename().string()].loadFromFile(format("graphics\\{}\\{}", subroot, entry.path().filename().string()));
+                auto filestr = string(subroot + "\\") + entry.path().filename().string();
+                auto& cache = textureCache[filestr];
+                if (cache.loadFromFile(format("graphics\\{}", filestr))) {
+                    cache.setSmooth(true);
+                }
+                else {
+                    print(format("Failed to access {}", filestr));
+                }
             }
         }
     };
@@ -57,8 +64,12 @@ void System::init() {
     // 截取必要部分缩放
     View view(FloatRect(0, 0, 640, 480));
     window.setView(view);
-    font.loadFromFile("font\\" + fontName);
-    font.setSmooth(true);
+    if (font.loadFromFile("font\\" + fontName)) {
+        font.setSmooth(true);
+    }
+    else {
+        print(format("Failed to access {}", fontName));
+    }
 
     processing(L"正在加载动画资源...");
     processingAssets("animation", ".png");

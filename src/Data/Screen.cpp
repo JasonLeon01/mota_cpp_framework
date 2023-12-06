@@ -69,35 +69,28 @@ void Interpreter::execute(Object* obj) {
 
     // 开门
     if (info[0] == "door") {
-        auto openDoor = [&]() {
-            for (int i = 0; i < 3; ++i) {
-                ++obj->pos[1];
-                screenData.waitCount(1);
-            }
-        };
-
         kind = stoi(initDialogue(info[1]));
         if (kind == 0) {
             playSE(motaSystem.gateSE, motaSystem.SEVolume);
-            openDoor();
+            openDoor(obj);
             if (obj != nullptr) obj->toDispose = true;
         }
         if (kind == 1 && act.item[0] > 0) {
             --act.item[0];
             playSE(motaSystem.gateSE, motaSystem.SEVolume);
-            openDoor();
+            openDoor(obj);
             if (obj != nullptr) obj->toDispose = true;
         }
         if (kind == 2 && act.item[1] > 0) {
             --act.item[1];
             playSE(motaSystem.gateSE, motaSystem.SEVolume);
-            openDoor();
+            openDoor(obj);
             if (obj != nullptr) obj->toDispose = true;
         }
         if (kind == 3 && act.item[2] > 0) {
             --act.item[2];
             playSE(motaSystem.gateSE, motaSystem.SEVolume);
-            openDoor();
+            openDoor(obj);
             if (obj != nullptr) obj->toDispose = true;
         }
         motaTemp.nextMove = true;
@@ -267,6 +260,13 @@ void Interpreter::execute(Object* obj) {
         motaTemp.nextMove = true;
     }
 }
+
+void Interpreter::openDoor(Object* obj) {
+    for (int i = 0; i < 3; ++i) {
+        ++obj->pos[1];
+        screenData.waitCount(1);
+    }
+};
 
 string Interpreter::replaceToVar(const string& source) {
     string result = source;

@@ -5,10 +5,10 @@
     {
       "ID": 0,
       "name": "down",
-      "file": "101-CF_Lava01.png",
+      "file": "Stair-1-1.png",
       "pos": [
         0,
-        2
+        0
       ],
       "x": 0,
       "y": 10,
@@ -23,10 +23,10 @@
     {
       "ID": 1,
       "name": "up",
-      "file": "101-CF_Lava01.png",
+      "file": "Stair-1-1.png",
       "pos": [
         1,
-        2
+        0
       ],
       "x": 10,
       "y": 0,
@@ -40,8 +40,8 @@
     },
     {
       "ID": 2,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -58,8 +58,8 @@
     },
     {
       "ID": 3,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -76,8 +76,8 @@
     },
     {
       "ID": 4,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -94,8 +94,8 @@
     },
     {
       "ID": 5,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -112,8 +112,8 @@
     },
     {
       "ID": 6,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -130,8 +130,8 @@
     },
     {
       "ID": 7,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -148,8 +148,8 @@
     },
     {
       "ID": 8,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -166,8 +166,8 @@
     },
     {
       "ID": 9,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -184,8 +184,8 @@
     },
     {
       "ID": 10,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -202,8 +202,8 @@
     },
     {
       "ID": 11,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0
@@ -221,7 +221,7 @@
     {
       "ID": 12,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         0,
         0
@@ -239,7 +239,7 @@
     {
       "ID": 13,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         0,
         0
@@ -257,7 +257,7 @@
     {
       "ID": 14,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         2,
         0
@@ -275,7 +275,7 @@
     {
       "ID": 15,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         2,
         0
@@ -293,10 +293,10 @@
     {
       "ID": 16,
       "name": "shop/0/500&3&3/[9]/1",
-      "file": "NPC01-02.png",
+      "file": "Other-2-3.png",
       "pos": [
         0,
-        2
+        1
       ],
       "x": 3,
       "y": 0,
@@ -311,10 +311,10 @@
     {
       "ID": 17,
       "name": "shop/0/800&6&6/[10]/2",
-      "file": "NPC01-02.png",
+      "file": "Other-2-3.png",
       "pos": [
         0,
-        2
+        1
       ],
       "x": 7,
       "y": 0,
@@ -329,7 +329,7 @@
     {
       "ID": 18,
       "name": "monster/0<>var/8/1",
-      "file": "Monster01-01.png",
+      "file": "Slime-1-1.png",
       "pos": [
         0,
         0
@@ -347,7 +347,7 @@
     {
       "ID": 19,
       "name": "monster/0<>var/8/1",
-      "file": "Monster01-01.png",
+      "file": "Slime-1-1.png",
       "pos": [
         0,
         0
@@ -365,9 +365,9 @@
     {
       "ID": 20,
       "name": "door/0",
-      "file": "Event01-Door01.png",
+      "file": "Door-1-2.png",
       "pos": [
-        3,
+        0,
         0
       ],
       "x": 3,
@@ -383,7 +383,7 @@
     {
       "ID": 21,
       "name": "item/0/1",
-      "file": "Item01-01.png",
+      "file": "Key-1-1.png",
       "pos": [
         0,
         0
@@ -401,10 +401,10 @@
     {
       "ID": 22,
       "name": "shop/1/1&1&2/70&20&20",
-      "file": "NPC01-02.png",
+      "file": "Other-2-3.png",
       "pos": [
         0,
-        1
+        0
       ],
       "x": 3,
       "y": 10,
@@ -419,10 +419,10 @@
     {
       "ID": 23,
       "name": "shop/1/3&3&5/190&50&50",
-      "file": "NPC01-02.png",
+      "file": "Other-2-3.png",
       "pos": [
         0,
-        1
+        0
       ],
       "x": 7,
       "y": 10,
@@ -437,7 +437,7 @@
     {
       "ID": 24,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         0,
         1
@@ -455,7 +455,7 @@
     {
       "ID": 25,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         0,
         1
@@ -473,7 +473,7 @@
     {
       "ID": 26,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         2,
         1
@@ -491,7 +491,7 @@
     {
       "ID": 27,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         2,
         1
@@ -508,8 +508,8 @@
     },
     {
       "ID": 28,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -526,8 +526,8 @@
     },
     {
       "ID": 29,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -544,8 +544,8 @@
     },
     {
       "ID": 30,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -562,8 +562,8 @@
     },
     {
       "ID": 31,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -580,8 +580,8 @@
     },
     {
       "ID": 32,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -598,8 +598,8 @@
     },
     {
       "ID": 33,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -616,8 +616,8 @@
     },
     {
       "ID": 34,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -634,8 +634,8 @@
     },
     {
       "ID": 35,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -652,8 +652,8 @@
     },
     {
       "ID": 36,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -670,8 +670,8 @@
     },
     {
       "ID": 37,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         1,
         0
@@ -689,7 +689,7 @@
     {
       "ID": 38,
       "name": "npc/4",
-      "file": "NPC01-01.png",
+      "file": "NPC-1-1.png",
       "pos": [
         0,
         3
@@ -707,10 +707,10 @@
     {
       "ID": 39,
       "name": "npc/6",
-      "file": "NPC01-02.png",
+      "file": "NPC-1-3.png",
       "pos": [
         0,
-        3
+        0
       ],
       "x": 4,
       "y": 5,
@@ -725,10 +725,10 @@
     {
       "ID": 40,
       "name": "item/13/1",
-      "file": "Item01-06.png",
+      "file": "Constant-1-1.png",
       "pos": [
-        1,
-        2
+        2,
+        3
       ],
       "x": 6,
       "y": 5,
@@ -742,8 +742,8 @@
     },
     {
       "ID": 41,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         0,
         0
@@ -760,8 +760,8 @@
     },
     {
       "ID": 42,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         0,
         0
@@ -778,8 +778,8 @@
     },
     {
       "ID": 43,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         0,
         0
@@ -796,8 +796,8 @@
     },
     {
       "ID": 44,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         0,
         0
@@ -814,8 +814,8 @@
     },
     {
       "ID": 45,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         0,
         0
@@ -832,8 +832,8 @@
     },
     {
       "ID": 46,
-      "name": "wall",
-      "file": "Event01-Wall01.png",
+      "name": "无",
+      "file": "Wall-1-1.png",
       "pos": [
         0,
         0
@@ -851,7 +851,7 @@
     {
       "ID": 47,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         0,
         0
@@ -869,7 +869,7 @@
     {
       "ID": 48,
       "name": "wall",
-      "file": "Event01-Other03.png",
+      "file": "Wall-1-6.png",
       "pos": [
         2,
         0
@@ -887,10 +887,10 @@
     {
       "ID": 49,
       "name": "shop/0/800&4&4/25",
-      "file": "NPC01-02.png",
+      "file": "Other-2-3.png",
       "pos": [
         0,
-        2
+        1
       ],
       "x": 10,
       "y": 5,
@@ -905,9 +905,9 @@
     {
       "ID": 50,
       "name": "door/0",
-      "file": "Event01-Door01.png",
+      "file": "Door-1-2.png",
       "pos": [
-        3,
+        0,
         0
       ],
       "x": 3,
@@ -923,9 +923,9 @@
     {
       "ID": 51,
       "name": "door/0",
-      "file": "Event01-Door01.png",
+      "file": "Door-1-2.png",
       "pos": [
-        3,
+        0,
         0
       ],
       "x": 7,
@@ -941,7 +941,7 @@
     {
       "ID": 52,
       "name": "npc/9",
-      "file": "NPC01-03.png",
+      "file": "NPC-1-2.png",
       "pos": [
         0,
         2

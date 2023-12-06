@@ -10,7 +10,9 @@ void playSE(const string& file, float volume) {
     }
     SoundBuffer* buffer = new SoundBuffer;
     Sound* se = new Sound;
-    buffer->loadFromFile("sound\\" + file);
+    if (!buffer->loadFromFile("sound\\" + file)) {
+        print(format("Failed to access {}", file));
+    }
     se->setBuffer(*buffer);
     se->setVolume(volume);
     SE.emplace(buffer, se, false);
@@ -52,7 +54,9 @@ void drawImage(RenderWindow* window, Texture* texture, float x, float y, IntRect
 }
 
 void drawOutterImage(RenderWindow* window, const string& file, float x, float y, IntRect rect, int opacity, pair <float, float> scale) {
-    tempTexture.loadFromFile(file);
+    if (!tempTexture.loadFromFile(file)) {
+        print(format("Failed to access {}", file));
+    }
     Sprite tempspr(tempTexture);
     tempspr.setTextureRect(IntRect(rect.left, rect.top, rect.width, rect.height));
     tempspr.setPosition(x, y);

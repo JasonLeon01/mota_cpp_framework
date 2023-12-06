@@ -194,13 +194,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
     // 游戏的主循环
     while (motaSystem.scene != nullptr && motaSystem.window.isOpen()) {
-        Event event;
-        while (motaSystem.window.pollEvent(event))
-        {
-            if (event.type == Event::Closed) {
-                motaSystem.window.close();
-            }
-        }
         motaSystem.scene->main();
     }
 
@@ -864,16 +857,13 @@ void MotaTitle::main() {
 
     // 主循环
     while (motaSystem.scene == this && motaSystem.window.isOpen()) {
-        // 当聚焦不在本窗口时直接继续
-        if (!motaSystem.window.hasFocus()) {
-            continue;
-        }
-
         // 更新画面
         screenData.waitCount(1);
 
         // 更新标题
-        update();
+        if (motaSystem.window.hasFocus()) {
+            update();
+        }
     }
 
     // 执行渐变
@@ -988,15 +978,13 @@ void MotaMap::main() {
 
     // 主循环
     while (motaSystem.scene == this && motaSystem.window.isOpen()) {
-        // 当聚焦不在本窗口时直接继续
-        if (!motaSystem.window.hasFocus()) {
-            continue;
-        }
-
         // 更新画面
         screenData.waitCount(1);
+
         // 更新地图
-        update();
+        if (motaSystem.window.hasFocus()) {
+            update();
+        }
     }
 
     // 执行渐变
@@ -1311,13 +1299,14 @@ void MotaMap::itemUse(int id) {
 
     // 解毒药水
     if (id == 7) {
-        if (auto& act = screenData.actors[motaVariables.variables[0]]; act.status.count(1)) {
+        if (act.status.count(1)) {
             act.status.erase(1);
             motaVariables.variables[5] = 0;
             flag = 1;
         }
-        else
+        else {
             motaTemp.messageInfo.emplace_back(-3, "", "你并没有中毒");
+        }
         goto endUse;
     }
 
@@ -1328,8 +1317,9 @@ void MotaMap::itemUse(int id) {
             motaVariables.variables[6] = 0;
             flag = 1;
         }
-        else
+        else {
             motaTemp.messageInfo.emplace_back(-3, "", "你并没有衰弱");
+        }
         goto endUse;
     }
 
@@ -1995,16 +1985,13 @@ void MotaScript::main() {
 
     // 主循环
     while (motaSystem.scene == this && motaSystem.window.isOpen()) {
-        // 当聚焦不在本窗口时直接继续
-        if (!motaSystem.window.hasFocus()) {
-            continue;
-        }
-
         // 更新画面
         screenData.waitCount(1);
 
         // 执行更新
-        update();
+        if (motaSystem.window.hasFocus()) {
+            update();
+        }
     }
 
     // 执行渐变

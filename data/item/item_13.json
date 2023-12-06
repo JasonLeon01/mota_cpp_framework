@@ -1,10 +1,10 @@
 {
   "name": "圣锤",
   "description": "消灭前方一整行（列）的非BOSS敌人",
-  "file": "Item01-06.png",
+  "file": "Constant-1-1.png",
   "pos": [
-    1,
-    2
+    2,
+    3
   ],
   "price": 0,
   "usable": true,
