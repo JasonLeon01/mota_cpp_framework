@@ -1,17 +1,1 @@
-{
-  "npcInfo": [
-    {
-      "Item1": -2,
-      "Item2": "商人",
-      "Item3": "哈喽，妹特！\n8号变量现在是[8]"
-    },
-    {
-      "Item1": -1,
-      "Item2": "勇士",
-      "Item3": "6，你个老登"
-    }
-  ],
-  "transName": "",
-  "fade": false,
-  "directlyFunction": false
-}
+{"npcInfo":[{"Item1":-2,"Item2":"商人","Item3":"哈喽，妹特！\n8号变量现在是[v8]\n你有[i1]个蓝钥匙！"},{"Item1":-1,"Item2":"勇士","Item3":"6，你个老登"}],"transName":"","fade":false,"directlyFunction":false}

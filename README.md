@@ -18,68 +18,68 @@
 ## 目录结构
 
 ```bash
-├── /data/                    # 数据文件
-│ ├─ /actor/                  # 角色信息的数据
-│ ├─ /animation/              # 动画信息的数据
-│ ├─ /element/                # 属性信息的数据
-│ ├─ /enemy/                  # 敌人信息的数据
-│ ├─ /item/                   # 物品信息的数据
-│ ├─ /map/                    # 地图信息的数据
-│ └─ /npc/                    # NPC信息的数据
-├── /font/                    # 使用到的字体文件
-├── /graphics/                # 使用到的图片素材文件
-├── /ico/                     # exe文件icon相关
-├── /include/                 # 包含的头文件
-│ ├─ /SFML/                   # SFML库相关的头文件
-│ ├─ /Game/                   # 游戏框架相关的头文件
-│ │ ├─ /stdafx.hpp/          # 大多数头文件和外部函数的存放
-│ │ ├─ /System/              # 游戏系统的设置
-│ │ │ ├─ /Graphics.hpp/     # 图形画面相关的头文件，用于更新画面
-│ │ │ ├─ /Image.hpp/        # 图像相关的头文件
-│ │ │ ├─ /KeyBoard.hpp/     # 按键输入相关的头文件
-│ │ │ ├─ /System.hpp/       # 游戏系统相关的头文件
-│ │ │ ├─ /Text.hpp/         # 显示文字相关的头文件
-│ │ │ └─ /Window.hpp/       # 游戏窗口相关的头文件
-│ │ ├─ /Data/                # 游戏数据的设置
-│ │ │ ├─ /Actor.hpp/        # 角色相关的头文件
-│ │ │ ├─ /Animation.hpp/    # 动画相关的头文件
-│ │ │ ├─ /Data.hpp/         # 游戏数据相关的头文件
-│ │ │ ├─ /Element.hpp/      # 怪物属性相关的头文件
-│ │ │ ├─ /Enemy.hpp/        # 怪物数据相关的头文件
-│ │ │ ├─ /Item.hpp/         # 物品数据相关的头文件
-│ │ │ ├─ /Map.hpp/          # 地图数据相关的头文件
-│ │ │ ├─ /NPC.hpp/          # NPC数据相关的头文件
-│ │ │ ├─ /Object.hpp/       # 地图事件对象相关的头文件
-│ │ │ ├─ /Screen.hpp/       # 游戏画面相关的头文件
-│ │ │ ├─ /Temp.hpp/         # 临时数据相关的头文件
-│ │ │ └─ /Variables.hpp/    # 游戏变量相关的头文件
-│ └─ /nlohmann/               # nlohmann库，主要使用其JSON文件解析
-├── /lib/                     # 第三方库目录
-├── /ref/                     # 游戏的参考文件
-│ ├─ /config.ini/             # 游戏设置相关配置
-│ ├─ /main.ini/               # 游戏初始化配置
-│ ├─ /motaName.ini/           # 魔塔名对应初始化
-│ └─ /ShortcutKey.txt/        # 快捷键的描述文本
-├── /sound/                   # 使用到的音乐素材文件
-├── /src/                     # 源文件的存放
-│ ├─ /stdafx.cpp/             # stdafx源文件
-│ ├─ /System/                 # include\System内部头文件对应源文件
-│ ├─ /Data/                   # include\Data内部头文件源文件
-│ └─ /main.cpp/               # 主源文件
-├── /tools/                   # 常用小工具
-│ ├─ /AnimationDesigner.exe/  # 游戏动画设计器
-│ ├─ /AnimationSeparator.exe/ # RM格式动画转换器
-│ ├─ /EnemyDesigner.exe/      # 游戏怪物设计器
-│ ├─ /ItemDesigner.exe/       # 游戏物品编辑器
-│ ├─ /MapDesigner.exe/        # 游戏地图设计器
-│ ├─ /NPCDesigner.exe/        # 游戏NPC对话设计器
-│ └─ /Packager.exe/           # 游戏内容打包器
-├── /CMakeLists.txt/          # CMake相关
-├── /config.exe/              # 游戏设置可执行文件
-└── /main.exe/                # 启动游戏的可执行文件
+├── /data/                      # 数据文件
+│ ├─ /actor/                    # 角色信息的数据
+│ ├─ /animation/                # 动画信息的数据
+│ ├─ /element/                  # 属性信息的数据
+│ ├─ /enemy/                    # 敌人信息的数据
+│ ├─ /item/                     # 物品信息的数据
+│ ├─ /map/                      # 地图信息的数据
+│ └─ /npc/                      # NPC信息的数据
+├── /assets/                    # 使用到的资源素材文件
+│ ├─ /animation/                # 动画素材
+│ ├─ /character/                # 行走图素材
+│ ├─ /picture/                  # 图片素材
+│ ├─ /system/                   # 系统素材
+│ ├─ /bgm/                      # 背景音乐素材
+│ ├─ /se/                       # 音效素材
+│ ├─ /voice/                    # 语音素材
+│ ├─ /ico/                      # exe图标素材
+│ └─ /font/                     # 使用到的字体文件
+├── /include/                   # 包含的头文件
+│ ├─ /SFML/                     # SFML库相关的头文件
+│ ├─ /Game/                     # 游戏框架相关的头文件
+│ │ ├─ /stdafx.hpp/             # 大多数头文件和外部函数的存放
+│ │ ├─ /System/                 # 游戏系统的设置
+│ │ ├─ /Data/                   # 游戏数据的设置
+│ ├─ /Screen/                   # 游戏屏幕上显示的内容，包括各种窗口和场景
+│ └─ /nlohmann/                 # nlohmann库，主要使用其JSON文件解析
+├── /lib/                       # 第三方库目录
+├── /ref/                       # 游戏的参考文件
+├── /sound/                     # 使用到的音乐素材文件
+├── /src/                       # 源文件的存放
+├── /tools/                     # 常用小工具
+├── /CMakeLists.txt/            # CMake相关
+├── /config.exe/                # 游戏设置可执行文件
+└── /main.exe/                  # 启动游戏的可执行文件
 ```
 
 ## 更新说明
+
+### 2024.3.9 Version 3.0
+
+- [x] 更换更加清晰的素材，让素材平滑放大
+- [x] 在未能成功读取文件时增加弹窗提示
+- [x] 大幅改进地图编辑器功能，可以直接点击事件名右侧的...按钮进行更直观的可视化编辑
+- [x] 增加播放动画的操作
+- [x] 将事件名DSL修改为更符合函数特征的格式
+- [x] 将所有资源文件整合至assets文件夹中
+- [x] 增加语音功能
+- [x] 增加鼠标操作
+- [x] 增加自动寻路功能
+- [x] 增加更多的替代，将变量改为[vx]，增加物品数量[ix]
+
+### 2023.12.16 Version 2.2
+
+- [x] 增加picon和picoff指令
+- [x] 将main.cpp中的窗口再次拆分至各文件，减少单个文件复杂度，增加代码可读性
+- [x] 改进了NPC编辑器的UI
+- [x] 在分享的网盘中删除了历史版本，不再支持下载
+
+### 2023.12.7 Version 2.1
+
+- [x] 更换更加清晰的素材，让素材平滑放大
+- [x] 在未能成功读取文件时增加弹窗提示
 
 ### 2023.11.29 Version 2.0
 
@@ -94,11 +94,6 @@
 - [x] 将存读档按键改为“[”和“]”
 - [x] 大幅优化架构，将原先文件里面的类尽量拆开到各文件
 - [x] 增添自动事件，将出现触发条件设为3即可
-
-### 2023.12.7 Version 2.1
-
-- [x] 更换更加清晰的素材，让素材平滑放大
-- [x] 在未能成功读取文件时增加弹窗提示
 
 # 联系我们
 
@@ -118,4 +113,4 @@
 
 # 版权声明
 
-Copyright © 2023 Metempsychosis Game Studio. All rights reserved.
+Copyright © 2024-2040 Metempsychosis Game Studio. All rights reserved.

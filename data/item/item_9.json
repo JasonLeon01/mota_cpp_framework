@@ -1,12 +1,1 @@
-{
-  "name": "炸弹",
-  "description": "可以炸掉前方的非BOSS怪物",
-  "file": "Constant-1-1.png",
-  "pos": [
-    3,
-    2
-  ],
-  "price": 0,
-  "usable": true,
-  "cost": true
-}
+{"name":"炸弹","description":"可以炸掉前方的非BOSS怪物","file":"Constant-1-1.png","pos":[3,2],"price":0,"usable":true,"cost":true}

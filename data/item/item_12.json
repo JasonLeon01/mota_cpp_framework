@@ -1,12 +1,1 @@
-{
-  "name": "幸运金币",
-  "description": "持有时战斗后获得双倍金币",
-  "file": "Constant-1-1.png",
-  "pos": [
-    3,
-    0
-  ],
-  "price": 0,
-  "usable": true,
-  "cost": true
-}
+{"name":"幸运金币","description":"持有时战斗后获得双倍金币","file":"Constant-1-1.png","pos":[3,0],"price":0,"usable":true,"cost":true}

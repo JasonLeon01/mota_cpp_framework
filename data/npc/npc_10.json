@@ -1,0 +1,1 @@
+{"npcInfo":[{"Item1":-2,"Item2":"魔公主","Item3":"这是显示图片的范例，默认会显示在屏幕的正中央，指令是picon(x,y);\nx是图片编号，y是文件名，在picture文件夹下\npicoff(x);就是删除图片，图片的出现和消失都有淡入淡出效果，不想要的话可以在代码中删除"}],"transName":"","fade":false,"directlyFunction":false}

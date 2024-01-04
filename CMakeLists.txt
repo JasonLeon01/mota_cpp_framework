@@ -16,7 +16,7 @@ IF(WIN32)
 ENDIF()
 
 add_executable(main "src/main.cpp"
-        "src/System/KeyBoard.cpp"
+        "src/System/Input.cpp"
         "src/System/Image.cpp"
         "src/System/Text.cpp"
         "src/System/System.cpp"
@@ -31,7 +31,17 @@ add_executable(main "src/main.cpp"
         "src/Data/Variables.cpp"
         "src/Data/Screen.cpp"
         "src/stdafx.cpp"
-        "ico/Icon.o")
+        "assets/ico/Icon.o"
+        "src/Screen/WindowMessage.cpp"
+        "src/Screen/WindowHint.cpp"
+        "src/Screen/WindowShop.cpp"
+        "src/Screen/WindowItem.cpp"
+        "src/Screen/WindowEnemyBook.cpp"
+        "src/Screen/WindowEnemyEncyclopedia.cpp"
+        "src/Screen/WindowFly.cpp"
+        "src/Screen/WindowLoadSave.cpp"
+        "src/Screen/MotaScene.cpp"
+        )
 
 target_link_options(main PRIVATE -flto)
 

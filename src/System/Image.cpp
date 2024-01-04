@@ -1,6 +1,7 @@
 #include <Game/System/Image.hpp>
 
 GameImage::GameImage() {
+    // 初始化各个参数
     this->x = 0;
     this->y = 0;
     this->z = 0;
@@ -18,7 +19,8 @@ GameImage::GameImage() {
     this->imgFile = "";
 }
 
-GameImage::GameImage(string file, float x, float y, int width, int height, int sx, int sy) : GameImage() {
+GameImage::GameImage(std::string file, float x, float y, int width, int height, int sx, int sy) : GameImage() {
+    // 初始化各个参数
     this->x = x;
     this->y = y;
     this->z = 0;
@@ -26,14 +28,15 @@ GameImage::GameImage(string file, float x, float y, int width, int height, int s
     this->height = height;
     this->sx = sx;
     this->sy = sy;
-    if (!filesystem::exists("graphics\\" + file)) {
-        print(format("Haven't found file: {}", file));
+    if (!std::filesystem::exists("assets\\" + file)) {
+        print(std::format("Haven't found file: {}", file));
         return;
     }
     this->imgFile = file;
 }
 
-void GameImage::setSprite(string file, float x, float y, int width, int height, int sx, int sy) {
+void GameImage::setSprite(std::string file, float x, float y, int width, int height, int sx, int sy) {
+    // 设置精灵的各个参数
     this->x = x;
     this->y = y;
     this->z = 0;
@@ -41,16 +44,17 @@ void GameImage::setSprite(string file, float x, float y, int width, int height, 
     this->height = height;
     this->sx = sx;
     this->sy = sy;
-    if (!filesystem::exists("graphics\\" + file)) {
-        print(format("Haven't found file: {}", file));
+    if (!std::filesystem::exists("assets\\" + file)) {
+        print(std::format("Haven't found file: {}", file));
         return;
     }
     this->imgFile = file;
 }
 
 void GameImage::show() {
-    Sprite sprite(motaSystem.textureCache[imgFile]);
-    if (width != 0 && height != 0) sprite.setTextureRect(IntRect(sx, sy, width, height));
+    // 显示精灵
+    sf::Sprite sprite(motaSystem.textureCache[imgFile]);
+    if (width != 0 && height != 0) sprite.setTextureRect(sf::IntRect(sx, sy, width, height));
     sprite.setPosition(x, y);
     sprite.setScale(scale_x, scale_y);
     sprite.setOrigin(origin_x, origin_y);

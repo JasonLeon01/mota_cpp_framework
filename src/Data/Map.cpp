@@ -6,7 +6,7 @@ inline bool Map::operator == (const Map &mp) const {
 }
 
 bool Map::haveAnEvent(int x, int y) {
-    return ranges::any_of(mapEvents, [&](auto ev){
+    return std::ranges::any_of(mapEvents, [&](auto ev){
         return (ev.x == x && ev.y == y);
     });
 }
@@ -35,18 +35,18 @@ bool Map::passible(int x, int y) {
     return true;
 }
 
-vector <Object*> Map::getLineEvents(pair<int, int> a, pair<int, int> b) {
+std::vector <Object*> Map::getLineEvents(std::pair<int, int> a, std::pair<int, int> b) {
     if (a.first != b.first && a.second != b.second) return {};
-    vector <Object*> result;
+    std::vector <Object*> result;
     if (a.first == b.first) {
-        for (int i = min(a.second, b.second); i <= max(a.second, b.second); ++i) {
+        for (int i = std::min(a.second, b.second); i <= std::max(a.second, b.second); ++i) {
             if (haveAnEvent(a.first, i)) {
                 result.push_back(EcheckEvent(a.first, i));
             }
         }
     }
     else {
-        for (int i = min(a.first, b.first); i <= max (a.first, b.first); ++i) {
+        for (int i = std::min(a.first, b.first); i <= std::max (a.first, b.first); ++i) {
             if (haveAnEvent(i, a.second)) {
                 result.push_back(EcheckEvent(i, a.second));
             }

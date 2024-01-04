@@ -5,7 +5,7 @@ Variables motaVariables;
 void Variables::init() {
     // 初始化数据
     variables.clear();
-    if (filesystem::exists("ref\\Variables.txt")) {
+    if (std::filesystem::exists("ref\\Variables.txt")) {
         auto data = readFile("ref\\Variables.txt");
         for (const auto& var : data) {
             auto info = split(var, ":");

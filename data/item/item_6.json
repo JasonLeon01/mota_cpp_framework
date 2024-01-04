@@ -1,12 +1,1 @@
-{
-  "name": "地震卷轴",
-  "description": "可以摧毁本层所有的墙壁",
-  "file": "Constant-1-1.png",
-  "pos": [
-    2,
-    2
-  ],
-  "price": 0,
-  "usable": true,
-  "cost": true
-}
+{"name":"地震卷轴","description":"可以摧毁本层所有的墙壁","file":"Constant-1-1.png","pos":[2,2],"price":0,"usable":true,"cost":true}

@@ -1,12 +1,1 @@
-{
-  "name": "楼层传送器",
-  "description": "可以往返于去过的楼层（快捷键F）",
-  "file": "Constant-1-1.png",
-  "pos": [
-    1,
-    0
-  ],
-  "price": 0,
-  "usable": true,
-  "cost": false
-}
+{"name":"楼层传送器","description":"可以往返于去过的楼层（快捷键F）","file":"Constant-1-1.png","pos":[1,0],"price":0,"usable":true,"cost":false}

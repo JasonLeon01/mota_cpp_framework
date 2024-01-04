@@ -11,14 +11,14 @@ public:
 
     // 构造函数，初始化对象
     GameText();
-    GameText(Font* font, string txt, float x = 0, float y = 0);
+    GameText(sf::Font* font, std::string txt, float x = 0, float y = 0);
     // 设置文字
-    void setText(Font* font, string txt, float x = 0, float y = 0);
+    void setText(sf::Font* font, std::string txt, float x = 0, float y = 0);
     // 获取宽高
-    pair <float, float> getSize();
+    std::pair <float, float> getSize();
     // 获取文字
     void show();
 private:
-    string txt;
-    Text text;
+    std::string txt;
+    sf::Text text;
 };

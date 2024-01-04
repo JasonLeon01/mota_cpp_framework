@@ -11,7 +11,7 @@ void Temp::init() {
     directlyFunction = false;
     gameOver = false;
     ending = false;
-    nextMove = false;
+    pause = false;
     initPrice.clear();
     rise = "";
     transEventName = "";

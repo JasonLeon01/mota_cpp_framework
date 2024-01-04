@@ -11,10 +11,10 @@ int Enemy::getSingleDamage(int def) {
     }
 
     // 返回单回合伤害
-    return max(0, max(this->atk - def, 0) * max(conatk, 1));
+    return std::max(0, std::max(this->atk - def, 0) * std::max(conatk, 1));
 }
 
-int Enemy::getDamage(Actor* actor, map <int, Element>* elements) {
+int Enemy::getDamage(Actor* actor, std::map <int, Element>* elements) {
     // 读入怪物数据
     int ehp = this->hp, ed = getDef(actor);
 
@@ -52,17 +52,17 @@ int Enemy::getDamage(Actor* actor, map <int, Element>* elements) {
     if (actor->getDef() >= this->atk) return 0;
 
     // 直接秒杀，仅留下先攻伤害
-    if (ehp + vampire * first <= actor->getAtk() - ed) return max(0, (this->atk - actor->getDef()) * first);
+    if (ehp + vampire * first <= actor->getAtk() - ed) return std::max(0, (this->atk - actor->getDef()) * first);
 
     // 计算单次伤害，以及回合数
     int edam = actor->getAtk() - ed;
-    int eatimes = max(0.f, ceil((ehp + vampire * first - edam) * 1.f / (edam - vampire)));
+    int eatimes = std::max(0.f, std::ceil((ehp + vampire * first - edam) * 1.f / (edam - vampire)));
     int damage = poison / 100.f * getSingleDamage(actor->getDef()) * eatimes;
-    return max(damage - actor->mdef, 0);
+    return std::max(damage - actor->mdef, 0);
 }
 
 int Enemy::getDef(Actor* actor) const {
-    if (getP(4)) return max(def, actor->getAtk() - 1);
+    if (getP(4)) return std::max(def, actor->getAtk() - 1);
     return def;
 }
 
@@ -75,15 +75,15 @@ int Enemy::getCrisis(Actor* actor) {
     if (actor->getAtk() <= endef) return endef - actor->getAtk() + 1;
     if (actor->getAtk() - endef >= hp) return 0;
     if (getP(4)) return -1;
-    return ceil(hp * 1.f / max(0.f, ceil(hp * 1.f / (actor->getAtk() - endef)) - 1)) + endef - actor->getAtk();
+    return ceil(hp * 1.f / std::max(0.f, std::ceil(hp * 1.f / (actor->getAtk() - endef)) - 1)) + endef - actor->getAtk();
 }
 
-pair <string, string> Enemy::getElement(Element element, string buff) {
+std::pair <std::string, std::string> Enemy::getElement(Element element, std::string buff) {
     // 替换buff
-    string elename = element.name;
+    std::string elename = element.name;
     if (getP(7)) // 连击
-        elename = format("{}{}", conatk,elename);
-    string desc = element.description;
+        elename = std::format("{}{}", conatk,elename);
+    std::string desc = element.description;
     if (!buff.empty()) {
         // 重生，替换为变身的怪物名
         if (getP(8)) {

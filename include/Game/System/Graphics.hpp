@@ -1,6 +1,6 @@
 #pragma once
 #include <Game/stdafx.hpp>
-#include <Game/System/KeyBoard.hpp>
+#include <Game/System/Input.hpp>
 #include <Game/System/Image.hpp>
 #include <Game/System/Text.hpp>
 #include <Game/System/Window.hpp>
@@ -25,7 +25,7 @@ public:
     // 消除画面
     void dispose();
 private:
-    vector <GameImage*> patterns;
-    vector <GameWindow*> windows;
-    vector <GameText*> texts;
+    std::vector <GameImage*> patterns;
+    std::vector <GameWindow*> windows;
+    std::vector <GameText*> texts;
 }; extern GameGraphics motaGraphics;

@@ -1,39 +1,52 @@
 #include <Game/stdafx.hpp>
 
-Texture tempTexture;
-queue <tuple <SoundBuffer*, Sound*, bool> > SE;
+sf::Texture tempTexture;
+std::queue <std::tuple <sf::SoundBuffer*, sf::Sound*, bool> > SE;
 
-void playSE(const string& file, float volume) {
-    if (!filesystem::exists("sound\\" + file)) {
-        print(format("Haven't found file: {}", file));
+void playSE(const std::string& file, float volume) {
+    // 如果文件不存在，直接返回
+    if (!std::filesystem::exists("assets\\se\\" + file)) {
+        print(std::format("Haven't found file: {}", file));
         return;
     }
-    SoundBuffer* buffer = new SoundBuffer;
-    Sound* se = new Sound;
-    if (!buffer->loadFromFile("sound\\" + file)) {
-        print(format("Failed to access {}", file));
+
+    // 将音效读取至buffer
+    auto* buffer = new sf::SoundBuffer;
+    auto* se = new sf::Sound;
+    if (!buffer->loadFromFile("assets\\se\\" + file)) {
+        print(std::format("Failed to access {}", file));
     }
+
+    // 设置音效的音量
     se->setBuffer(*buffer);
     se->setVolume(volume);
     SE.emplace(buffer, se, false);
 }
 
-void drawText(RenderWindow* window, Font* font, IntRect rect, const string& content, int pos, LONG size, bool bond, Color colour, float angle) {
-    Text temptxt(str2wstr(content), *font, size);
+void drawText(sf::RenderWindow* window, sf::Font* font, sf::IntRect rect, const std::string& content, int pos, LONG size, bool bond, sf::Color colour, float angle) {
+    // 读取至Text对象
+    sf::Text temptxt(str2wstr(content), *font, size);
+
+    // 设置文字的颜色、粗体、旋转角度
     temptxt.setFillColor(colour);
-    if (bond) temptxt.setStyle(Text::Bold);
+    if (bond) temptxt.setStyle(sf::Text::Bold);
     temptxt.setRotation(angle);
+
+    // 设置文字位置
     auto txtsize = temptxt.getGlobalBounds();
-    auto [wx, wy] = make_pair(rect.left, rect.top);
-    pos = max(min(pos, 2), 0);
+    auto [wx, wy] = std::make_pair(rect.left, rect.top);
+    pos = std::max(std::min(pos, 2), 0);
     wx += (rect.width - txtsize.width) / 2 * pos;
     wy += (rect.height - txtsize.height) / 2 * (pos == 1);
     temptxt.setPosition(wx, wy);
     window->draw(temptxt);
 }
 
-void drawImage(RenderWindow* window, Texture* texture, float x, float y, int opacity, pair <float, float> scale) {
-    Sprite tempspr(*texture);
+void drawImage(sf::RenderWindow* window, sf::Texture* texture, float x, float y, int opacity, std::pair <float, float> scale) {
+    // 读取至Sprite对象
+    sf::Sprite tempspr(*texture);
+
+    // 设置图片的位置、缩放、不透明度
     tempspr.setPosition(x, y);
     tempspr.setScale(scale.first, scale.second);
     auto cl = tempspr.getColor();
@@ -42,9 +55,9 @@ void drawImage(RenderWindow* window, Texture* texture, float x, float y, int opa
     window->draw(tempspr);
 }
 
-void drawImage(RenderWindow* window, Texture* texture, float x, float y, IntRect rect, int opacity, pair <float, float> scale) {
-    Sprite tempspr(*texture);
-    tempspr.setTextureRect(IntRect(rect.left, rect.top, rect.width, rect.height));
+void drawImage(sf::RenderWindow* window, sf::Texture* texture, float x, float y, sf::IntRect rect, int opacity, std::pair <float, float> scale) {
+    sf::Sprite tempspr(*texture);
+    tempspr.setTextureRect(sf::IntRect(rect.left, rect.top, rect.width, rect.height));
     tempspr.setPosition(x, y);
     tempspr.setScale(scale.first, scale.second);
     auto cl = tempspr.getColor();
@@ -53,12 +66,12 @@ void drawImage(RenderWindow* window, Texture* texture, float x, float y, IntRect
     window->draw(tempspr);
 }
 
-void drawOutterImage(RenderWindow* window, const string& file, float x, float y, IntRect rect, int opacity, pair <float, float> scale) {
+void drawOutterImage(sf::RenderWindow* window, const std::string& file, float x, float y, sf::IntRect rect, int opacity, std::pair <float, float> scale) {
     if (!tempTexture.loadFromFile(file)) {
-        print(format("Failed to access {}", file));
+        print(std::format("Failed to access {}", file));
     }
-    Sprite tempspr(tempTexture);
-    tempspr.setTextureRect(IntRect(rect.left, rect.top, rect.width, rect.height));
+    sf::Sprite tempspr(tempTexture);
+    tempspr.setTextureRect(sf::IntRect(rect.left, rect.top, rect.width, rect.height));
     tempspr.setPosition(x, y);
     tempspr.setScale(scale.first, scale.second);
     auto cl = tempspr.getColor();
@@ -68,6 +81,7 @@ void drawOutterImage(RenderWindow* window, const string& file, float x, float y,
 }
 
 int quickPow(int num, int n) {
+    // 快速幂
     int res = 1;
     while (n) {
         if (n & 1) res = res * num;
@@ -77,45 +91,46 @@ int quickPow(int num, int n) {
     return res;
 }
 
-void print(const string& content) {
+void print(const std::string& content) {
     MessageBoxA(NULL, content.c_str(), "Hint", MB_SYSTEMMODAL | MB_OK);
 }
 
-int ynPrint(const string& content) {
+int ynPrint(const std::string& content) {
     return MessageBoxA(NULL, content.c_str(), "Confirmation", MB_SYSTEMMODAL | MB_ICONEXCLAMATION | MB_YESNO);
 }
 
-wstring str2wstr(const string& str)
+std::wstring str2wstr(const std::string& str)
 {
-    wstring_convert<codecvt_utf8<wchar_t>> converter;
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     return converter.from_bytes(str);
 }
 
-string wstr2str(const wstring& wstr)
+std::string wstr2str(const std::wstring& wstr)
 {
-    wstring_convert<codecvt_utf8<wchar_t>> converter;
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     return converter.to_bytes(wstr);
 }
 
-bool strInclude(const string& source, const string& target) {
+bool strInclude(const std::string& source, const std::string& target) {
     return (source.find(target) != -1);
 }
 
-int strIncludeNum(const string& source, const string& target) {
+int strIncludeNum(const std::string& source, const std::string& target) {
     int cnt = 0, pos = 0;
-    while ((pos = source.find(target, pos)) != string::npos) {
+    while ((pos = source.find(target, pos)) != std::string::npos) {
         ++cnt;
         pos += target.length();
     }
     return cnt;
 }
 
-void replaceAll(string& source, const string& target, const string& replacement) {
+void replaceAll(std::string& source, const std::string& target, const std::string& replacement) {
+    // KMP算法
     int n = source.length(), m = target.length();
 
     auto buildPartialMatchTable = [&target]() {
         int m = target.length();
-        vector<int> table(m, 0);
+        std::vector<int> table(m, 0);
         int len = 0, i = 1;
         while (i < m) {
             if (target[i] == target[len]) {
@@ -130,7 +145,7 @@ void replaceAll(string& source, const string& target, const string& replacement)
         return table;
     };
 
-    vector<int> table = buildPartialMatchTable();
+    std::vector<int> table = buildPartialMatchTable();
     int i = 0;
     while (i < n) {
         int j = 0;
@@ -151,18 +166,18 @@ void replaceAll(string& source, const string& target, const string& replacement)
     }
 }
 
-vector <int> allToInt(vector <string> strArray) {
-    vector <int> intArray(strArray.size());
-    ranges::transform(strArray, intArray.begin(), [](const string& str) {
+std::vector <int> allToInt(std::vector <std::string> strArray) {
+    std::vector <int> intArray(strArray.size());
+    std::ranges::transform(strArray, intArray.begin(), [](const std::string& str) {
         return stoi(str);
     });
     return intArray;
 }
 
-string insertNewLines(const string& input, int lineMax) {
-    wstring_convert <codecvt_utf8 <wchar_t> > converter;
+std::string insertNewLines(const std::string& input, int lineMax) {
+    std::wstring_convert <std::codecvt_utf8 <wchar_t> > converter;
     auto wideInput = str2wstr(input);
-    string result = "";
+    std::string result = "";
     int cnt = 0;
     bool stopCounting = false;
     for (int i = 0; i < wideInput.length(); ++i) {
@@ -191,10 +206,10 @@ string insertNewLines(const string& input, int lineMax) {
     return result;
 }
 
-vector <string> split(const string& s, const string& separator) {
-    vector <string> result;
-    string::size_type start = 0, end = s.find(separator);
-    while (end != string::npos) {
+std::vector <std::string> split(const std::string& s, const std::string& separator) {
+    std::vector <std::string> result;
+    std::string::size_type start = 0, end = s.find(separator);
+    while (end != std::string::npos) {
         result.push_back(s.substr(start, end - start));
         start = end + separator.length();
         end = s.find(separator, start);
@@ -203,38 +218,38 @@ vector <string> split(const string& s, const string& separator) {
     return result;
 }
 
-string arrayToString(int* arr, int len, string splt) {
-    string result = "";
+std::string arrayToString(int* arr, int len, std::string splt) {
+    std::string result = "";
     for (auto i = 0; i < len; ++i) {
-        result += to_string(*(arr + i)) + splt;
+        result += std::to_string(*(arr + i)) + splt;
     }
     result.pop_back();
     return result;
 }
 
-string arrayToString(vector <int> arr, string splt) {
-    string result = "";
+std::string arrayToString(std::vector <int> arr, std::string splt) {
+    std::string result = "";
     for (auto i : arr) {
-        result += to_string(i) + splt;
+        result += std::to_string(i) + splt;
     }
     result.pop_back();
     return result;
 }
 
-string setToString(set <int> arr, string splt) {
-    string result = "";
+std::string setToString(std::set <int> arr, std::string splt) {
+    std::string result = "";
     for (auto i : arr) {
-        result += to_string(i) + splt;
+        result += std::to_string(i) + splt;
     }
     if (!result.empty()) result.pop_back();
     return result;
 }
 
-vector <string> readFile(const string& file) {
-    fstream File(file);
-    vector <string> lines;
+std::vector <std::string> readFile(const std::string& file) {
+    std::fstream File(file);
+    std::vector <std::string> lines;
     if (File.is_open()) {
-        string line;
+        std::string line;
         while (getline(File, line)) {
             while (!line.empty() && (line.back() == '\r' || line.back() == '\n')) {
                 line.pop_back();
@@ -246,21 +261,21 @@ vector <string> readFile(const string& file) {
     return lines;
 }
 
-map <string, string> readData(const string& file, const string& splt) {
-    map <string, string> ret;
+std::map <std::string, std::string> readData(const std::string& file, const std::string& splt) {
+    std::map <std::string, std::string> ret;
     auto data = readFile(file);
     for (auto f : data) {
         if (auto kv = split(f, splt); kv.size() > 1) {
-            ret.insert(make_pair(kv[0], kv[1]));
+            ret.insert(std::make_pair(kv[0], kv[1]));
         }
     }
     return ret;
 }
 
-void saveFile(const string& file, const string& content) {
-    ofstream File(file);
+void saveFile(const std::string& file, const std::string& content) {
+    std::ofstream File(file);
     if (File.is_open()) {
-        File << content << endl;
+        File << content << std::endl;
     }
     File.close();
 }

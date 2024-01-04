@@ -4,8 +4,8 @@ Data motaData;
 
 void Data::init() {
     // 描绘进行中的画面
-    auto processing = [](const wstring& content) {
-        Text temptxt(content, motaSystem.font, 28);
+    auto processing = [](const std::wstring& content) {
+        sf::Text temptxt(content, motaSystem.font, 28);
         temptxt.setPosition(160, 400);
         motaSystem.window.clear();
         motaSystem.window.draw(temptxt);
@@ -13,10 +13,10 @@ void Data::init() {
     };
 
     // 加载数据
-    auto processingData = [&](string subroot, const string& fext) {
-        auto eachData = [&](string subroot, string filename) {
+    auto processingData = [&](std::string subroot, const std::string& fext) {
+        auto eachData = [&](std::string subroot, std::string filename) {
             if (filename == "blankmap.json") return;
-            ifstream fileInfo(format("data\\{}\\{}", subroot, filename));
+            std::ifstream fileInfo(std::format("data\\{}\\{}", subroot, filename));
             nlohmann::json json;
             fileInfo >> json;
             if (!json.is_object()) {
@@ -66,8 +66,8 @@ void Data::init() {
             // 地图数据
             if (subroot == "map") {
                 maps[fileid].mapID = fileid;
-                maps[fileid].mapName = json["mapName"].get<string>();
-                maps[fileid].bgmFile = json["bgmFile"].get<string>();
+                maps[fileid].mapName = json["mapName"].get<std::string>();
+                maps[fileid].bgmFile = json["bgmFile"].get<std::string>();
                 maps[fileid].mapEvents.clear();
                 for (const auto& evinfo : json["mapEvents"]) {
                     Object tmpev = evinfo;
@@ -81,19 +81,19 @@ void Data::init() {
             if (subroot == "npc") {
                 for (const auto& npcinfo : json["npcInfo"]) {
                     int item1 = npcinfo["Item1"].get<int>();
-                    string item2 = npcinfo["Item2"].get<string>();
-                    string item3 = npcinfo["Item3"].get<string>();
+                    std::string item2 = npcinfo["Item2"].get<std::string>();
+                    std::string item3 = npcinfo["Item3"].get<std::string>();
                     npc[fileid].npcInfo.emplace_back(item1, item2, item3);
                 }
-                npc[fileid].transName = json["transName"].get<string>();
+                npc[fileid].transName = json["transName"].get<std::string>();
                 npc[fileid].fade = json["fade"].get<bool>();
                 npc[fileid].directlyFunction = json["directlyFunction"].get<bool>();
             }
         };
 
         // 遍历文件夹
-        string inPath = format("data\\{}", subroot);
-        for (const auto& entry : filesystem::recursive_directory_iterator(inPath)) {
+        std::string inPath = std::format("data\\{}", subroot);
+        for (const auto& entry : std::filesystem::recursive_directory_iterator(inPath)) {
             if (entry.is_regular_file() && entry.path().extension() == fext) {
                 eachData(subroot, entry.path().filename().string());
             }
@@ -137,9 +137,9 @@ void Data::init() {
     }
 }
 
-int Data::searchMap(const string& mapname) {
+int Data::searchMap(const std::string& mapname) {
     // 搜寻同名地图
-    auto result = ranges::find_if(maps, [&](auto mp) {
+    auto result = std::ranges::find_if(maps, [&](auto mp) {
         return mp.second.mapName == mapname;
     });
     return result == maps.end() ? -1 : result->first;

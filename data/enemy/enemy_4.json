@@ -1,15 +1,1 @@
-{
-  "name": "大蝙蝠",
-  "file": "Bat-1-1.png",
-  "pos": 1,
-  "hp": 60,
-  "atk": 15,
-  "def": 5,
-  "conatk": 2,
-  "exp": 2,
-  "gold": 2,
-  "animationID": 0,
-  "element": [
-    7
-  ]
-}
+{"name":"大蝙蝠","file":"Bat-1-1.png","pos":1,"hp":60,"atk":15,"def":5,"conatk":2,"exp":2,"gold":2,"animationID":0,"element":[7]}

@@ -8,17 +8,17 @@
 // 一切数据的存储器
 class Data {
 public:
-    map <int, Actor> actors; // 角色
-    map <int, Animation> animations; // 动画
-    map <int, Element> elements; // 属性
-    map <int, Enemy> enemies; // 敌人
-    map <int, Item> items; // 道具
-    map <int, Map> maps; // 地图
-    map <int, NPC> npc; // npc
-    map <int, string> motaName; // 魔塔名
+    std::map <int, Actor> actors; // 角色
+    std::map <int, Animation> animations; // 动画
+    std::map <int, Element> elements; // 属性
+    std::map <int, Enemy> enemies; // 敌人
+    std::map <int, Item> items; // 道具
+    std::map <int, Map> maps; // 地图
+    std::map <int, NPC> npc; // npc
+    std::map <int, std::string> motaName; // 魔塔名
 
     // 初始化
     void init();
     // 搜索地图
-    int searchMap(const string& mapname);
+    int searchMap(const std::string& mapname);
 }; extern Data motaData;

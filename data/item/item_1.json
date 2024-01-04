@@ -1,12 +1,1 @@
-{
-  "name": "蓝钥匙",
-  "description": "可以打开蓝色的门",
-  "file": "Key-1-1.png",
-  "pos": [
-    1,
-    0
-  ],
-  "price": 50,
-  "usable": false,
-  "cost": true
-}
+{"name":"蓝钥匙","description":"可以打开蓝色的门","file":"Key-1-1.png","pos":[1,0],"price":50,"usable":false,"cost":true}

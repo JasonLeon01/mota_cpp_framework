@@ -3,9 +3,11 @@
 GameGraphics motaGraphics;
 
 void GameGraphics::update(bool clear_device) {
+    // 需要清屏时则清屏，因为地图渲染和其他场景渲染不同
     if (clear_device) motaSystem.window.clear();
 
-    for (int z = 0; z <= 9; ++z) {
+    for (int z = 0; z <= 99; ++z) {
+        // 依次渲染图像、窗口、文本
         if (!patterns.empty()) {
             for (auto spr : patterns) {
                 if (!spr->visible || spr->z != z) continue;
@@ -27,7 +29,8 @@ void GameGraphics::update(bool clear_device) {
         }
     }
 
-    queue <tuple <SoundBuffer*, Sound*, bool> > temp;
+    // 音效的播放
+    std::queue <std::tuple <sf::SoundBuffer*, sf::Sound*, bool> > temp;
     while (!SE.empty()) {
         auto [_, se, flag] = SE.front();
         SE.pop();
@@ -35,7 +38,7 @@ void GameGraphics::update(bool clear_device) {
             se->play();
             flag = true;
         }
-        if (se->getStatus() == Sound::Stopped) {
+        if (se->getStatus() == sf::Sound::Stopped) {
             delete _;
             delete se;
         }
@@ -45,9 +48,9 @@ void GameGraphics::update(bool clear_device) {
     }
     if (!temp.empty()) swap(temp, SE);
 
+    // 更新游戏时间
     ++motaSystem.gameTime;
     motaSystem.window.display();
-    Sleep(motaSystem.frameRate);
 }
 
 void GameGraphics::addImage(GameImage *obj) {

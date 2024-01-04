@@ -1,18 +1,1 @@
-{
-  "name": "摸王大鸽鸽/1/2/0.25",
-  "file": "King-1-2.png",
-  "pos": 3,
-  "hp": 1,
-  "atk": 1,
-  "def": 1,
-  "conatk": 0,
-  "exp": 0,
-  "gold": 0,
-  "animationID": 0,
-  "element": [
-    1,
-    2,
-    3,
-    11
-  ]
-}
+{"name":"摸王大鸽鸽/1/2/0.25","file":"King-1-2.png","pos":3,"hp":1,"atk":1,"def":1,"conatk":0,"exp":0,"gold":0,"animationID":0,"element":[1,2,3,11]}

@@ -1,12 +1,1 @@
-{
-  "name": "中心对称飞行器",
-  "description": "可以飞到地图对称的位置",
-  "file": "Constant-1-2.png",
-  "pos": [
-    0,
-    3
-  ],
-  "price": 0,
-  "usable": true,
-  "cost": true
-}
+{"name":"中心对称飞行器","description":"可以飞到地图对称的位置","file":"Constant-1-2.png","pos":[0,3],"price":0,"usable":true,"cost":true}

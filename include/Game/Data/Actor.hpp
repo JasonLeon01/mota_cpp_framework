@@ -4,9 +4,9 @@
 // 游戏角色
 class Actor {
 public:
-    string name, file; // 角色名字，文件名
-    set <int> status; // 角色状态
-    map <int, int> item; // 道具
+    std::string name, file; // 角色名字，文件名
+    std::set <int> status; // 角色状态
+    std::map <int, int> item; // 道具
     int ID, level, hp, atk, def, mdef, exp, gold, mapID, x, y, animationID; // 角色编号，等级，生命值，攻击力，防御力，魔防，经验值，金钱，所在地图，坐标，动画编号
 
     // 构造函数，初始化对象

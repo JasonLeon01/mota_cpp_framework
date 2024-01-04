@@ -1,12 +1,1 @@
-{
-  "name": "解毒药水",
-  "description": "可以解除中毒状态",
-  "file": "Potion-1-1.png",
-  "pos": [
-    0,
-    1
-  ],
-  "price": 0,
-  "usable": true,
-  "cost": true
-}
+{"name":"解毒药水","description":"可以解除中毒状态","file":"Potion-1-1.png","pos":[0,1],"price":0,"usable":true,"cost":true}

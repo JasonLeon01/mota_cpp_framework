@@ -11,11 +11,11 @@ public:
 
     // 构造函数，初始化对象
     GameImage();
-    GameImage(string file, float x = 0, float y = 0, int width = 0, int height = 0, int sx = 0, int sy = 0);
+    GameImage(std::string file, float x = 0, float y = 0, int width = 0, int height = 0, int sx = 0, int sy = 0);
     // 设置图像信息
-    void setSprite(string file, float x = 0, float y = 0, int width = 0, int height = 0, int sx = 0, int sy = 0);
+    void setSprite(std::string file, float x = 0, float y = 0, int width = 0, int height = 0, int sx = 0, int sy = 0);
     // 获取精灵
     void show();
 private:
-    string imgFile;
+    std::string imgFile;
 };
