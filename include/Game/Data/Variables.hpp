@@ -13,6 +13,6 @@ public:
     // 初始化
     void init();
     // 序列化和反序列化的宏
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Variables, variables, floorRecord, eventRecord, transRecord, itemRecord)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(Variables, variables, floorRecord, eventRecord, transRecord, itemRecord)
 
 }; extern Variables motaVariables;

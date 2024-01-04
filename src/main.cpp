@@ -860,8 +860,8 @@ void MotaTitle::main() {
         // 更新画面
         screenData.waitCount(1);
 
-        // 更新标题
         if (motaSystem.window.hasFocus()) {
+            // 更新标题
             update();
         }
     }
@@ -981,8 +981,8 @@ void MotaMap::main() {
         // 更新画面
         screenData.waitCount(1);
 
-        // 更新地图
         if (motaSystem.window.hasFocus()) {
+            // 更新地图
             update();
         }
     }
@@ -1092,11 +1092,11 @@ void MotaMap::update() {
         if (auto& recev = screenData.visualMap.mapEvents[motaTemp.functionEventID]; recev.exist && recev.toDispose) {
             recev.exist = false;
             motaVariables.eventRecord[screenData.visualMap.mapID].push_back(recev.ID);
-        }
 
-        // 清除记录
-        motaTemp.functionEventID = -1;
-        return;
+            // 清除记录
+            motaTemp.functionEventID = -1;
+            return;
+        }
     }
 
     // 游戏结束则回到标题
@@ -1115,7 +1115,6 @@ void MotaMap::update() {
 
     // 快捷键的判定
     shortcutKey();
-
     // 更新玩家画面
     screenData.player.update();
 }
@@ -1241,8 +1240,14 @@ void MotaMap::itemUse(int id) {
             auto namelist = split(ev->name, "<>");
             for (const auto& eachname : namelist) {
                 if (auto evn = split(eachname, "/")[0]; ev->exist && evn == breakName) {
-                    if (evn == "monster" && motaData.enemies[stoi(split(eachname, "/")[1])].getP(11))
-                        return 2;
+                    if (evn == "monster") {
+                        if (motaData.enemies[stoi(split(eachname, "/")[1])].getP(11)) {
+                            return 2;
+                        }
+                    }
+                    else {
+                        Interpreter::openDoor(ev);
+                    }
                     ev->exist = false;
                     motaVariables.eventRecord[screenData.visualMap.mapID].push_back(ev->ID);
                     return 1;
@@ -1288,8 +1293,9 @@ void MotaMap::itemUse(int id) {
     if (id == 6) {
         for (auto& ev : screenData.visualMap.mapEvents) {
             if (ev.exist && ev.name == "wall") {
-                ev.exist = false;
+                Interpreter::openDoor(&ev);
                 motaVariables.eventRecord[screenData.visualMap.mapID].push_back(ev.ID);
+                ev.exist = false;
                 flag = true;
             }
         }
@@ -1605,7 +1611,7 @@ void MotaMap::updateLoadSave() {
                 motaTemp.closeMS = false;
 
                 // 加载动画
-                GameImage stairImg("system\\mting.png");
+                GameImage stairImg("picture\\mting.png");
                 motaGraphics.addImage(&stairImg);
                 tie (stairImg.x, stairImg.y, stairImg.opacity, stairImg.z) = make_tuple(MAPX, MAPY, 0, 2);
                 for (int i = 0; i < 15; ++i) {
@@ -1720,7 +1726,7 @@ void MotaMap::updateMessage() {
         // 如果队列清空了，就关闭对话窗口显示
         if (motaTemp.messageInfo.empty()) {
             messageWindow.visible = false;
-            motaTemp.nextMove = true;
+            motaTemp.pause = false;
         }
         screenData.waitCount(2);
     }
@@ -1843,7 +1849,7 @@ void MotaMap::setShop() {
 
     if (motaTemp.shopType == 0) {
         // 贪婪之神
-        setInfo("贪婪之神", "NPC01-02.png", format("愚蠢的人类，如果你能提供{}个金币，我将可以提升你的力量！", motaTemp.initPrice[0]), 2);
+        setInfo("贪婪之神", screenData.visualMap.mapEvents[motaTemp.functionEventID].file, format("愚蠢的人类，如果你能提供{}个金币，我将可以提升你的力量！", motaTemp.initPrice[0]), screenData.visualMap.mapEvents[motaTemp.functionEventID].pos[1]);
         string desc[] = {"生命值", "攻击力", "防御力"};
         string var = motaTemp.initPrice[0];
         replaceAll(var, "[", "");
@@ -1857,7 +1863,7 @@ void MotaMap::setShop() {
     }
     else if (motaTemp.shopType == 1) {
         // 战斗之神
-        setInfo("战斗之神", "NPC01-02.png", "英雄的人类！如果你可以给我提供经验，我将可以提升你的力量！", 1);
+        setInfo("战斗之神", screenData.visualMap.mapEvents[motaTemp.functionEventID].file, "英雄的人类！如果你可以给我提供经验，我将可以提升你的力量！", screenData.visualMap.mapEvents[motaTemp.functionEventID].pos[1]);
         string desc[] = {"等级", "攻击", "防御"};
         int kind[] = {6, 1, 2};
         for (int i = 0; i < 3; ++i) {
@@ -1927,6 +1933,8 @@ void MotaMap::setBattle() {
 
     // 清空对战斗事件的记录
     motaTemp.battleEnemyID = -1;
+    // 取消暂停，继续执行事件指令
+    motaTemp.pause = false;
 }
 
 void MotaMap::setTrans() {

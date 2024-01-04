@@ -24,5 +24,5 @@ public:
     // 获取属性名字和描述
     pair <string, string> getElement(Element element, string buff = "");
     // 序列化和反序列化的宏
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Enemy, name, file, element, pos, hp, atk, def, conatk, exp, gold, animationID)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(Enemy, name, file, element, pos, hp, atk, def, conatk, exp, gold, animationID)
 };

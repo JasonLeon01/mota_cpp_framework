@@ -9,7 +9,7 @@ public:
     // 执行命令
     void execute(Object* obj = nullptr);
     // 执行开门的行走图变换
-    void openDoor(Object* obj);
+    static void openDoor(Object* obj);
     // 将形如[x]的字符串替换为其对应序号变量
     static string replaceToVar(const string& source);
     // 初始化对话字符串，按对话框里面的全部替换
@@ -42,6 +42,7 @@ public:
     Player player; // 玩家
     Map visualMap; // 显示的地图
     bool onMap; // 判断是否在地图上，关闭之后将不再显示地图
+    map <int, GameImage> pictures; // 地图上显示的图片
 
     // 构造函数，初始化transition
     ScreenData();

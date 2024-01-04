@@ -11,7 +11,7 @@ public:
     bool directlyFunction; // 转换后直接触发
     bool gameOver; // 游戏结束
     bool ending; // 结局
-    bool nextMove; // 事件执行到下一阶段的标志
+    bool pause; // 事件指令集执行过程的暂停
     vector <string> addPower; // 记录商店增加能力的数值
     vector <string> initPrice; // 记录商店初始价格
     string rise; // 记录商店涨价幅度

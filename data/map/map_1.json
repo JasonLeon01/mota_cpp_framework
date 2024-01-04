@@ -40,7 +40,7 @@
     },
     {
       "ID": 2,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -58,7 +58,7 @@
     },
     {
       "ID": 3,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -76,7 +76,7 @@
     },
     {
       "ID": 4,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -94,7 +94,7 @@
     },
     {
       "ID": 5,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -112,7 +112,7 @@
     },
     {
       "ID": 6,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -130,7 +130,7 @@
     },
     {
       "ID": 7,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -148,7 +148,7 @@
     },
     {
       "ID": 8,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -166,7 +166,7 @@
     },
     {
       "ID": 9,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -184,7 +184,7 @@
     },
     {
       "ID": 10,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -202,7 +202,7 @@
     },
     {
       "ID": 11,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         2,
@@ -220,7 +220,7 @@
     },
     {
       "ID": 12,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
         0,
@@ -238,7 +238,7 @@
     },
     {
       "ID": 13,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
         0,
@@ -256,10 +256,10 @@
     },
     {
       "ID": 14,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
-        2,
+        1,
         0
       ],
       "x": 4,
@@ -274,10 +274,10 @@
     },
     {
       "ID": 15,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
-        2,
+        1,
         0
       ],
       "x": 8,
@@ -436,7 +436,7 @@
     },
     {
       "ID": 24,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
         0,
@@ -454,7 +454,7 @@
     },
     {
       "ID": 25,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
         0,
@@ -472,10 +472,10 @@
     },
     {
       "ID": 26,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
-        2,
+        1,
         1
       ],
       "x": 4,
@@ -490,10 +490,10 @@
     },
     {
       "ID": 27,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
-        2,
+        1,
         1
       ],
       "x": 8,
@@ -508,7 +508,7 @@
     },
     {
       "ID": 28,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -526,7 +526,7 @@
     },
     {
       "ID": 29,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -544,7 +544,7 @@
     },
     {
       "ID": 30,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -562,7 +562,7 @@
     },
     {
       "ID": 31,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -580,7 +580,7 @@
     },
     {
       "ID": 32,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -598,7 +598,7 @@
     },
     {
       "ID": 33,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -616,7 +616,7 @@
     },
     {
       "ID": 34,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -634,7 +634,7 @@
     },
     {
       "ID": 35,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -652,7 +652,7 @@
     },
     {
       "ID": 36,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -670,7 +670,7 @@
     },
     {
       "ID": 37,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         1,
@@ -742,7 +742,7 @@
     },
     {
       "ID": 41,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         0,
@@ -760,7 +760,7 @@
     },
     {
       "ID": 42,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         0,
@@ -778,7 +778,7 @@
     },
     {
       "ID": 43,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         0,
@@ -796,7 +796,7 @@
     },
     {
       "ID": 44,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         0,
@@ -814,7 +814,7 @@
     },
     {
       "ID": 45,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         0,
@@ -832,7 +832,7 @@
     },
     {
       "ID": 46,
-      "name": "无",
+      "name": "wall",
       "file": "Wall-1-1.png",
       "pos": [
         0,
@@ -850,7 +850,7 @@
     },
     {
       "ID": 47,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
         0,
@@ -868,10 +868,10 @@
     },
     {
       "ID": 48,
-      "name": "wall",
+      "name": "shopwall",
       "file": "Wall-1-6.png",
       "pos": [
-        2,
+        1,
         0
       ],
       "x": 10,

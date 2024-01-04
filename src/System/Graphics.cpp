@@ -5,7 +5,7 @@ GameGraphics motaGraphics;
 void GameGraphics::update(bool clear_device) {
     if (clear_device) motaSystem.window.clear();
 
-    for (int z = 0; z <= 9; ++z) {
+    for (int z = 0; z <= 99; ++z) {
         if (!patterns.empty()) {
             for (auto spr : patterns) {
                 if (!spr->visible || spr->z != z) continue;

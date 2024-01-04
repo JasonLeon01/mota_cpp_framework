@@ -8,22 +8,33 @@ Interpreter::Interpreter(string order) {
 
 void Interpreter::execute(Object* obj) {
     // 渐变动画
-    GameImage stairImg("system\\mting.png");
-    auto move1 = [&]() {
-        playSE(motaSystem.stairSE, motaSystem.SEVolume);
-        motaGraphics.addImage(&stairImg);
-        tie (stairImg.x, stairImg.y, stairImg.opacity, stairImg.z) = make_tuple(MAPX, MAPY, 0, 2);
+    auto move1 = [&](string picname, int picid = -1) {
+        screenData.pictures[picid].setSprite("picture\\" + picname);
+        screenData.pictures[picid].opacity = 0;
+        if (picid >= 0) {
+            auto siz = motaSystem.textureCache["picture\\" + picname].getSize();
+            screenData.pictures[picid].origin_x = siz.x / 2;
+            screenData.pictures[picid].origin_y = siz.y / 2;
+            screenData.pictures[picid].x = 320;
+            screenData.pictures[picid].y = 240;
+        }
+        else {
+            screenData.pictures[picid].x = MAPX;
+            screenData.pictures[picid].y = MAPY;
+        }
+        screenData.pictures[picid].z = picid < 0 ? 2 : picid;
+        motaGraphics.addImage(&screenData.pictures[picid]);
         for (int i = 0; i < 15; ++i) {
-            stairImg.opacity += 17;
+            screenData.pictures[picid].opacity += 17;
             screenData.waitCount(1);
         }
     };
-    auto move2 = [&]() {
+    auto move2 = [&](int picid = -1) {
         for (int i = 0; i < 15; ++i) {
-            stairImg.opacity -= 17;
+            screenData.pictures[picid].opacity -= 17;
             screenData.waitCount(1);
         }
-        motaGraphics.eraseImage(&stairImg);
+        motaGraphics.eraseImage(&screenData.pictures[picid]);
     };
 
     // 在这里设置各种事件指令
@@ -38,13 +49,12 @@ void Interpreter::execute(Object* obj) {
     if (info[0] == "gg") {
         motaTemp.messageInfo.emplace_back(-1, "勇士", "怎能…\n倒在这里……");
         motaTemp.gameOver = true;
-        motaTemp.nextMove = true;
     }
 
     // 战斗
     if (info[0] == "monster") {
         motaTemp.battleEnemyID = stoi(initDialogue(info[1]));
-        motaTemp.nextMove = true;
+        motaTemp.pause = true;
     }
 
     // 宝石血瓶
@@ -64,7 +74,6 @@ void Interpreter::execute(Object* obj) {
             act.def += val * 5;
         }
         if (obj != nullptr) obj->toDispose = true;
-        motaTemp.nextMove = true;
     }
 
     // 开门
@@ -93,7 +102,6 @@ void Interpreter::execute(Object* obj) {
             openDoor(obj);
             if (obj != nullptr) obj->toDispose = true;
         }
-        motaTemp.nextMove = true;
     }
 
     // 物品
@@ -106,7 +114,6 @@ void Interpreter::execute(Object* obj) {
         }
         act.item[kind] += val;
         if (obj != nullptr) obj->toDispose = true;
-        motaTemp.nextMove = true;
     }
 
     // 商店
@@ -117,7 +124,6 @@ void Interpreter::execute(Object* obj) {
         else motaTemp.initPrice = { "0" };
         if (info.size() >= 5) motaTemp.rise = info[4];
         else motaTemp.rise = "0";
-        motaTemp.nextMove = true;
     }
 
     // npc
@@ -131,7 +137,7 @@ void Interpreter::execute(Object* obj) {
             motaTemp.directlyFunction = motaData.npc[kind].directlyFunction;
         }
         if (obj != nullptr) obj->toDispose = motaData.npc[kind].fade;
-        motaTemp.nextMove = true;
+        motaTemp.pause = true;
     }
 
     // 路障熔岩
@@ -139,12 +145,12 @@ void Interpreter::execute(Object* obj) {
         val = stoi(initDialogue(info[1]));
         act.hp = max(0, act.hp - val);
         if (act.hp == 0) Interpreter("gg").execute();
-        motaTemp.nextMove = true;
     }
 
     // 上楼
     if (info[0] == "up") {
-        move1();
+        playSE(motaSystem.stairSE, motaSystem.SEVolume);
+        move1("mting.png");
         string temp = format("{}:{}", motaVariables.variables[1], motaVariables.variables[2] + 1);
         if (int tgtmpid = motaData.searchMap(temp); tgtmpid != -1) {
             ++motaVariables.variables[2];
@@ -165,12 +171,12 @@ void Interpreter::execute(Object* obj) {
             print("there's no such a map!");
         }
         move2();
-        motaTemp.nextMove = true;
     }
 
     // 下楼
     if (info[0] == "down") {
-        move1();
+        playSE(motaSystem.stairSE, motaSystem.SEVolume);
+        move1("mting.png");
         string temp = format("{}:{}", motaVariables.variables[1], motaVariables.variables[2] - 1);
         if (int tgtmpid = motaData.searchMap(temp); tgtmpid != -1) {
             --motaVariables.variables[2];
@@ -191,12 +197,12 @@ void Interpreter::execute(Object* obj) {
             print("there's no such a map!");
         }
         move2();
-        motaTemp.nextMove = true;
     }
 
     // 传送
     if (info[0] == "move") {
-        move1();
+        playSE(motaSystem.stairSE, motaSystem.SEVolume);
+        move1("mting.png");
         int mpid = stoi(info[1]), mx = stoi(info[2]), my = stoi(info[3]);
         act.mapID = mpid;
         act.x = mx;
@@ -204,32 +210,39 @@ void Interpreter::execute(Object* obj) {
         screenData.player.direction = 0;
         screenData.loadMap(mpid, &screenData.visualMap);
         move2();
-        motaTemp.nextMove = true;
+    }
+
+    // 显示图片
+    if (info[0] == "picon") {
+        kind = stoi(initDialogue(info[1]));
+        move1(info[2], kind);
+    }
+
+    // 移除图片
+    if (info[0] == "picoff") {
+        kind = stoi(initDialogue(info[1]));
+        move2(kind);
     }
 
     // 修改变量
     if (info[0] == "var") {
         tie(kind, val) = make_pair(stoi(info[1]), stoi(info[2]));
         motaVariables.variables[kind] += val;
-        motaTemp.nextMove = true;
     }
 
     // 消除事件
     if (info[0] == "erase") {
         screenData.visualMap.mapEvents[motaTemp.functionEventID].toDispose = true;
-        motaTemp.nextMove = true;
     }
 
     // 返回标题画面
     if (info[0] == "back") {
         motaTemp.gameOver = true;
-        motaTemp.nextMove = true;
     }
 
     // 结局
     if (info[0] == "ending") {
         motaTemp.ending = true;
-        motaTemp.nextMove = true;
     }
 
     // 下面是条件等对话相关的
@@ -251,13 +264,11 @@ void Interpreter::execute(Object* obj) {
         auto [x, y, z, p, q] = make_tuple(stoi(condName[1]), condName[2], stoi(condName[3]), split(condName[4], "->"), split(condName[5], "->"));
         if (judgecond(x, z, y)) screenData.doOrder(p);
         else screenData.doOrder(q);
-        motaTemp.nextMove = true;
     }
 
     // 转换事件名
     if (condName[0] == "switch") {
         motaTemp.transEventName = condName[1];
-        motaTemp.nextMove = true;
     }
 }
 
@@ -327,9 +338,6 @@ void Player::update() {
         act.y += dirchg[dir][1];
         changeSteps();
         if (screenData.visualMap.haveAnEvent(act.x, act.y)) {
-            while (movingCount > 0) {
-                screenData.waitCount(1);
-            }
             triggerEvent(screenData.visualMap.EcheckEvent(act.x, act.y));
         }
     }
@@ -408,7 +416,7 @@ void Player::triggerEvent(Object* ev) {
 ScreenData::ScreenData() {
     transition.setSprite("system\\mting-trans.png");
     transition.opacity = 0;
-    transition.z = 9;
+    transition.z = 99;
     motaGraphics.addImage(&transition);
     onMap = false;
 }
@@ -688,10 +696,7 @@ void ScreenData::doOrder(const vector<string>& lists, Object* obj) {
             screenData.waitCount(1);
             motaSystem.scene->update();
             if (motaTemp.gameOver || motaTemp.ending) return; // 中断函数
-        } while (!motaTemp.nextMove);
-
-        // 重置nextMove
-        motaTemp.nextMove = false;
+        } while (motaTemp.pause);
     }
 }
 

@@ -5,10 +5,10 @@
     {
       "ID": 0,
       "name": "down",
-      "file": "101-CF_Lava01.png",
+      "file": "Stair-1-1.png",
       "pos": [
         0,
-        2
+        0
       ],
       "x": 0,
       "y": 0,
@@ -23,10 +23,10 @@
     {
       "ID": 1,
       "name": "up",
-      "file": "101-CF_Lava01.png",
+      "file": "Stair-1-1.png",
       "pos": [
         1,
-        2
+        0
       ],
       "x": 0,
       "y": 10,
@@ -41,7 +41,7 @@
     {
       "ID": 2,
       "name": "wall",
-      "file": "Event01-Wall01.png",
+      "file": "Wall-1-1.png",
       "pos": [
         2,
         0

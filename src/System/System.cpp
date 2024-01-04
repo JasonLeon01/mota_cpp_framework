@@ -79,6 +79,9 @@ void System::init() {
 
     processing(L"正在加载系统资源...");
     processingAssets("system", ".png");
+
+    processing(L"正在加载个性图片资源...");
+    processingAssets("picture", ".png");
 }
 
 void System::bgmSwitch(const string& file) {
