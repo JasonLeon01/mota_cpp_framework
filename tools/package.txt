@@ -1,0 +1,8 @@
+package
+assets\
+data\
+ref\
+config.exe
+libwinpthread-1.dll
+main.exe
+openal32.dll
