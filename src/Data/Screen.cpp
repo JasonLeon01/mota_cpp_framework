@@ -315,7 +315,7 @@ void Interpreter::execute(Object* obj) {
 void Interpreter::openDoor(Object* obj) {
     for (int i = 0; i < 3; ++i) {
         ++obj->pos[1];
-        screenData.waitCount(1);
+        screenData.waitCount(2);
     }
 };
 

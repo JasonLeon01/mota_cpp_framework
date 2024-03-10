@@ -432,6 +432,7 @@ void MotaMap::itemUse(int id) {
                         }
                     }
                     else {
+                        playSE(motaSystem.gateSE, motaSystem.SEVolume);
                         Interpreter::openDoor(ev);
                     }
                     ev->exist = false;
@@ -477,15 +478,28 @@ void MotaMap::itemUse(int id) {
 
     // 地震卷轴
     if (id == 6) {
-        for (auto& ev : screenData.visualMap.mapEvents) {
-            if (ev.exist && ev.name == "wall") {
-                Interpreter::openDoor(&ev);
-                motaVariables.eventRecord[screenData.visualMap.mapID].push_back(ev.ID);
-                ev.exist = false;
-                flag = true;
+        for (int i = 0; i < 3; ++i) {
+            for (auto& ev : screenData.visualMap.mapEvents) {
+                if (ev.exist && ev.name == "wall;") {
+                    ++flag;
+                    if (flag == 1) playSE(motaSystem.gateSE, motaSystem.SEVolume);
+                    ++ev.pos[1];
+                    if (i == 2) {
+                        motaVariables.eventRecord[screenData.visualMap.mapID].push_back(ev.ID);
+                        ev.exist = false;
+                    }
+                }
             }
+            if (flag) {
+                screenData.waitCount(2);
+            }
+            else {
+                break;
+            }
+
         }
         if (!flag) motaTemp.messageInfo.emplace_back(-3, "", "本层没有墙");
+        if (flag) flag = 1;
         goto endUse;
     }
 
@@ -1218,6 +1232,7 @@ void MotaMap::autoSearching(std::pair <int, int> target) {
             }
         }
     }
+    maprec[target.second][target.first] = true;
 
     auto path = findPath(screenData.actors[motaVariables.variables[0]].x, screenData.actors[motaVariables.variables[0]].y, target.first, target.second);
     screenData.searchingRoad = !path.empty();

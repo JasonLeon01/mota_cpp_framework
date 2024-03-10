@@ -15,6 +15,8 @@
 - [Open Source / NPC设计器开源](https://github.com/JasonLeon01/MotaNPCDesigner)
 - [Open Source / 打包工具开源](https://github.com/JasonLeon01/MotaPackager)
 
+> 运行各种工具和config.exe需要下载.net 6.0 runtime（大约56MB），在双击打开exe后会弹窗提示，按照指示下载即可。
+
 ## 目录结构
 
 ```bash

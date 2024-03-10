@@ -5,6 +5,7 @@ namespace Input {
 }
 
 bool Input::press(int key) {
+    if (!motaSystem.window.hasFocus()) return false;
     if ((GetAsyncKeyState(key) & 0x8000) != 0) {
         ++hit_times;
         return true;
@@ -13,6 +14,7 @@ bool Input::press(int key) {
 }
 
 bool Input::repeat(int key) {
+    if (!motaSystem.window.hasFocus()) return false;
     int result = GetAsyncKeyState(key) & 0x8000;
 
     // 如果按下的键不在 key_repeat 映射中，则将其添加到映射中并启动计时器
@@ -42,6 +44,7 @@ bool Input::repeat(int key) {
 }
 
 bool Input::trigger(int key) {
+    if (!motaSystem.window.hasFocus()) return false;
     int result = GetAsyncKeyState(key) & 0x8000;
 
     // 如果按下的键不在 key_hash 映射中，则将其添加到映射中
@@ -82,6 +85,7 @@ bool Input::triggerCancel() {
 }
 
 bool Input::doubleClick(int key) {
+    if (!motaSystem.window.hasFocus()) return false;
     int result = trigger(key);
 
     // 如果按下的键不在 double_click 映射中，则将其添加到映射中
@@ -112,6 +116,7 @@ int Input::dir4() {
 }
 
 bool Input::leftClick() {
+    if (!motaSystem.window.hasFocus()) return false;
     mouseJudge[NeedLeft] = true;
     if (mouseJudge[LeftClick]) {
         mouseJudge[LeftClick] = false;
@@ -121,6 +126,7 @@ bool Input::leftClick() {
 }
 
 bool Input::rightClick() {
+    if (!motaSystem.window.hasFocus()) return false;
     mouseJudge[NeedRight] = true;
     if (mouseJudge[RightClick]) {
         mouseJudge[RightClick] = false;
@@ -130,6 +136,7 @@ bool Input::rightClick() {
 }
 
 bool Input::scrollUp() {
+    if (!motaSystem.window.hasFocus()) return false;
     mouseJudge[NeedScroll] = true;
     if (mouseJudge[ScrollUp]) {
         mouseJudge[ScrollUp] = false;
@@ -139,6 +146,7 @@ bool Input::scrollUp() {
 }
 
 bool Input::scrollDown() {
+    if (!motaSystem.window.hasFocus()) return false;
     mouseJudge[NeedScroll] = true;
     if (mouseJudge[ScrollDown]) {
         mouseJudge[ScrollDown] = false;
