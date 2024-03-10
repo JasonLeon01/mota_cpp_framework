@@ -115,10 +115,12 @@ void WindowMessage::refresh() {
 
             if (auto mousePos = sf::Mouse::getPosition(motaSystem.window); inRange(std::make_pair(mousePos.x / motaSystem.resolutionRatio, mousePos.y / motaSystem.resolutionRatio), std::make_tuple(x + 16, y + 16 + starty, width - 32, 24 * maxIndex))) {
                 int focusIndex = (mousePos.y / motaSystem.resolutionRatio - (y + 16 + starty)) / 24;
-                if (focusIndex != index) {
-                    playSE(motaSystem.cursorSE, motaSystem.SEVolume);
+                if (!(focusIndex < 0 || focusIndex >= maxIndex)) {
+                    if (focusIndex != index) {
+                        playSE(motaSystem.cursorSE, motaSystem.SEVolume);
+                    }
+                    index = focusIndex;
                 }
-                index = focusIndex;
             }
 
             // 按下上键时

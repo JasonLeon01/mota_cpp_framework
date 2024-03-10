@@ -41,11 +41,13 @@ void WindowShop::refresh() {
     drawRect(sf::IntRect(16, yy + 24 * index, 224, 24));
 
     if (auto mousePos = sf::Mouse::getPosition(motaSystem.window); inRange(std::make_pair(mousePos.x / motaSystem.resolutionRatio, mousePos.y / motaSystem.resolutionRatio), std::make_tuple(x + 16, y + yy, width - 32, 24 * items.size()))) {
-        int focusIndex = (mousePos.y / motaSystem.resolutionRatio - (y + 16)) / 24;
-        if (focusIndex != index) {
-            playSE(motaSystem.cursorSE, motaSystem.SEVolume);
+        int focusIndex = (mousePos.y / motaSystem.resolutionRatio - (y + yy)) / 24;
+        if (!(focusIndex < 0 || focusIndex >= items.size())) {
+            if (focusIndex != index) {
+                playSE(motaSystem.cursorSE, motaSystem.SEVolume);
+            }
+            index = focusIndex;
         }
-        index = focusIndex;
     }
 
     // 按下上键时

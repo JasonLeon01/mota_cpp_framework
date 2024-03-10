@@ -320,6 +320,12 @@ void MotaMap::shortcutKey() {
         return;
     }
 
+    // 按下Z键时
+    if (Input::trigger(Input::KeyZ)) {
+        screenData.player.direction = (screenData.player.direction + 1) % 4;
+        return;
+    }
+
     // 按下取消键时
     if (Input::triggerCancel()) {
         // 保存屏幕截图
@@ -419,9 +425,9 @@ void MotaMap::itemUse(int id) {
             auto ev = screenData.visualMap.EcheckEvent(facePos.first, facePos.second);
             auto namelist = Interpreter::initEventName(ev->name);
             for (const auto& eachname : namelist) {
-                if (auto evn = Interpreter::initOrder(eachname)[0]; ev->exist && evn == breakName) {
-                    if (evn == "monster") {
-                        if (motaData.enemies[stoi(split(eachname, "/")[1])].getP(11)) {
+                if (auto evn = Interpreter::initOrder(eachname); ev->exist && evn[0] == breakName) {
+                    if (evn[0] == "monster") {
+                        if (motaData.enemies[stoi(evn[1])].getP(11)) {
                             return 2;
                         }
                     }
@@ -548,8 +554,8 @@ void MotaMap::itemUse(int id) {
             if (bev->exist) {
                 auto namelist = Interpreter::initEventName(bev->name);
                 for (const auto& eachname : namelist) {
-                    if (auto evn = Interpreter::initOrder(eachname)[0]; evn == "monster") {
-                        if (motaData.enemies[stoi(split(eachname, "/")[1])].getP(11)) {
+                    if (auto evn = Interpreter::initOrder(eachname); evn[0] == "monster") {
+                        if (motaData.enemies[stoi(evn[1])].getP(11)) {
                             break;
                         }
                         bev->exist = false;
@@ -1025,10 +1031,10 @@ void MotaMap::setShop() {
 
     auto setItem = [&](const std::string& name, int* ref, std::string cost, std::vector <std::string> order = {}) {
         if (ref == &screenData.actors[motaVariables.variables[0]].gold) {
-            order.emplace_back(std::format("bonus/5/-{}", cost));
+            order.emplace_back(std::format("bonus(5,-{});", cost));
         }
         else if (ref == &screenData.actors[motaVariables.variables[0]].exp) {
-            order.emplace_back(std::format("bonus/4/-{}", cost));
+            order.emplace_back(std::format("bonus(4,-{});", cost));
         }
         shopWindow.items.emplace_back(name,
                                       std::make_pair(ref, cost),
@@ -1040,13 +1046,13 @@ void MotaMap::setShop() {
         setInfo("贪婪之神", screenData.visualMap.mapEvents[motaTemp.functionEventID].file, std::format("愚蠢的人类，如果你能提供{}个金币，我将可以提升你的力量！", motaTemp.initPrice[0]), screenData.visualMap.mapEvents[motaTemp.functionEventID].pos[1]);
         std::string desc[] = {"生命值", "攻击力", "防御力"};
         std::string var = motaTemp.initPrice[0];
-        replaceAll(var, "[", "");
+        replaceAll(var, "[v", "");
         replaceAll(var, "]", "");
         for (int i = 0; i < 3; ++i) {
             setItem(std::format("增加{}点{}", motaTemp.addPower[i], desc[i]),
                     &screenData.actors[motaVariables.variables[0]].gold, motaTemp.initPrice[0],
-                    {std::format("bonus/{}/{}", i, motaTemp.addPower[i]), // 增加能力
-                     std::format("var/{}/{}", var, motaTemp.rise)});// 涨价
+                    {std::format("bonus({},{});", i, motaTemp.addPower[i]), // 增加能力
+                     std::format("var({},+,{});", var, motaTemp.rise)});// 涨价
         }
     }
     else if (motaTemp.shopType == 1) {
@@ -1057,14 +1063,13 @@ void MotaMap::setShop() {
         for (int i = 0; i < 3; ++i) {
             shopWindow.items.emplace_back(std::format("{}经验增加{}个{}",motaTemp.initPrice[i], motaTemp.addPower[i], desc[i]),
                                           std::make_pair(&screenData.actors[motaVariables.variables[0]].exp, motaTemp.initPrice[i]),
-                                          std::vector <std::string> ({std::format("bonus/4/-{}", motaTemp.initPrice[i]), // 扣除经验
-                                                            std::format("bonus/{}/{}", kind[i], motaTemp.addPower[i])})); // 增加等级
+                                          std::vector <std::string> ({std::format("bonus(4,-{});", motaTemp.initPrice[i]), // 扣除经验
+                                                            std::format("bonus({},{});", kind[i], motaTemp.addPower[i])})); // 增加等级
         }
     }
 
     // 重置商店类型
     motaTemp.shopType = -1;
-    return;
 }
 
 void MotaMap::setBattle() {

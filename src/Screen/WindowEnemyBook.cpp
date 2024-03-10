@@ -58,13 +58,12 @@ void WindowEnemyBook::refresh() {
 
     if (auto mousePos = sf::Mouse::getPosition(motaSystem.window); inRange(std::make_pair(mousePos.x / motaSystem.resolutionRatio, mousePos.y / motaSystem.resolutionRatio), std::make_tuple(x + 16, y + 16, width - 32, height - 32))) {
         int focusIndex = (mousePos.y / motaSystem.resolutionRatio - (y + 16)) / 80;
-        if (focusIndex >= std::min(4, (int)motaTemp.floorEnemies.size() - nowPage * 4)) {
-            focusIndex = std::min(4, (int)motaTemp.floorEnemies.size() - nowPage * 4) - 1;
+        if (focusIndex < std::min(4, (int)motaTemp.floorEnemies.size() - nowPage * 4)) {
+            if (focusIndex != index) {
+                playSE(motaSystem.cursorSE, motaSystem.SEVolume);
+            }
+            index = focusIndex;
         }
-        if (focusIndex != index) {
-            playSE(motaSystem.cursorSE, motaSystem.SEVolume);
-        }
-        index = focusIndex;
     }
 
     // 按下左键时
